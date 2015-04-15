@@ -1,5 +1,7 @@
 package pl.pragmatists.cityofficenumbers.app;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -8,8 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import pl.pragmatists.cityofficenumbers.offices.CityOfficesView;
+import pl.pragmatists.cityofficenumbers.offices.Office;
 
-public class SelectOffice extends ActionBarActivity {
+public class SelectOffice extends ActionBarActivity implements CityOfficesView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,16 @@ public class SelectOffice extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showNoOfficesAvailableMessage() {
+
+    }
+
+    @Override
+    public void showOffices(List<Office> offices) {
+
     }
 
     /**
