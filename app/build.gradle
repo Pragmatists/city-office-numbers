@@ -11,6 +11,7 @@ apply plugin: 'com.android.application'
 repositories {
     jcenter()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    maven { url 'http://repo.spring.io/milestone' }
 }
 
 android {
@@ -30,6 +31,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+    }
 }
 
 configurations.all {
@@ -40,6 +47,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile project(':sdk-free')
+    compile 'org.springframework.android:spring-android-rest-template:2.0.0.M1'
     testCompile 'junit:junit:4.11'
     testCompile 'org.robolectric:robolectric:3.0-rc2'
     testCompile 'com.squareup.assertj:assertj-android:1.0.0'
