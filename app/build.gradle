@@ -10,6 +10,7 @@ apply plugin: 'com.android.application'
 
 repositories {
     jcenter()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 
 android {
@@ -36,5 +37,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile project(':sdk-free')
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    testCompile "org.robolectric:robolectric:2.4"
+    testCompile "org.robolectric:robolectric:3.0-rc2"
 }
