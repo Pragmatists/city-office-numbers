@@ -1,31 +1,36 @@
 package pl.pragmatists.cityofficenumbers.app;
 
-import java.util.List;
-
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesHardcoded;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesView;
 import pl.pragmatists.cityofficenumbers.offices.Office;
 
-public class SelectOffice extends ActionBarActivity  implements CityOfficesView{
+public class SelectOffice extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_office);
         ListView officesListView = (ListView) findViewById(R.id.offices);
-        Office[] objects = new CityOfficesHardcoded().officesAsArray();
-        ListAdapter adapter = new ArrayAdapter<>(this, R.layout.office_item, objects);
+        final Office[] offices = getMyApplication().getCityOfficesModel().offices();
+        officesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SelectGroup.startForOfficeId(SelectOffice.this, offices[position].getId());
+            }
+        });
+        ListAdapter adapter = new ArrayAdapter<>(this, R.layout.office_item, offices);
         officesListView.setAdapter(adapter);
+    }
+
+    private CityOfficeNumbersApplication getMyApplication() {
+        return (CityOfficeNumbersApplication)getApplication();
     }
 
     @Override
@@ -48,16 +53,6 @@ public class SelectOffice extends ActionBarActivity  implements CityOfficesView{
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    public void showNoOfficesAvailableMessage() {
-    }
-
-    @Override
-    public void showOffices(List<Office> offices) {
-
     }
 
 }

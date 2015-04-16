@@ -4,9 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CityOfficesHardcoded implements CityOfficesModel {
+
     @Override
-    public List<Office> offices() {
-        return Arrays.asList(
+    public Office[] offices() {
+        return new Office[] {
                 new Office("USC Andersa"),
                 new Office("USC Falęcka"),
                 new Office("UD Białołęka"),
@@ -14,10 +15,6 @@ public class CityOfficesHardcoded implements CityOfficesModel {
                 new Office("UD Ochota"),
                 new Office("UD Wola"),
                 new Office("UD Żoliborz")
-        );
-    }
-
-    public Office[] officesAsArray() {
-        return (Office[]) offices().toArray();
+        };
     }
 }
