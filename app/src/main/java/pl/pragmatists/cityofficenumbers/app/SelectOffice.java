@@ -6,7 +6,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import pl.pragmatists.cityofficenumbers.offices.CityOfficesHardcoded;
 import pl.pragmatists.cityofficenumbers.offices.CityOfficesView;
 import pl.pragmatists.cityofficenumbers.offices.Office;
 
@@ -16,6 +22,10 @@ public class SelectOffice extends ActionBarActivity  implements CityOfficesView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_office);
+        ListView officesListView = (ListView) findViewById(R.id.offices);
+        Office[] objects = new CityOfficesHardcoded().officesAsArray();
+        ListAdapter adapter = new ArrayAdapter<>(this, R.layout.office_item, objects);
+        officesListView.setAdapter(adapter);
     }
 
     @Override
@@ -43,8 +53,6 @@ public class SelectOffice extends ActionBarActivity  implements CityOfficesView{
 
     @Override
     public void showNoOfficesAvailableMessage() {
-        TextView noOfficesText = (TextView) findViewById(R.id.no_offices);
-        noOfficesText.setText("No offices");
     }
 
     @Override
