@@ -45,7 +45,6 @@ public class SelectGroup extends ActionBarActivity {
             @Override
             public void onLoadFinished(Loader<Collection<OfficeGroup>> loader, Collection<OfficeGroup> data) {
                 officeGroupsAdapter.addAll(data);
-                officeGroupsAdapter.notifyDataSetChanged();
             }
 
             @Override

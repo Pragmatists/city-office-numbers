@@ -25,4 +25,9 @@ public class GroupsLoader extends AsyncTaskLoader<Collection<OfficeGroup>> {
         return officeGroupsResult.officeGroups();
     }
 
+    @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
+        forceLoad();
+    }
 }
