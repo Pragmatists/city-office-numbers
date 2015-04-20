@@ -81,8 +81,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/reports" />
-      <excludeFolder url="file://$MODULE_DIR$/build/test-results" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
@@ -97,8 +95,8 @@
     <orderEntry type="library" exported="" scope="TEST" name="accessibility-test-framework-1.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="ant-launcher-1.8.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="asm-commons-5.0.1" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="asm-5.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="asm-5.0.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="assertj-android-1.0.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="robolectric-utils-3.0-rc2" level="project" />
     <orderEntry type="library" exported="" name="spring-android-rest-template-2.0.0.M1" level="project" />
@@ -113,6 +111,7 @@
     <orderEntry type="library" exported="" scope="TEST" name="asm-tree-5.0.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="sqlite4java-0.282" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="appcompat-v7-20.0.0" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="shadows-httpclient-3.0-rc2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="robolectric-resources-3.0-rc2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="asm-analysis-5.0.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="support-v4-20.0.0" level="project" />
@@ -121,6 +120,7 @@
     <orderEntry type="library" exported="" scope="TEST" name="vtd-xml-2.11" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.11" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="assertj-android-appcompat-v7-1.0.0" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="spring-test-3.2.13.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="spring-android-core-2.0.0.M1" level="project" />
     <orderEntry type="module" module-name="sdk-free" exported="" />
   </component>

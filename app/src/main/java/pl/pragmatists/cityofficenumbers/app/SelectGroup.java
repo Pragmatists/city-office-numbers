@@ -2,6 +2,8 @@ package pl.pragmatists.cityofficenumbers.app;
 
 import java.util.Collection;
 
+import org.springframework.web.client.RestTemplate;
+
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +41,7 @@ public class SelectGroup extends ActionBarActivity {
         LoaderManager.LoaderCallbacks<Collection<OfficeGroup>> callback = new LoaderManager.LoaderCallbacks<Collection<OfficeGroup>>() {
             @Override
             public Loader<Collection<OfficeGroup>> onCreateLoader(int id, Bundle args) {
-                return new GroupsLoader(SelectGroup.this, officeId);
+                return new GroupsLoader(SelectGroup.this, officeId, new RestTemplate());
             }
 
             @Override

@@ -11,15 +11,17 @@ import android.content.Context;
 public class GroupsLoader extends AsyncTaskLoader<Collection<OfficeGroup>> {
     private final String officeId;
 
-    public GroupsLoader(Context context, String officeId) {
+    private final RestTemplate restTemplate;
+
+    public GroupsLoader(Context context, String officeId, RestTemplate restTemplate) {
         super(context);
         this.officeId = officeId;
+        this.restTemplate = restTemplate;
     }
 
     @Override
     public Collection<OfficeGroup> loadInBackground() {
         final String url = "https://api.um.warszawa.pl/api/action/wsstore_get/?id=" + officeId;
-        RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         OfficeGroupsResult officeGroupsResult = restTemplate.getForObject(url, OfficeGroupsResult.class);
         return officeGroupsResult.officeGroups();
