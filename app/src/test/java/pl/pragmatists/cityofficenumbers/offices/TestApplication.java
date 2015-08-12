@@ -5,8 +5,11 @@ import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
 public class TestApplication extends CityOfficeNumbersApplication {
     private final CityOfficesModel cityOfficesModel;
 
-    public TestApplication(CityOfficesModel cityOfficesModel) {
+    private final OfficeGroupsFetcher officeGroupsFetcher;
+
+    public TestApplication(CityOfficesModel cityOfficesModel, OfficeGroupsFetcher officeGroupsFetcher) {
         this.cityOfficesModel = cityOfficesModel;
+        this.officeGroupsFetcher = officeGroupsFetcher;
     }
 
     @Override
@@ -14,4 +17,8 @@ public class TestApplication extends CityOfficeNumbersApplication {
         return cityOfficesModel;
     }
 
+    @Override
+    public OfficeGroupsFetcher getOfficeGroupsFetcher() {
+        return officeGroupsFetcher;
+    }
 }

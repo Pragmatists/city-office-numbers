@@ -50,6 +50,7 @@ dependencies {
     compile project(':sdk-free')
     compile 'org.springframework.android:spring-android-rest-template:2.0.0.M1'
     testCompile 'junit:junit:4.11'
+    testCompile 'org.mockito:mockito-all:1.9.5'
     testCompile 'org.robolectric:robolectric:3.0-rc2'
     testCompile 'org.apache.maven:maven-ant-tasks:2.1.3'
     testCompile 'com.squareup.assertj:assertj-android:1.0.0'

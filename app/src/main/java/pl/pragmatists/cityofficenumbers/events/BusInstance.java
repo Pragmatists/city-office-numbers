@@ -8,10 +8,8 @@ public class BusInstance {
 
     public static EventBus instance() {
 
-        if (bus != null) {
-            synchronized (BusInstance.class) {
-                bus = new GreenEvents(de.greenrobot.event.EventBus.getDefault());
-            }
+        if (bus == null) {
+            bus = new GreenEvents(de.greenrobot.event.EventBus.getDefault());
         }
 
         return bus;

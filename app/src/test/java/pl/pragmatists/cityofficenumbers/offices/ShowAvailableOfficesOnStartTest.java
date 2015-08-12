@@ -1,24 +1,17 @@
 package pl.pragmatists.cityofficenumbers.offices;
 
-import static org.robolectric.Shadows.shadowOf;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import static org.robolectric.Shadows.*;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 
 import android.app.Application;
 import android.content.Intent;
-import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 import pl.pragmatists.cityofficenumbers.app.BuildConfig;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.SelectGroup;
@@ -36,8 +29,7 @@ public class ShowAvailableOfficesOnStartTest {
                 new Office("1"),
                 new Office("2"),
                 new Office("3")
-        )
-        );
+        ), null);
 
         SelectOffice selectOffice = buildSelectOfficeActivity();
 
@@ -47,7 +39,7 @@ public class ShowAvailableOfficesOnStartTest {
 
     @Test
     public void goes_to_group_selection_on_item_click() {
-        testApplication = new TestApplication(cityOfficesWith(new Office("").id("9c3d5770-57d8-4365-994c-69c5ac4186ee")));
+        testApplication = new TestApplication(cityOfficesWith(new Office("").id("9c3d5770-57d8-4365-994c-69c5ac4186ee")), null);
         SelectOffice selectOffice = buildSelectOfficeActivity();
         ListView lvOffices = (ListView) selectOffice.findViewById(R.id.offices);
 

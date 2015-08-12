@@ -16,7 +16,7 @@ import pl.pragmatists.cityofficenumbers.events.BusInstance;
 
 public class SelectGroup extends AppCompatActivity {
 
-    private static final String ARG_OFFICE_ID = "office-id";
+    public static final String ARG_OFFICE_ID = "office-id";
 
     private ArrayAdapter<OfficeGroup> officeGroupsAdapter;
 

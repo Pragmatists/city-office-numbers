@@ -1,24 +1,20 @@
 package pl.pragmatists.cityofficenumbers.app;
 
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
-
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import pl.pragmatists.cityofficenumbers.events.BusInstance;
-import pl.pragmatists.cityofficenumbers.events.EventBus;
+import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetcher;
 
 public class GroupIntentService extends IntentService {
     static final String OFFICE_ID_KEY = "pl.pragmatists.cityofficenumbers.app.action.FOO";
-    private RestTemplate restTemplate;
-    protected EventBus bus;
+
+
+    private OfficeGroupsFetcher fetcher;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        restTemplate = new RestTemplate();
-        bus = BusInstance.instance();
+        fetcher = ((CityOfficeNumbersApplication) getApplication()).getOfficeGroupsFetcher();
     }
 
     public static void startFetchGroupsAction(Context context, String officeId) {
@@ -34,15 +30,7 @@ public class GroupIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         String officeId = intent.getStringExtra(OFFICE_ID_KEY);
-        final String url = "https://api.um.warszawa.pl/api/action/wsstore_get/?id=" + officeId;
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        OfficeGroupsResult officeGroupsResult = restTemplate.getForObject(url, OfficeGroupsResult.class);
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        bus.post(new OfficeGroupsFetched(officeGroupsResult.officeGroups()));
+        fetcher.fetch(officeId);
     }
 
 }
