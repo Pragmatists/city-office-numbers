@@ -17,8 +17,7 @@ public class OfficeGroupsFetcher {
     }
 
     public void fetch(String officeId) {
-        final String url = "https://api.um.warszawa.pl/api/action/wsstore_get/?id=" + officeId;
-        OfficeGroupsResult officeGroupsResult = restClientWithRestTemplate.getForObject(url, OfficeGroupsResult.class);
+        OfficeGroupsResult officeGroupsResult = restClientWithRestTemplate.getForObject("/api/action/wsstore_get/?id=" + officeId, OfficeGroupsResult.class);
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
@@ -26,4 +25,5 @@ public class OfficeGroupsFetcher {
         }
         bus.post(new OfficeGroupsFetched(officeGroupsResult.officeGroups()));
     }
+
 }

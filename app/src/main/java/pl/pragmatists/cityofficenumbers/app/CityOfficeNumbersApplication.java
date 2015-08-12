@@ -5,7 +5,8 @@ import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.offices.CityOfficesHardcoded;
 import pl.pragmatists.cityofficenumbers.offices.CityOfficesModel;
 import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetcher;
-import pl.pragmatists.http.RestClientWithRestTemplate;
+import pl.pragmatists.http.Host;
+import pl.pragmatists.http.RestClientWithOkHttp;
 
 public class CityOfficeNumbersApplication extends Application {
     public CityOfficesModel getCityOfficesModel() {
@@ -13,6 +14,6 @@ public class CityOfficeNumbersApplication extends Application {
     }
 
     public OfficeGroupsFetcher getOfficeGroupsFetcher() {
-        return new OfficeGroupsFetcher(new RestClientWithRestTemplate(), BusInstance.instance());
+        return new OfficeGroupsFetcher(new RestClientWithOkHttp(new Host("https://api.um.warszawa.pl")), BusInstance.instance());
     }
 }
