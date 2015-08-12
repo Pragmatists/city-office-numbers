@@ -1,7 +1,7 @@
 package pl.pragmatists.cityofficenumbers.app;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import pl.pragmatists.cityofficenumbers.offices.Office;
 
-public class SelectOffice extends ActionBarActivity {
+public class SelectOffice extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

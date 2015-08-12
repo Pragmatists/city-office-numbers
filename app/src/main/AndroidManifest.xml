@@ -24,6 +24,11 @@
             android:name=".SelectGroup"
             android:label="@string/title_activity_select_group" >
         </activity>
+
+        <service
+            android:name=".GroupIntentService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>

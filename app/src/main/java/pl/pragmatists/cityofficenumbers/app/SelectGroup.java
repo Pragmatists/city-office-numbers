@@ -1,15 +1,9 @@
 package pl.pragmatists.cityofficenumbers.app;
 
-import java.util.Collection;
-
-import org.springframework.web.client.RestTemplate;
-
-import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,43 +12,29 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import de.greenrobot.event.EventBus;
 
-public class SelectGroup extends ActionBarActivity {
+public class SelectGroup extends AppCompatActivity {
 
     private static final String ARG_OFFICE_ID = "office-id";
 
     private ArrayAdapter<OfficeGroup> officeGroupsAdapter;
 
+    private String officeId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final String officeId = getIntent().getStringExtra(ARG_OFFICE_ID);
+        officeId = getIntent().getStringExtra(ARG_OFFICE_ID);
         setContentView(R.layout.activity_select_group);
         ProgressBar progressBar = createProgressBar();
         addToRoot(progressBar);
 
-        officeGroupsAdapter = new ArrayAdapter<>(this, R.layout.office_group_item);
+        officeGroupsAdapter = new OfficesListUi(this);
+
         getListView().setAdapter(officeGroupsAdapter);
 
-        // Prepare the loader.  Either re-connect with an existing one,
-        // or start a new one.
-        LoaderManager.LoaderCallbacks<Collection<OfficeGroup>> callback = new LoaderManager.LoaderCallbacks<Collection<OfficeGroup>>() {
-            @Override
-            public Loader<Collection<OfficeGroup>> onCreateLoader(int id, Bundle args) {
-                return new GroupsLoader(SelectGroup.this, officeId, new RestTemplate());
-            }
 
-            @Override
-            public void onLoadFinished(Loader<Collection<OfficeGroup>> loader, Collection<OfficeGroup> data) {
-                officeGroupsAdapter.addAll(data);
-            }
-
-            @Override
-            public void onLoaderReset(Loader<Collection<OfficeGroup>> loader) {
-                officeGroupsAdapter.clear();
-            }
-        };
-        getLoaderManager().initLoader(0, null, callback).startLoading();
     }
 
     private void addToRoot(ProgressBar progressBar) {
@@ -75,6 +55,20 @@ public class SelectGroup extends ActionBarActivity {
 
     private ListView getListView() {
         return (ListView) findViewById(R.id.office_groups);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(officeGroupsAdapter);
+        GroupIntentService.startFetchGroupsAction(this, officeId);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(officeGroupsAdapter);
     }
 
     @Override
