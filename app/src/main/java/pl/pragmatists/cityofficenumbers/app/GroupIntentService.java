@@ -1,25 +1,24 @@
 package pl.pragmatists.cityofficenumbers.app;
 
-import java.util.List;
-
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import de.greenrobot.event.EventBus;
+import pl.pragmatists.cityofficenumbers.events.BusInstance;
+import pl.pragmatists.cityofficenumbers.events.EventBus;
 
 public class GroupIntentService extends IntentService {
-    private static final String OFFICE_ID_KEY = "pl.pragmatists.cityofficenumbers.app.action.FOO";
+    static final String OFFICE_ID_KEY = "pl.pragmatists.cityofficenumbers.app.action.FOO";
     private RestTemplate restTemplate;
-    private EventBus bus;
+    protected EventBus bus;
 
     @Override
     public void onCreate() {
         super.onCreate();
         restTemplate = new RestTemplate();
-        bus = EventBus.getDefault();
+        bus = BusInstance.instance();
     }
 
     public static void startFetchGroupsAction(Context context, String officeId) {
@@ -44,21 +43,6 @@ public class GroupIntentService extends IntentService {
             e.printStackTrace();
         }
         bus.post(new OfficeGroupsFetched(officeGroupsResult.officeGroups()));
-    }
-
-    public static class OfficeGroupsFetched {
-
-        private final List<OfficeGroup> officeGroups;
-
-        public OfficeGroupsFetched(List<OfficeGroup> officeGroups) {
-
-            this.officeGroups = officeGroups;
-        }
-
-        public List<OfficeGroup> groups() {
-            return officeGroups;
-        }
-
     }
 
 }

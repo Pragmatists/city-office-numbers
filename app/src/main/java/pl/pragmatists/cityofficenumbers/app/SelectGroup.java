@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import de.greenrobot.event.EventBus;
+import pl.pragmatists.cityofficenumbers.events.BusInstance;
 
 public class SelectGroup extends AppCompatActivity {
 
@@ -61,14 +61,14 @@ public class SelectGroup extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        EventBus.getDefault().register(officeGroupsAdapter);
+        BusInstance.instance().register(officeGroupsAdapter);
         GroupIntentService.startFetchGroupsAction(this, officeId);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        EventBus.getDefault().unregister(officeGroupsAdapter);
+        BusInstance.instance().unregister(officeGroupsAdapter);
     }
 
     @Override

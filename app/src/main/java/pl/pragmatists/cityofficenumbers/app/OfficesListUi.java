@@ -9,7 +9,7 @@ public class OfficesListUi extends ArrayAdapter<OfficeGroup> {
     }
 
 
-    public void onEventMainThread(GroupIntentService.OfficeGroupsFetched officeGroupsFetched) {
+    public void onEventMainThread(OfficeGroupsFetched officeGroupsFetched) {
         addAll(officeGroupsFetched.groups());
     }
 
