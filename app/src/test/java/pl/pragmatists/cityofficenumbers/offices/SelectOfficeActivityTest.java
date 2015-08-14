@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import android.app.Application;
@@ -17,9 +17,9 @@ import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.SelectGroup;
 import pl.pragmatists.cityofficenumbers.app.SelectOffice;
 
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, emulateSdk = 21)
-public class ShowAvailableOfficesOnStartTest {
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, emulateSdk = 21, manifest = "src/main/AndroidManifest.xml")
+public class SelectOfficeActivityTest {
 
     private Application testApplication;
 
