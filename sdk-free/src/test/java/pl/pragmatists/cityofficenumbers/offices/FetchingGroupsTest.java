@@ -79,7 +79,18 @@ public class FetchingGroupsTest {
 
         officeGroupsFetcher.fetch(ANY_ID);
 
-        verify(bus).post(any(OfficeGroupsServerError.class));
+        verify(bus).post(isA(OfficeGroupsServerError.class));
+    }
+
+    @Test
+    public void publishesErrorEventOn400() throws IOException {
+        server.enqueue(new MockResponse().setStatus("HTTP/1.1 400 Bad Request"));
+        server.start();
+        OfficeGroupsFetcher officeGroupsFetcher = createOfficeGroupsFetcher();
+
+        officeGroupsFetcher.fetch(ANY_ID);
+
+        verify(bus).post(isA(OfficeGroupsServerError.class));
     }
 
     @Test
@@ -91,7 +102,7 @@ public class FetchingGroupsTest {
 
         officeGroupsFetcher.fetch(ANY_ID);
 
-        verify(bus).post(any(OfficeGroupsNetworkError.class));
+        verify(bus).post(isA(OfficeGroupsNetworkError.class));
     }
 
     private OfficeGroupsFetcher createOfficeGroupsFetcher() {

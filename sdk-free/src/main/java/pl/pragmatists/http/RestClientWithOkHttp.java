@@ -27,8 +27,8 @@ public class RestClientWithOkHttp implements RestClient {
             String url = host.getHostUrlPart() + path;
             Response response = createRequestTo(url).execute();
             if (!response.isSuccessful()) {
-                if (response.code() == 500) {
-                    throw new RestClientServerError();
+                if (response.code() >= 400) {
+                    throw new RestClientServerError("Server responded with " + response.toString());
                 }
             }
             InputStream inputStream = response.body().byteStream();

@@ -23,7 +23,7 @@ public class OfficeGroupsFetcher {
             sleepOneSec();
             bus.post(new OfficeGroupsFetched(officeGroupsResult.officeGroups()));
         } catch (RestClientServerError e) {
-            bus.post(new OfficeGroupsServerError());
+            bus.post(new OfficeGroupsServerError(e.getMessage()));
         } catch (RestClientCannotMakeRequestToServer e) {
             bus.post(new OfficeGroupsNetworkError());
         }
