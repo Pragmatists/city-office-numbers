@@ -9,7 +9,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
-import org.robolectric.util.ActivityController;
 
 import android.app.Application;
 import android.content.Intent;
@@ -18,17 +17,17 @@ import pl.pragmatists.cityofficenumbers.offices.TestApplication;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, emulateSdk = 21)
-public class GroupIntentServiceTest {
+public class SelectGroupActivityTest {
 
     private Application testApplication;
 
     @Test
-    public void shouldFetchGroups() {
+    public void shouldFetchGroupsOnCreate() {
         OfficeGroupsFetcher officeGroupsFetcher = mock(OfficeGroupsFetcher.class);
         testApplication = new TestApplication(null, officeGroupsFetcher);
-        Intent intent = new Intent();
-        intent.putExtra(SelectGroup.ARG_OFFICE_ID, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
-        SelectGroup activity = createGroupsIntentService(intent).get();
+        Intent intent = new Intent().putExtra(SelectGroup.ARG_OFFICE_ID, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
+
+        SelectGroup activity = createSelectGroupActivity(intent);
 
         Intent nextStartedService = Shadows.shadowOf(activity).getNextStartedService();
         Intent expectedIntent = new Intent(activity, GroupIntentService.class)
@@ -37,10 +36,10 @@ public class GroupIntentServiceTest {
 
     }
 
-    private ActivityController<SelectGroup> createGroupsIntentService(Intent intent) {
+    private SelectGroup createSelectGroupActivity(Intent intent) {
         return Robolectric.buildActivity(SelectGroup.class)
                 .withIntent(intent).withApplication(testApplication)
-                .create().visible().resume();
+                .create().visible().resume().get();
     }
 
 }
