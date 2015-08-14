@@ -16,11 +16,14 @@ import com.squareup.okhttp.mockwebserver.MockWebServer;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
+import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsNetworkError;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsServerError;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 
 public class FetchingGroupsTest {
+
+    private static final String ANY_ID = "any_office_id";
 
     private EventBus bus = mock(EventBus.class);
 
@@ -38,7 +41,6 @@ public class FetchingGroupsTest {
 
     @Test
     public void fetchesGroups() throws IOException {
-
         server.enqueue(new MockResponse().setBody("" +
                 "{\n" +
                 "    \"result\": {\n" +
@@ -60,8 +62,7 @@ public class FetchingGroupsTest {
                 "    }\n" +
                 "} \n"));
         server.start();
-        Host host = new Host("http", server.getHostName(), server.getPort());
-        OfficeGroupsFetcher officeGroupsFetcher = new OfficeGroupsFetcher(new RestClientWithOkHttp(host), bus);
+        OfficeGroupsFetcher officeGroupsFetcher = createOfficeGroupsFetcher();
 
         officeGroupsFetcher.fetch("9c3d5770-57d8-4365-994c-69c5ac4186ee");
 
@@ -74,12 +75,31 @@ public class FetchingGroupsTest {
     public void publishesErrorEventOn500() throws IOException {
         server.enqueue(new MockResponse().setStatus("HTTP/1.1 500 Internal Server Error"));
         server.start();
-        Host host = new Host("http", server.getHostName(), server.getPort());
-        OfficeGroupsFetcher officeGroupsFetcher = new OfficeGroupsFetcher(new RestClientWithOkHttp(host), bus);
+        OfficeGroupsFetcher officeGroupsFetcher = createOfficeGroupsFetcher();
 
-        officeGroupsFetcher.fetch("9c3d5770-57d8-4365-994c-69c5ac4186ee");
+        officeGroupsFetcher.fetch(ANY_ID);
 
         verify(bus).post(any(OfficeGroupsServerError.class));
+    }
+
+    @Test
+    public void publishesErrorEventWhenServerUnreachable() throws IOException {
+        server.start();
+        OfficeGroupsFetcher officeGroupsFetcher = new OfficeGroupsFetcher(
+                new RestClientWithOkHttp(new Host("http://unavailable.server")), bus
+        );
+
+        officeGroupsFetcher.fetch(ANY_ID);
+
+        verify(bus).post(any(OfficeGroupsNetworkError.class));
+    }
+
+    private OfficeGroupsFetcher createOfficeGroupsFetcher() {
+        return new OfficeGroupsFetcher(new RestClientWithOkHttp(getHost()), bus);
+    }
+
+    private Host getHost() {
+        return new Host("http", server.getHostName(), server.getPort());
     }
 
 }

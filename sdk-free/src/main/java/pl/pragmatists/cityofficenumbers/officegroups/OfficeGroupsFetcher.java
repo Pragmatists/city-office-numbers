@@ -2,6 +2,7 @@ package pl.pragmatists.cityofficenumbers.officegroups;
 
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.http.RestClient;
+import pl.pragmatists.http.RestClientCannotMakeRequestToServer;
 import pl.pragmatists.http.RestClientServerError;
 
 public class OfficeGroupsFetcher {
@@ -23,6 +24,8 @@ public class OfficeGroupsFetcher {
             bus.post(new OfficeGroupsFetched(officeGroupsResult.officeGroups()));
         } catch (RestClientServerError e) {
             bus.post(new OfficeGroupsServerError());
+        } catch (RestClientCannotMakeRequestToServer e) {
+            bus.post(new OfficeGroupsNetworkError());
         }
     }
 

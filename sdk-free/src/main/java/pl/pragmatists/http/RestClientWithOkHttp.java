@@ -35,7 +35,7 @@ public class RestClientWithOkHttp implements RestClient {
             return objectMapper.readValue(inputStream, responseType);
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RestClientCannotMakeRequestToServer(e);
         }
     }
 
