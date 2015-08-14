@@ -14,10 +14,10 @@ import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 
 import pl.pragmatists.cityofficenumbers.events.EventBus;
-import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
-import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsNetworkError;
-import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsServerError;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 

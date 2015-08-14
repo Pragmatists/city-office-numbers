@@ -13,6 +13,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
+import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroup;
 
 public class SelectGroup extends AppCompatActivity {
 
@@ -21,6 +22,8 @@ public class SelectGroup extends AppCompatActivity {
     private ArrayAdapter<OfficeGroup> officeGroupsAdapter;
 
     private String officeId;
+
+    private ErrorUi errorUi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +34,9 @@ public class SelectGroup extends AppCompatActivity {
         addToRoot(progressBar);
 
         officeGroupsAdapter = new OfficesListUi(this);
+        errorUi = new ErrorUi(this);
 
         getListView().setAdapter(officeGroupsAdapter);
-
-
     }
 
     private void addToRoot(ProgressBar progressBar) {
@@ -62,12 +64,14 @@ public class SelectGroup extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         BusInstance.instance().register(officeGroupsAdapter);
+        BusInstance.instance().register(errorUi);
         GroupIntentService.startFetchGroupsAction(this, officeId);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        BusInstance.instance().unregister(errorUi);
         BusInstance.instance().unregister(officeGroupsAdapter);
     }
 

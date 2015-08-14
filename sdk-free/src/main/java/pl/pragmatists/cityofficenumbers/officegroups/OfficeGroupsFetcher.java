@@ -1,9 +1,13 @@
 package pl.pragmatists.cityofficenumbers.officegroups;
 
 import pl.pragmatists.cityofficenumbers.events.EventBus;
+import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupsResult;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
 import pl.pragmatists.http.RestClient;
-import pl.pragmatists.http.RestClientCannotMakeRequestToServer;
-import pl.pragmatists.http.RestClientServerError;
+import pl.pragmatists.http.exceptions.RestClientCannotMakeRequestToServer;
+import pl.pragmatists.http.exceptions.RestClientServerError;
 
 public class OfficeGroupsFetcher {
 

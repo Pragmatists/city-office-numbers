@@ -9,6 +9,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import pl.pragmatists.http.exceptions.RestClientCannotMakeRequestToServer;
+import pl.pragmatists.http.exceptions.RestClientServerError;
+
 public class RestClientWithOkHttp implements RestClient {
 
     private final Host host;
@@ -28,7 +31,7 @@ public class RestClientWithOkHttp implements RestClient {
             Response response = createRequestTo(url).execute();
             if (!response.isSuccessful()) {
                 if (response.code() >= 400) {
-                    throw new RestClientServerError("Server responded with " + response.toString());
+                    throw new RestClientServerError("Server responded with: " + response.code() + " " + response.message());
                 }
             }
             InputStream inputStream = response.body().byteStream();

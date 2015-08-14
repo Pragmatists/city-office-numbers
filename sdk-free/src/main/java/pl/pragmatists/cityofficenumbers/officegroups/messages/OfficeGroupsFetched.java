@@ -1,6 +1,8 @@
-package pl.pragmatists.cityofficenumbers.officegroups;
+package pl.pragmatists.cityofficenumbers.officegroups.messages;
 
 import java.util.List;
+
+import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroup;
 
 public class OfficeGroupsFetched {
 

@@ -1,4 +1,4 @@
-package pl.pragmatists.http;
+package pl.pragmatists.http.exceptions;
 
 import java.io.IOException;
 

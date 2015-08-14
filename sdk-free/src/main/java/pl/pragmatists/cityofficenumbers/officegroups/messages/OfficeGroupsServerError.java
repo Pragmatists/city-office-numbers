@@ -1,7 +1,7 @@
-package pl.pragmatists.cityofficenumbers.officegroups;
+package pl.pragmatists.cityofficenumbers.officegroups.messages;
 
 public class OfficeGroupsServerError {
-    private final String details;
+    public final String details;
 
     public OfficeGroupsServerError(String details) {
         this.details = details;
