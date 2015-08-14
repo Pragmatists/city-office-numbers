@@ -13,7 +13,7 @@ import org.robolectric.util.ActivityController;
 
 import android.app.Application;
 import android.content.Intent;
-import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetcher;
+import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
 import pl.pragmatists.cityofficenumbers.offices.TestApplication;
 
 @RunWith(RobolectricGradleTestRunner.class)

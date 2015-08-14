@@ -3,7 +3,7 @@ package pl.pragmatists.cityofficenumbers.app;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetcher;
+import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
 
 public class GroupIntentService extends IntentService {
     static final String OFFICE_ID_KEY = "pl.pragmatists.cityofficenumbers.app.action.FOO";

@@ -11,8 +11,9 @@ import org.mockito.ArgumentCaptor;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 
-import pl.pragmatists.cityofficenumbers.app.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
+import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 
@@ -23,7 +24,6 @@ public class FetchingGroupsTest {
     @Test
     public void fetchesGroups() throws IOException {
         MockWebServer server = new MockWebServer();
-
 
         server.enqueue(new MockResponse().setBody("" +
                 "{\n" +

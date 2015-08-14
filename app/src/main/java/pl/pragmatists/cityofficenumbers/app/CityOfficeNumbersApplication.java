@@ -2,9 +2,9 @@ package pl.pragmatists.cityofficenumbers.app;
 
 import android.app.Application;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
+import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
 import pl.pragmatists.cityofficenumbers.offices.CityOfficesHardcoded;
 import pl.pragmatists.cityofficenumbers.offices.CityOfficesModel;
-import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetcher;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 

@@ -1,6 +1,7 @@
 package pl.pragmatists.cityofficenumbers.offices;
 
 import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
+import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
 
 public class TestApplication extends CityOfficeNumbersApplication {
     private final CityOfficesModel cityOfficesModel;

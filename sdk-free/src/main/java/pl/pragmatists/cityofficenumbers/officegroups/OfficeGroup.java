@@ -1,4 +1,4 @@
-package pl.pragmatists.cityofficenumbers.app;
+package pl.pragmatists.cityofficenumbers.officegroups;
 
 public class OfficeGroup {
     public String status;

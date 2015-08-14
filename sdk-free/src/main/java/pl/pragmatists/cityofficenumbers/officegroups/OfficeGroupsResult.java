@@ -1,10 +1,7 @@
-package pl.pragmatists.cityofficenumbers.app;
+package pl.pragmatists.cityofficenumbers.officegroups;
 
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OfficeGroupsResult {
