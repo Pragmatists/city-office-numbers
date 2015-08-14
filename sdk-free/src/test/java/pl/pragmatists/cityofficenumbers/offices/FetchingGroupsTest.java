@@ -5,6 +5,8 @@ import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -14,6 +16,7 @@ import com.squareup.okhttp.mockwebserver.MockWebServer;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
+import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsServerError;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 
@@ -21,9 +24,20 @@ public class FetchingGroupsTest {
 
     private EventBus bus = mock(EventBus.class);
 
+    private MockWebServer server;
+
+    @Before
+    public void setUp() throws Exception {
+        server = new MockWebServer();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        server.shutdown();
+    }
+
     @Test
     public void fetchesGroups() throws IOException {
-        MockWebServer server = new MockWebServer();
 
         server.enqueue(new MockResponse().setBody("" +
                 "{\n" +
@@ -54,6 +68,18 @@ public class FetchingGroupsTest {
         ArgumentCaptor<OfficeGroupsFetched> captor = ArgumentCaptor.forClass(OfficeGroupsFetched.class);
         verify(bus).post(captor.capture());
         assertThat(captor.getValue().groups()).hasSize(1);
+    }
+
+    @Test
+    public void publishesErrorEventOn500() throws IOException {
+        server.enqueue(new MockResponse().setStatus("HTTP/1.1 500 Internal Server Error"));
+        server.start();
+        Host host = new Host("http", server.getHostName(), server.getPort());
+        OfficeGroupsFetcher officeGroupsFetcher = new OfficeGroupsFetcher(new RestClientWithOkHttp(host), bus);
+
+        officeGroupsFetcher.fetch("9c3d5770-57d8-4365-994c-69c5ac4186ee");
+
+        verify(bus).post(any(OfficeGroupsServerError.class));
     }
 
 }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 public class RestClientWithOkHttp implements RestClient {
 
@@ -24,7 +25,13 @@ public class RestClientWithOkHttp implements RestClient {
     public <T> T getForObject(String path, Class<T> responseType) {
         try {
             String url = host.getHostUrlPart() + path;
-            InputStream inputStream = createRequestTo(url).execute().body().byteStream();
+            Response response = createRequestTo(url).execute();
+            if (!response.isSuccessful()) {
+                if (response.code() == 500) {
+                    throw new RestClientServerError();
+                }
+            }
+            InputStream inputStream = response.body().byteStream();
             return objectMapper.readValue(inputStream, responseType);
 
         } catch (IOException e) {

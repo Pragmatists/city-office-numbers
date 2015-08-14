@@ -2,6 +2,7 @@ package pl.pragmatists.cityofficenumbers.officegroups;
 
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.http.RestClient;
+import pl.pragmatists.http.RestClientServerError;
 
 public class OfficeGroupsFetcher {
 
@@ -15,13 +16,22 @@ public class OfficeGroupsFetcher {
     }
 
     public void fetch(String officeId) {
-        OfficeGroupsResult officeGroupsResult = restClient.getForObject("/api/action/wsstore_get/?id=" + officeId, OfficeGroupsResult.class);
+        try {
+            OfficeGroupsResult officeGroupsResult = restClient
+                    .getForObject("/api/action/wsstore_get/?id=" + officeId, OfficeGroupsResult.class);
+            sleepOneSec();
+            bus.post(new OfficeGroupsFetched(officeGroupsResult.officeGroups()));
+        } catch (RestClientServerError e) {
+            bus.post(new OfficeGroupsServerError());
+        }
+    }
+
+    private void sleepOneSec() {
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        bus.post(new OfficeGroupsFetched(officeGroupsResult.officeGroups()));
     }
 
 }
