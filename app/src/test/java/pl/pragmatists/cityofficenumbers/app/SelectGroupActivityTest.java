@@ -42,7 +42,7 @@ public class SelectGroupActivityTest {
     @Test
     public void shouldFetchGroupsOnCreate() {
         OfficeGroupsFetcher officeGroupsFetcher = mock(OfficeGroupsFetcher.class);
-        testApplication = new TestApplication(null, officeGroupsFetcher);
+        testApplication = new TestApplication(officeGroupsFetcher);
         Intent intent = new Intent().putExtra(SelectGroup.ARG_OFFICE_ID, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
 
         SelectGroup activity = createSelectGroupActivity(intent);
@@ -83,7 +83,7 @@ public class SelectGroupActivityTest {
 
     private SelectGroup createDefaultSelectGroupActivity() {
         OfficeGroupsFetcher officeGroupsFetcher = mock(OfficeGroupsFetcher.class);
-        testApplication = new TestApplication(null, officeGroupsFetcher);
+        testApplication = new TestApplication(officeGroupsFetcher);
         Intent intent = new Intent().putExtra(SelectGroup.ARG_OFFICE_ID, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
 
         return createSelectGroupActivity(intent);

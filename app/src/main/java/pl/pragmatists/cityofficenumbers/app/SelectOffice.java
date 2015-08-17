@@ -1,5 +1,7 @@
 package pl.pragmatists.cityofficenumbers.app;
 
+import javax.inject.Inject;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -9,16 +11,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import pl.pragmatists.cityofficenumbers.offices.CityOfficesModel;
 import pl.pragmatists.cityofficenumbers.offices.Office;
 
 public class SelectOffice extends AppCompatActivity {
 
+    @Inject
+    CityOfficesModel cityOfficesModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getMyApplication().component().inject(this);
         setContentView(R.layout.activity_select_office);
         ListView officesListView = (ListView) findViewById(R.id.offices);
-        final Office[] offices = getMyApplication().getCityOfficesModel().offices();
+        final Office[] offices = cityOfficesModel.offices();
         officesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -30,7 +37,7 @@ public class SelectOffice extends AppCompatActivity {
     }
 
     private CityOfficeNumbersApplication getMyApplication() {
-        return (CityOfficeNumbersApplication)getApplication();
+        return (CityOfficeNumbersApplication) getApplication();
     }
 
     @Override

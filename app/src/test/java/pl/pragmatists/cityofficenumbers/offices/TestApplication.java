@@ -4,22 +4,24 @@ import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
 
 public class TestApplication extends CityOfficeNumbersApplication {
-    private final CityOfficesModel cityOfficesModel;
 
     private final OfficeGroupsFetcher officeGroupsFetcher;
 
-    public TestApplication(CityOfficesModel cityOfficesModel, OfficeGroupsFetcher officeGroupsFetcher) {
-        this.cityOfficesModel = cityOfficesModel;
+    public TestApplication(OfficeGroupsFetcher officeGroupsFetcher) {
         this.officeGroupsFetcher = officeGroupsFetcher;
-    }
-
-    @Override
-    public CityOfficesModel getCityOfficesModel() {
-        return cityOfficesModel;
     }
 
     @Override
     public OfficeGroupsFetcher getOfficeGroupsFetcher() {
         return officeGroupsFetcher;
+    }
+
+    @Override
+    protected void createComponent() {
+
+    }
+
+    public void withComponent(ApplicationComponent component) {
+        this.component = component;
     }
 }

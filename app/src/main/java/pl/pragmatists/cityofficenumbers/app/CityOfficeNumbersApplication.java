@@ -1,19 +1,44 @@
 package pl.pragmatists.cityofficenumbers.app;
 
+import javax.inject.Singleton;
+
 import android.app.Application;
+import dagger.Component;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesHardcoded;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesModel;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 
+
 public class CityOfficeNumbersApplication extends Application {
-    public CityOfficesModel getCityOfficesModel() {
-        return new CityOfficesHardcoded();
+
+    @Singleton
+    @Component(modules = {AndroidModule.class, CityOfficesModule.class})
+    public interface ApplicationComponent {
+        void inject(CityOfficeNumbersApplication application);
+
+        void inject(SelectOffice selectOfficeActivity);
     }
 
     public OfficeGroupsFetcher getOfficeGroupsFetcher() {
         return new OfficeGroupsFetcher(new RestClientWithOkHttp(new Host("https://api.um.warszawa.pl")), BusInstance.instance());
+    }
+
+    protected ApplicationComponent component;
+
+    @Override public void onCreate() {
+        super.onCreate();
+        createComponent();
+        component().inject(this);
+    }
+
+    protected void createComponent() {
+        component = DaggerCityOfficeNumbersApplication_ApplicationComponent.builder()
+                .androidModule(new AndroidModule(this))
+                .build();
+    }
+
+    public ApplicationComponent component() {
+        return component;
     }
 }
