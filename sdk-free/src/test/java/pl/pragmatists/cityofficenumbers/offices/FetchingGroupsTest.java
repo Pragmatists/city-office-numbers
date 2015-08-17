@@ -32,6 +32,7 @@ public class FetchingGroupsTest {
     @Before
     public void setUp() throws Exception {
         server = new MockWebServer();
+        server.start();
     }
 
     @After
@@ -61,7 +62,6 @@ public class FetchingGroupsTest {
                 "        \"time\": \"16:36\"\n" +
                 "    }\n" +
                 "} \n"));
-        server.start();
         OfficeGroupsFetcher officeGroupsFetcher = createOfficeGroupsFetcher();
 
         officeGroupsFetcher.fetch("9c3d5770-57d8-4365-994c-69c5ac4186ee");
@@ -74,7 +74,6 @@ public class FetchingGroupsTest {
     @Test
     public void publishesErrorEventOn500() throws IOException {
         server.enqueue(new MockResponse().setStatus("HTTP/1.1 500 Internal Server Error"));
-        server.start();
         OfficeGroupsFetcher officeGroupsFetcher = createOfficeGroupsFetcher();
 
         officeGroupsFetcher.fetch(ANY_ID);
@@ -85,7 +84,6 @@ public class FetchingGroupsTest {
     @Test
     public void publishesErrorEventOn400() throws IOException {
         server.enqueue(new MockResponse().setStatus("HTTP/1.1 400 Bad Request"));
-        server.start();
         OfficeGroupsFetcher officeGroupsFetcher = createOfficeGroupsFetcher();
 
         officeGroupsFetcher.fetch(ANY_ID);
@@ -95,7 +93,6 @@ public class FetchingGroupsTest {
 
     @Test
     public void publishesErrorEventWhenServerUnreachable() throws IOException {
-        server.start();
         OfficeGroupsFetcher officeGroupsFetcher = new OfficeGroupsFetcher(
                 new RestClientWithOkHttp(new Host("http://unavailable.server")), bus
         );
