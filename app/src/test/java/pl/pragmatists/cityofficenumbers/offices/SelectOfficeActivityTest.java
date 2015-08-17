@@ -11,27 +11,18 @@ import org.robolectric.annotation.Config;
 
 import android.content.Intent;
 import android.widget.ListView;
-import dagger.Component;
-import dagger.Module;
-import dagger.Provides;
-import pl.pragmatists.cityofficenumbers.app.AndroidModule;
 import pl.pragmatists.cityofficenumbers.app.BuildConfig;
-import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.SelectGroup;
 import pl.pragmatists.cityofficenumbers.app.SelectOffice;
+import pl.pragmatists.cityofficenumbers.testing.TestApplication;
+import pl.pragmatists.cityofficenumbers.testing.TestApplicationBuilder;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, emulateSdk = 21, manifest = "src/main/AndroidManifest.xml")
 public class SelectOfficeActivityTest {
 
     private TestApplication testApplication;
-
-
-    @Component(modules = {AndroidModule.class, TestCityOfficesModule.class})
-    interface TestApplicationComponent extends CityOfficeNumbersApplication.ApplicationComponent {
-
-    }
 
     @Test
     public void shows_available_offices_on_start() {
@@ -48,12 +39,8 @@ public class SelectOfficeActivityTest {
     }
 
     private void initTestApplicationWith(CityOfficesModel cityOfficesModel) {
-        testApplication = new TestApplication(null);
-        CityOfficeNumbersApplication.ApplicationComponent component = DaggerSelectOfficeActivityTest_TestApplicationComponent.builder()
-                .androidModule(new AndroidModule(testApplication))
-                .testCityOfficesModule(new TestCityOfficesModule(cityOfficesModel))
-                .build();
-        testApplication.withComponent(component);
+        testApplication = new TestApplicationBuilder()
+                .withCityOfficesModule(new TestApplicationBuilder.TestCityOfficesModule(cityOfficesModel)).build();
     }
 
     @Test
@@ -83,18 +70,4 @@ public class SelectOfficeActivityTest {
         };
     }
 
-    @Module
-    public class TestCityOfficesModule {
-
-        CityOfficesModel cityOfficesModel;
-
-        public TestCityOfficesModule(CityOfficesModel cityOfficesModel) {
-            this.cityOfficesModel = cityOfficesModel;
-        }
-
-        @Provides
-        CityOfficesModel cityOfficesModel() {
-            return cityOfficesModel;
-        }
-    }
 }

@@ -1,7 +1,6 @@
 package pl.pragmatists.cityofficenumbers.app;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 import java.util.Collections;
 
@@ -19,12 +18,11 @@ import android.content.Intent;
 import android.widget.ListView;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
-import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
 import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroup;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
-import pl.pragmatists.cityofficenumbers.offices.TestApplication;
+import pl.pragmatists.cityofficenumbers.testing.TestApplicationBuilder;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, emulateSdk = 21, manifest = "src/main/AndroidManifest.xml")
@@ -37,12 +35,11 @@ public class SelectGroupActivityTest {
     @Before
     public void setUp() throws Exception {
         eventBus = BusInstance.instance();
+        testApplication = new TestApplicationBuilder().build();
     }
 
     @Test
     public void shouldFetchGroupsOnCreate() {
-        OfficeGroupsFetcher officeGroupsFetcher = mock(OfficeGroupsFetcher.class);
-        testApplication = new TestApplication(officeGroupsFetcher);
         Intent intent = new Intent().putExtra(SelectGroup.ARG_OFFICE_ID, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
 
         SelectGroup activity = createSelectGroupActivity(intent);
@@ -82,8 +79,6 @@ public class SelectGroupActivityTest {
     }
 
     private SelectGroup createDefaultSelectGroupActivity() {
-        OfficeGroupsFetcher officeGroupsFetcher = mock(OfficeGroupsFetcher.class);
-        testApplication = new TestApplication(officeGroupsFetcher);
         Intent intent = new Intent().putExtra(SelectGroup.ARG_OFFICE_ID, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
 
         return createSelectGroupActivity(intent);

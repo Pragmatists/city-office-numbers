@@ -1,4 +1,4 @@
-package pl.pragmatists.cityofficenumbers.offices;
+package pl.pragmatists.cityofficenumbers.testing;
 
 import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
