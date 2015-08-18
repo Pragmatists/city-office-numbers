@@ -13,8 +13,8 @@ import android.content.Intent;
 import android.widget.ListView;
 import pl.pragmatists.cityofficenumbers.app.BuildConfig;
 import pl.pragmatists.cityofficenumbers.app.R;
-import pl.pragmatists.cityofficenumbers.app.SelectGroup;
-import pl.pragmatists.cityofficenumbers.app.SelectOffice;
+import pl.pragmatists.cityofficenumbers.app.SelectGroupActivity;
+import pl.pragmatists.cityofficenumbers.app.SelectOfficeActivity;
 import pl.pragmatists.cityofficenumbers.testing.TestApplication;
 import pl.pragmatists.cityofficenumbers.testing.TestApplicationBuilder;
 
@@ -32,9 +32,9 @@ public class SelectOfficeActivityTest {
                 new Office("3")
         ));
 
-        SelectOffice selectOffice = buildSelectOfficeActivity();
+        SelectOfficeActivity selectOfficeActivity = buildSelectOfficeActivity();
 
-        ListView lvOffices = (ListView) selectOffice.findViewById(R.id.offices);
+        ListView lvOffices = (ListView) selectOfficeActivity.findViewById(R.id.offices);
         Assertions.assertThat(lvOffices.getCount()).isEqualTo(3);
     }
 
@@ -46,18 +46,18 @@ public class SelectOfficeActivityTest {
     @Test
     public void goes_to_group_selection_on_item_click() {
         initTestApplicationWith(cityOfficesWith(new Office("").id("9c3d5770-57d8-4365-994c-69c5ac4186ee")));
-        SelectOffice selectOffice = buildSelectOfficeActivity();
-        ListView lvOffices = (ListView) selectOffice.findViewById(R.id.offices);
+        SelectOfficeActivity selectOfficeActivity = buildSelectOfficeActivity();
+        ListView lvOffices = (ListView) selectOfficeActivity.findViewById(R.id.offices);
 
         shadowOf(lvOffices).performItemClick(0);
 
-        Intent expectedIntent = new Intent(selectOffice, SelectGroup.class).putExtra("office-id", "9c3d5770-57d8-4365-994c-69c5ac4186ee");
-        Intent nextStartedActivity = shadowOf(selectOffice).getNextStartedActivity();
+        Intent expectedIntent = new Intent(selectOfficeActivity, SelectGroupActivity.class).putExtra("office-id", "9c3d5770-57d8-4365-994c-69c5ac4186ee");
+        Intent nextStartedActivity = shadowOf(selectOfficeActivity).getNextStartedActivity();
         Assertions.assertThat(nextStartedActivity).isEqualTo(expectedIntent);
     }
 
-    private SelectOffice buildSelectOfficeActivity() {
-        return Robolectric.buildActivity(SelectOffice.class).withApplication(testApplication).create().visible()
+    private SelectOfficeActivity buildSelectOfficeActivity() {
+        return Robolectric.buildActivity(SelectOfficeActivity.class).withApplication(testApplication).create().visible()
                 .get();
     }
 

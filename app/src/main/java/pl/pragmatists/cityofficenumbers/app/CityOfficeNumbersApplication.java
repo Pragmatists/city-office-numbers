@@ -17,7 +17,7 @@ public class CityOfficeNumbersApplication extends Application {
     public interface ApplicationComponent {
         void inject(CityOfficeNumbersApplication application);
 
-        void inject(SelectOffice selectOfficeActivity);
+        void inject(SelectOfficeActivity selectOfficeActivity);
     }
 
     public OfficeGroupsFetcher getOfficeGroupsFetcher() {

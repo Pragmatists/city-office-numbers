@@ -4,4 +4,11 @@
     <string name="title_activity_select_office">Wybierz urząd</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_select_group">Wybierz okienko</string>
+    <string name="title_activity_enter_number">Twój numer</string>
+    <string name="your_number_label">Twój numer:</string>
+    <string name="chosen_number">Wybrany numer:</string>
+    <string name="queue_before">Osób przed Tobą:</string>
+    <string name="minutes_left">Zostało minut:</string>
+    <string name="current_number">Aktualny numer:</string>
+    <string name="queue_size">Długość kolejki:</string>
 </resources>

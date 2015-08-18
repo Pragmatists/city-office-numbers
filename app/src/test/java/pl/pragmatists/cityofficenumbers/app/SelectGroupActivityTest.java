@@ -1,6 +1,7 @@
 package pl.pragmatists.cityofficenumbers.app;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.robolectric.Shadows.*;
 
 import java.util.Collections;
 
@@ -40,9 +41,9 @@ public class SelectGroupActivityTest {
 
     @Test
     public void shouldFetchGroupsOnCreate() {
-        Intent intent = new Intent().putExtra(SelectGroup.ARG_OFFICE_ID, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
+        Intent intent = new Intent().putExtra(SelectGroupActivity.ARG_OFFICE_ID, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
 
-        SelectGroup activity = createSelectGroupActivity(intent);
+        SelectGroupActivity activity = createSelectGroupActivity(intent);
 
         Intent nextStartedService = Shadows.shadowOf(activity).getNextStartedService();
         Intent expectedIntent = new Intent(activity, GroupIntentService.class)
@@ -52,7 +53,7 @@ public class SelectGroupActivityTest {
 
     @Test
     public void showsLoadedGroups() {
-        SelectGroup activity = createDefaultSelectGroupActivity();
+        SelectGroupActivity activity = createDefaultSelectGroupActivity();
 
         eventBus.post(new OfficeGroupsFetched(Collections.singletonList(new OfficeGroup())));
 
@@ -78,14 +79,32 @@ public class SelectGroupActivityTest {
         assertThat(ShadowToast.getTextOfLatestToast()).contains("Nieudane połączenie z serwerem.");
     }
 
-    private SelectGroup createDefaultSelectGroupActivity() {
-        Intent intent = new Intent().putExtra(SelectGroup.ARG_OFFICE_ID, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
+    @Test
+    public void goesToGroupActivityOnSelect() {
+        SelectGroupActivity activity = createSelectGroupActivity("9c3d5770-57d8-4365-994c-69c5ac4186ee");
+        ListView lvOffices = (ListView) activity.findViewById(R.id.office_groups);
+        eventBus.post(new OfficeGroupsFetched(Collections.singletonList(new OfficeGroup().withId(1))));
 
+        shadowOf(lvOffices).performItemClick(0);
+
+        Intent expectedIntent = new Intent(activity, EnterNumberActivity.class)
+                .putExtra("office-id", "9c3d5770-57d8-4365-994c-69c5ac4186ee")
+                .putExtra("group-id", 1);
+        Intent nextStartedActivity = shadowOf(activity).getNextStartedActivity();
+        assertThat(nextStartedActivity).isEqualTo(expectedIntent);
+    }
+
+    private SelectGroupActivity createDefaultSelectGroupActivity() {
+        return createSelectGroupActivity("5d2e698a-9c31-456b-8452-7ce33e7deb94");
+    }
+
+    private SelectGroupActivity createSelectGroupActivity(String officeId) {
+        Intent intent = new Intent().putExtra(SelectGroupActivity.ARG_OFFICE_ID, officeId);
         return createSelectGroupActivity(intent);
     }
 
-    private SelectGroup createSelectGroupActivity(Intent intent) {
-        return Robolectric.buildActivity(SelectGroup.class)
+    private SelectGroupActivity createSelectGroupActivity(Intent intent) {
+        return Robolectric.buildActivity(SelectGroupActivity.class)
                 .withIntent(intent).withApplication(testApplication)
                 .create().visible().resume().get();
     }

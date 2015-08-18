@@ -14,7 +14,7 @@ import android.widget.ListView;
 import pl.pragmatists.cityofficenumbers.offices.CityOfficesModel;
 import pl.pragmatists.cityofficenumbers.offices.Office;
 
-public class SelectOffice extends AppCompatActivity {
+public class SelectOfficeActivity extends AppCompatActivity {
 
     @Inject
     CityOfficesModel cityOfficesModel;
@@ -29,7 +29,7 @@ public class SelectOffice extends AppCompatActivity {
         officesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SelectGroup.startForOfficeId(SelectOffice.this, offices[position].getId());
+                SelectGroupActivity.startForOfficeId(SelectOfficeActivity.this, offices[position].getId());
             }
         });
         ListAdapter adapter = new ArrayAdapter<>(this, R.layout.office_item, offices);

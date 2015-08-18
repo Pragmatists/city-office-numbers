@@ -4,7 +4,7 @@ public class OfficeGroup {
     public String status;
     public String czasObslugi;
     public String lp;
-    public String idGrupy;
+    public int idGrupy;
     public Integer liczbaCzynnychStan;
     public String nazwaGrupy;
     public String literaGrupy;
@@ -14,5 +14,10 @@ public class OfficeGroup {
     @Override
     public String toString() {
         return nazwaGrupy;
+    }
+
+    public OfficeGroup withId(int groupId) {
+        idGrupy = groupId;
+        return this;
     }
 }

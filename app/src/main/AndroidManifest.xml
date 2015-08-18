@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".SelectOffice"
+            android:name=".SelectOfficeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SelectGroup"
+            android:name=".SelectGroupActivity"
             android:label="@string/title_activity_select_group" >
         </activity>
 
@@ -29,6 +29,11 @@
             android:name=".GroupIntentService"
             android:exported="false" >
         </service>
+
+        <activity
+            android:name=".EnterNumberActivity"
+            android:label="@string/title_activity_enter_number" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,127 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin" android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="pl.pragmatists.cityofficenumbers.app.EnterNumberActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/office_group_name"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/ticket_number_text_field"
+        android:textSize="30sp"
+        android:layout_alignBaseline="@+id/label_for_number_input"
+        android:layout_alignBottom="@+id/label_for_number_input"
+        android:layout_alignStart="@+id/queue_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/your_number_label"
+        android:id="@+id/label_for_number_input"
+        android:textSize="30sp"
+        android:layout_below="@+id/queue_size_label"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="36dp"
+        android:labelFor="@id/ticket_number_text_field" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/current_number"
+        android:id="@+id/current_number_label"
+        android:layout_below="@+id/office_group_name"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/current_number"
+        android:layout_marginEnd="100dp"
+        android:layout_below="@+id/office_group_name"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/queue_size"
+        android:id="@+id/queue_size_label"
+        android:layout_below="@+id/current_number_label"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/queue_size"
+        android:layout_alignBaseline="@+id/queue_size_label"
+        android:layout_alignBottom="@+id/queue_size_label"
+        android:layout_alignStart="@+id/current_number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/chosen_number"
+        android:id="@+id/chosen_number_label"
+        android:layout_below="@+id/ticket_number_text_field"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="33dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/chosen_number"
+        android:layout_alignTop="@+id/chosen_number_label"
+        android:layout_alignStart="@+id/queue_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/queue_before"
+        android:id="@+id/queue_before_label"
+        android:layout_below="@+id/chosen_number_label"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/queue_before"
+        android:layout_alignBottom="@+id/queue_before_label"
+        android:layout_alignStart="@+id/chosen_number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/minutes_left"
+        android:id="@+id/minutes_left_label"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/minutes_left"
+        android:layout_alignBottom="@+id/minutes_left_label"
+        android:layout_alignStart="@+id/queue_before" />
+
+</RelativeLayout>

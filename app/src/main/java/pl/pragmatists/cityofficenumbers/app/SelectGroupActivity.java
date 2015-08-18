@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
@@ -15,7 +17,7 @@ import android.widget.ProgressBar;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroup;
 
-public class SelectGroup extends AppCompatActivity {
+public class SelectGroupActivity extends AppCompatActivity {
 
     public static final String ARG_OFFICE_ID = "office-id";
 
@@ -37,6 +39,14 @@ public class SelectGroup extends AppCompatActivity {
         errorUi = new ErrorUi(this);
 
         getListView().setAdapter(officeGroupsAdapter);
+
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                EnterNumberActivity.startForOfficeAndGroup(SelectGroupActivity.this, officeId, 1);
+            }
+        });
+
     }
 
     private void addToRoot(ProgressBar progressBar) {
@@ -58,7 +68,6 @@ public class SelectGroup extends AppCompatActivity {
     private ListView getListView() {
         return (ListView) findViewById(R.id.office_groups);
     }
-
 
     @Override
     protected void onResume() {
@@ -98,7 +107,7 @@ public class SelectGroup extends AppCompatActivity {
     }
 
     public static void startForOfficeId(Context context, String id) {
-        Intent intent = new Intent(context, SelectGroup.class).putExtra(ARG_OFFICE_ID, id);
+        Intent intent = new Intent(context, SelectGroupActivity.class).putExtra(ARG_OFFICE_ID, id);
         context.startActivity(intent);
     }
 }
