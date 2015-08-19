@@ -3,6 +3,7 @@ package pl.pragmatists.cityofficenumbers.app.enternumber;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +20,8 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
 
     public static final String GROUP_ID = "group-id";
 
+    public static final int ONE_MINUTE = 60000;
+
     private String officeId;
 
     private EnterNumberPresenter enterNumberPresenter;
@@ -28,6 +31,10 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
     private TextView queueSizeTextView;
 
     private EditText ticketNumberTextField;
+
+    private Handler handler;
+
+    private Runnable groupsUpdater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,14 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
                 enterNumberPresenter.numberEntered(s.toString());
             }
         });
+        handler = new Handler();
+        groupsUpdater = new Runnable() {
+            @Override
+            public void run() {
+                fetchGroups();
+                handler.postDelayed(groupsUpdater, ONE_MINUTE);
+            }
+        };
     }
 
     public static void startForOfficeAndGroup(Context context, String officeId, int groupId) {
@@ -68,6 +83,10 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
     protected void onResume() {
         super.onResume();
         BusInstance.instance().register(enterNumberPresenter);
+        groupsUpdater.run();
+    }
+
+    private void fetchGroups() {
         GroupIntentService.startFetchGroupsAction(this, officeId);
     }
 
@@ -101,5 +120,10 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
     public void setExpectedTime(String expectedTime) {
         ((TextView)findViewById(R.id.minutes_left)).setText(expectedTime);
 
+    }
+
+    @Override
+    public String getUserNumber() {
+        return ticketNumberTextField.getText().toString();
     }
 }

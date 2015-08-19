@@ -10,4 +10,6 @@ public interface EnterNumberView {
     void setQueueBeforeSize(String queueBefore);
 
     void setExpectedTime(String expectedTime);
+
+    String getUserNumber();
 }

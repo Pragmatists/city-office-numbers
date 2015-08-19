@@ -25,6 +25,7 @@ public class EnterNumberPresenter {
         officeGroup = officeGroupsFetched.getOfficeGroups().find(groupId);
         enterNumberView.setCurrentNumber(officeGroup.groupLetter() + officeGroup.currentNumber());
         enterNumberView.setQueueSize(String.valueOf(officeGroup.queueSize()));
+        numberEntered(enterNumberView.getUserNumber());
     }
 
     public void numberEntered(String newNumber) {
