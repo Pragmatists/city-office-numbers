@@ -3,8 +3,8 @@ package pl.pragmatists.cityofficenumbers.testing;
 import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
-import pl.pragmatists.cityofficenumbers.app.AndroidModule;
 import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
+import pl.pragmatists.cityofficenumbers.di.AndroidModule;
 import pl.pragmatists.cityofficenumbers.offices.CityOfficesHardcoded;
 import pl.pragmatists.cityofficenumbers.offices.CityOfficesModel;
 

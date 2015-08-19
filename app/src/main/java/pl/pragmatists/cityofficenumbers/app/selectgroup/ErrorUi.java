@@ -1,4 +1,4 @@
-package pl.pragmatists.cityofficenumbers.app;
+package pl.pragmatists.cityofficenumbers.app.selectgroup;
 
 import android.content.Context;
 import android.widget.Toast;

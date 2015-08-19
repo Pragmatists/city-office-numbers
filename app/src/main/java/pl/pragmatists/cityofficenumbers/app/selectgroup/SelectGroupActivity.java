@@ -1,4 +1,4 @@
-package pl.pragmatists.cityofficenumbers.app;
+package pl.pragmatists.cityofficenumbers.app.selectgroup;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import pl.pragmatists.cityofficenumbers.app.GroupIntentService;
+import pl.pragmatists.cityofficenumbers.app.R;
+import pl.pragmatists.cityofficenumbers.app.enternumber.EnterNumberActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
 

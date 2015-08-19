@@ -1,10 +1,11 @@
-package pl.pragmatists.cityofficenumbers.app;
+package pl.pragmatists.cityofficenumbers.di;
 
 import javax.inject.Singleton;
 
 import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
+import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
 
 @Module
 public class AndroidModule {

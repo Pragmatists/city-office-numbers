@@ -17,6 +17,8 @@ import org.robolectric.shadows.ShadowToast;
 import android.app.Application;
 import android.content.Intent;
 import android.widget.ListView;
+import pl.pragmatists.cityofficenumbers.app.enternumber.EnterNumberActivity;
+import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupJson;
@@ -47,7 +49,7 @@ public class SelectGroupActivityTest {
 
         Intent nextStartedService = Shadows.shadowOf(activity).getNextStartedService();
         Intent expectedIntent = new Intent(activity, GroupIntentService.class)
-                .putExtra(GroupIntentService.OFFICE_ID_KEY, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
+                .putExtra(SelectGroupActivity.ARG_OFFICE_ID, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
         assertThat(nextStartedService).isEqualTo(expectedIntent);
     }
 

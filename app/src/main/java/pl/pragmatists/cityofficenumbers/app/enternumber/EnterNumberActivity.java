@@ -1,9 +1,11 @@
-package pl.pragmatists.cityofficenumbers.app;
+package pl.pragmatists.cityofficenumbers.app.enternumber;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import pl.pragmatists.cityofficenumbers.app.R;
+import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 
 public class EnterNumberActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package pl.pragmatists.cityofficenumbers.app;
+package pl.pragmatists.cityofficenumbers.app.selectoffice;
 
 import javax.inject.Inject;
 
@@ -11,6 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
+import pl.pragmatists.cityofficenumbers.app.R;
+import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.offices.CityOfficesModel;
 import pl.pragmatists.cityofficenumbers.offices.Office;
 

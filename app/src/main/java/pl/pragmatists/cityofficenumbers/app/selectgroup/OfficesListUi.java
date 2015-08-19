@@ -1,7 +1,8 @@
-package pl.pragmatists.cityofficenumbers.app;
+package pl.pragmatists.cityofficenumbers.app.selectgroup;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
+import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
 import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetched;
 

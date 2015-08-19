@@ -1,4 +1,4 @@
-package pl.pragmatists.cityofficenumbers.app;
+package pl.pragmatists.cityofficenumbers.di;
 
 import dagger.Module;
 import dagger.Provides;

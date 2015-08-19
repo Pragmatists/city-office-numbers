@@ -4,6 +4,9 @@ import javax.inject.Singleton;
 
 import android.app.Application;
 import dagger.Component;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.SelectOfficeActivity;
+import pl.pragmatists.cityofficenumbers.di.AndroidModule;
+import pl.pragmatists.cityofficenumbers.di.CityOfficesModule;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
 import pl.pragmatists.http.Host;

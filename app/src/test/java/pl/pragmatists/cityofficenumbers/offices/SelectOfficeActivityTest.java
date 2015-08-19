@@ -13,8 +13,8 @@ import android.content.Intent;
 import android.widget.ListView;
 import pl.pragmatists.cityofficenumbers.app.BuildConfig;
 import pl.pragmatists.cityofficenumbers.app.R;
-import pl.pragmatists.cityofficenumbers.app.SelectGroupActivity;
-import pl.pragmatists.cityofficenumbers.app.SelectOfficeActivity;
+import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.SelectOfficeActivity;
 import pl.pragmatists.cityofficenumbers.testing.TestApplication;
 import pl.pragmatists.cityofficenumbers.testing.TestApplicationBuilder;
 
