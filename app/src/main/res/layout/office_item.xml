@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:layout_width="wrap_content"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    >
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/office_item_name"
         android:textAlignment="center"
+        android:gravity="center_vertical"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="fill_parent"
         android:textSize="30sp"
+        android:text="ajfsdlkjf"
         android:layout_alignParentStart="true"
         />
 
     <ImageButton
         android:id="@+id/star_image_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_alignParentEnd="true"
+        android:gravity="center_vertical"
         android:src="@drawable/abc_btn_rating_star_off_mtrl_alpha"
         android:onClick="toggleFavorite"
         android:contentDescription="@string/star"

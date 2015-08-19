@@ -72,11 +72,8 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
         };
     }
 
-    public static void startForOfficeAndGroup(Context context, String officeId, int groupId) {
-        Intent intent = new Intent(context, EnterNumberActivity.class)
-                .putExtra(SelectGroupActivity.ARG_OFFICE_ID, officeId)
-                .putExtra(GROUP_ID, groupId);
-        context.startActivity(intent);
+    private void fetchGroups() {
+        GroupIntentService.startFetchGroupsAction(this, officeId);
     }
 
     @Override
@@ -84,10 +81,6 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
         super.onResume();
         BusInstance.instance().register(enterNumberPresenter);
         groupsUpdater.run();
-    }
-
-    private void fetchGroups() {
-        GroupIntentService.startFetchGroupsAction(this, officeId);
     }
 
     @Override
@@ -125,5 +118,12 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
     @Override
     public String getUserNumber() {
         return ticketNumberTextField.getText().toString();
+    }
+
+    public static void startForOfficeAndGroup(Context context, String officeId, int groupId) {
+        Intent intent = new Intent(context, EnterNumberActivity.class)
+                .putExtra(SelectGroupActivity.ARG_OFFICE_ID, officeId)
+                .putExtra(GROUP_ID, groupId);
+        context.startActivity(intent);
     }
 }
