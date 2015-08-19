@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
@@ -35,7 +35,8 @@ public class SelectOfficeActivity extends AppCompatActivity {
                 SelectGroupActivity.startForOfficeId(SelectOfficeActivity.this, offices[position].getId());
             }
         });
-        ListAdapter adapter = new ArrayAdapter<>(this, R.layout.office_item, offices);
+        ListAdapter adapter = new OfficesListAdapter(this, offices);
+//                new ArrayAdapter<>(this, R.layout.office_item, offices);
         officesListView.setAdapter(adapter);
     }
 
@@ -65,4 +66,8 @@ public class SelectOfficeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void toggleFavorite(View v) {
+        ImageButton imageButton = (ImageButton) v.findViewById(R.id.star_image_button);
+        imageButton.setImageResource(R.drawable.abc_btn_rating_star_on_mtrl_alpha);
+    }
 }

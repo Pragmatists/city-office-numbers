@@ -11,4 +11,6 @@
     <string name="minutes_left">Zostało minut:</string>
     <string name="current_number">Aktualny numer:</string>
     <string name="queue_size">Długość kolejki:</string>
+    <string name="star">star</string>
+    <string name="only_favorites">Tylko ulubione</string>
 </resources>

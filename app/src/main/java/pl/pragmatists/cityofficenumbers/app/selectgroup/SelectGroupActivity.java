@@ -38,7 +38,7 @@ public class SelectGroupActivity extends AppCompatActivity {
         ProgressBar progressBar = createProgressBar();
         addToRoot(progressBar);
 
-        officeGroupsAdapter = new OfficesListUi(this);
+        officeGroupsAdapter = new GroupsListUi(this);
         errorUi = new ErrorUi(this);
 
         getListView().setAdapter(officeGroupsAdapter);
