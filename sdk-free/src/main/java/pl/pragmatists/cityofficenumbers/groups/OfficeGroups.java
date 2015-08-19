@@ -23,7 +23,10 @@ public class OfficeGroups {
             result.add(new OfficeGroup()
                     .name(groupJson.nazwaGrupy)
                     .groupId(groupJson.idGrupy)
-                    .currentNumber(groupJson.aktualnyNumer));
+                    .currentNumber(groupJson.aktualnyNumer)
+                    .groupLetter(groupJson.literaGrupy)
+                    .queueSize(groupJson.liczbaKlwKolejce)
+            );
         }
         return result;
     }

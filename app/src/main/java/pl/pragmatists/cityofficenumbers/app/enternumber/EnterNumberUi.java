@@ -9,15 +9,14 @@ public class EnterNumberUi {
     private final EnterNumberView enterNumberView;
 
     public EnterNumberUi(int groupId, EnterNumberView enterNumberView) {
-
         this.groupId = groupId;
         this.enterNumberView = enterNumberView;
     }
 
     public void onEventMainThread(OfficeGroupsFetched officeGroupsFetched) {
         OfficeGroup officeGroup = officeGroupsFetched.getOfficeGroups().find(groupId);
-        int currentNumber = officeGroup.currentNumber();
-        enterNumberView.setCurrentNumber(String.valueOf(currentNumber));
+        enterNumberView.setCurrentNumber(officeGroup.groupLetter() +  officeGroup.currentNumber());
+        enterNumberView.setQueueSize(String.valueOf(officeGroup.queueSize()));
     }
 
 }

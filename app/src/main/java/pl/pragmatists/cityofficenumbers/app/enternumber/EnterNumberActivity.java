@@ -12,13 +12,15 @@ import pl.pragmatists.cityofficenumbers.events.BusInstance;
 
 public class EnterNumberActivity extends AppCompatActivity implements EnterNumberView {
 
-    private static final String GROUP_ID = "group-id";
+    public static final String GROUP_ID = "group-id";
 
     private String officeId;
 
     private EnterNumberUi enterNumberUi;
 
-    private TextView currenNumberTextView;
+    private TextView currentNumberTextView;
+
+    private TextView queueSizeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,8 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
         setContentView(R.layout.activity_enter_number);
         officeId = getIntent().getStringExtra(SelectGroupActivity.ARG_OFFICE_ID);
         int groupId = getIntent().getIntExtra(GROUP_ID, 0);
-        currenNumberTextView = (TextView) findViewById(R.id.current_number);
+        currentNumberTextView = (TextView) findViewById(R.id.current_number);
+        queueSizeTextView = (TextView) findViewById(R.id.queue_size);
         enterNumberUi = new EnterNumberUi(groupId, this);
     }
 
@@ -52,6 +55,11 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
 
     @Override
     public void setCurrentNumber(String currentNumber) {
-        currenNumberTextView.setText(currentNumber);
+        currentNumberTextView.setText(currentNumber);
+    }
+
+    @Override
+    public void setQueueSize(String queueSize) {
+        queueSizeTextView.setText(queueSize);
     }
 }
