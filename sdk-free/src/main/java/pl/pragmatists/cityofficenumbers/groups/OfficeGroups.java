@@ -21,11 +21,12 @@ public class OfficeGroups {
         List<OfficeGroup> result = new ArrayList<>();
         for (OfficeGroupJson groupJson : officeGroupJson) {
             result.add(new OfficeGroup()
-                    .name(groupJson.nazwaGrupy)
-                    .groupId(groupJson.idGrupy)
-                    .currentNumber(groupJson.aktualnyNumer)
-                    .groupLetter(groupJson.literaGrupy)
-                    .queueSize(groupJson.liczbaKlwKolejce)
+                            .name(groupJson.nazwaGrupy)
+                            .groupId(groupJson.idGrupy)
+                            .currentNumber(groupJson.aktualnyNumer)
+                            .groupLetter(groupJson.literaGrupy)
+                            .queueSize(groupJson.liczbaKlwKolejce)
+                            .serviceTime(groupJson.czasObslugi == null ? 0 : Integer.parseInt(groupJson.czasObslugi))
             );
         }
         return result;

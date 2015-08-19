@@ -11,6 +11,8 @@ public class OfficeGroup {
 
     private int queueSize;
 
+    private int serviceTime;
+
     public OfficeGroup name(String name) {
         this.name = name;
         return this;
@@ -55,5 +57,18 @@ public class OfficeGroup {
 
     public int queueSize() {
         return queueSize;
+    }
+
+    public int distanceTo(int usersNumber) {
+        return usersNumber - currentNumber();
+    }
+
+    public OfficeGroup serviceTime(int serviceTime) {
+        this.serviceTime = serviceTime;
+        return this;
+    }
+
+    public int expectedWaitingTime(int usersNumber) {
+        return distanceTo(usersNumber) * serviceTime;
     }
 }

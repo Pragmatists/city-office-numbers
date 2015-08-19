@@ -57,7 +57,7 @@ public class SelectGroupActivityTest {
     public void showsLoadedGroups() {
         SelectGroupActivity activity = createDefaultSelectGroupActivity();
 
-        eventBus.post(new OfficeGroupsFetched(Collections.singletonList(new OfficeGroupJson())));
+        eventBus.post(new OfficeGroupsFetched(Collections.singletonList(defaultOfficeGroupJson())));
 
         ListView listView = (ListView) activity.findViewById(R.id.office_groups);
         assertThat(listView.getCount()).isEqualTo(1);
@@ -85,7 +85,7 @@ public class SelectGroupActivityTest {
     public void goesToGroupActivityOnSelect() {
         SelectGroupActivity activity = createSelectGroupActivity("9c3d5770-57d8-4365-994c-69c5ac4186ee");
         ListView lvOffices = (ListView) activity.findViewById(R.id.office_groups);
-        eventBus.post(new OfficeGroupsFetched(Collections.singletonList(new OfficeGroupJson().withId(1))));
+        eventBus.post(new OfficeGroupsFetched(Collections.singletonList(defaultOfficeGroupJson().withId(1))));
 
         shadowOf(lvOffices).performItemClick(0);
 
@@ -94,6 +94,13 @@ public class SelectGroupActivityTest {
                 .putExtra("group-id", 1);
         Intent nextStartedActivity = shadowOf(activity).getNextStartedActivity();
         assertThat(nextStartedActivity).isEqualTo(expectedIntent);
+    }
+
+    private OfficeGroupJson defaultOfficeGroupJson() {
+        OfficeGroupJson officeGroupJson = new OfficeGroupJson();
+        officeGroupJson.aktualnyNumer = 0;
+        officeGroupJson.liczbaKlwKolejce = 0;
+        return officeGroupJson;
     }
 
     private SelectGroupActivity createDefaultSelectGroupActivity() {
