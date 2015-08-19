@@ -36,7 +36,6 @@ public class SelectOfficeActivity extends AppCompatActivity {
             }
         });
         ListAdapter adapter = new OfficesListAdapter(this, offices);
-//                new ArrayAdapter<>(this, R.layout.office_item, offices);
         officesListView.setAdapter(adapter);
     }
 
