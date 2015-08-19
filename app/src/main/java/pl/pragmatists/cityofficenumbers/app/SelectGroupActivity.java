@@ -15,7 +15,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
-import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroup;
+import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
 
 public class SelectGroupActivity extends AppCompatActivity {
 

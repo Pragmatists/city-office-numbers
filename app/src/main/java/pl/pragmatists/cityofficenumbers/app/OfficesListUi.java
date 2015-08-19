@@ -2,8 +2,8 @@ package pl.pragmatists.cityofficenumbers.app;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
-import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroup;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
+import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetched;
 
 public class OfficesListUi extends ArrayAdapter<OfficeGroup> {
     public OfficesListUi(Context context) {

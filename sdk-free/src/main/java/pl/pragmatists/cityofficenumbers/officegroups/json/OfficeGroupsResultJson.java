@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class OfficeGroupsResult {
+public class OfficeGroupsResultJson {
 
     public Result result;
 
@@ -12,10 +12,10 @@ public class OfficeGroupsResult {
         public String date;
         public String time;
         @JsonProperty("grupy")
-        public List<OfficeGroup> groups;
+        public List<OfficeGroupJson> groups;
     }
 
-    public List<OfficeGroup> officeGroups() {
+    public List<OfficeGroupJson> officeGroups() {
         return result.groups;
     }
 }

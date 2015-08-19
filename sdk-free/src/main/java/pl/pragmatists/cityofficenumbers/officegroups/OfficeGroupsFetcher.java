@@ -1,10 +1,10 @@
 package pl.pragmatists.cityofficenumbers.officegroups;
 
 import pl.pragmatists.cityofficenumbers.events.EventBus;
-import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupsResult;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupsResultJson;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
+import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetched;
 import pl.pragmatists.http.RestClient;
 import pl.pragmatists.http.exceptions.RestClientCannotMakeRequestToServer;
 import pl.pragmatists.http.exceptions.RestClientServerError;
@@ -22,10 +22,10 @@ public class OfficeGroupsFetcher {
 
     public void fetch(String officeId) {
         try {
-            OfficeGroupsResult officeGroupsResult = restClient
-                    .getForObject("/api/action/wsstore_get/?id=" + officeId, OfficeGroupsResult.class);
+            OfficeGroupsResultJson officeGroupsResultJson = restClient
+                    .getForObject("/api/action/wsstore_get/?id=" + officeId, OfficeGroupsResultJson.class);
             sleepOneSec();
-            bus.post(new OfficeGroupsFetched(officeGroupsResult.officeGroups()));
+            bus.post(new OfficeGroupsFetched(officeGroupsResultJson.officeGroups()));
         } catch (RestClientServerError e) {
             bus.post(new OfficeGroupsServerError(e.getMessage()));
         } catch (RestClientCannotMakeRequestToServer e) {

@@ -1,6 +1,6 @@
 package pl.pragmatists.cityofficenumbers.officegroups.json;
 
-public class OfficeGroup {
+public class OfficeGroupJson {
     public String status;
     public String czasObslugi;
     public String lp;
@@ -16,7 +16,7 @@ public class OfficeGroup {
         return nazwaGrupy;
     }
 
-    public OfficeGroup withId(int groupId) {
+    public OfficeGroupJson withId(int groupId) {
         idGrupy = groupId;
         return this;
     }
