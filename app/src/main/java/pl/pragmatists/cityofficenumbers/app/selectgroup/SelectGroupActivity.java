@@ -46,7 +46,8 @@ public class SelectGroupActivity extends AppCompatActivity {
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EnterNumberActivity.startForOfficeAndGroup(SelectGroupActivity.this, officeId, 1);
+                EnterNumberActivity
+                        .startForOfficeAndGroup(SelectGroupActivity.this, officeId, officeGroupsAdapter.getItem(position).groupId());
             }
         });
 

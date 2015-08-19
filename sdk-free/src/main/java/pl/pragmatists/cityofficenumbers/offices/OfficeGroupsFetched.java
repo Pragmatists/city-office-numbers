@@ -18,4 +18,7 @@ public class OfficeGroupsFetched {
         return officeGroups.groups();
     }
 
+    public OfficeGroups getOfficeGroups() {
+        return officeGroups;
+    }
 }
