@@ -1,12 +1,15 @@
 package pl.pragmatists.cityofficenumbers.testing;
 
+import static org.mockito.Mockito.*;
+
 import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
 import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
 import pl.pragmatists.cityofficenumbers.di.AndroidModule;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesHardcoded;
+import pl.pragmatists.cityofficenumbers.offices.CityOfficesFetcher;
 import pl.pragmatists.cityofficenumbers.offices.CityOfficesModel;
+import pl.pragmatists.cityofficenumbers.offices.Office;
 
 public class TestApplicationBuilder {
     private TestCityOfficesModule testCityOfficesModule = new DefaultTestCityOfficesModule();
@@ -34,22 +37,27 @@ public class TestApplicationBuilder {
     @Module
     public static class TestCityOfficesModule {
 
-        CityOfficesModel cityOfficesModel;
+        private final Office[] offices;
 
-        public TestCityOfficesModule(CityOfficesModel cityOfficesModel) {
-            this.cityOfficesModel = cityOfficesModel;
+        public TestCityOfficesModule(Office[] offices) {
+            this.offices = offices;
         }
 
         @Provides
         CityOfficesModel cityOfficesModel() {
-            return cityOfficesModel;
+            return null;
+        }
+
+        @Provides
+        CityOfficesFetcher cityOfficesFetcher() {
+            return mock(CityOfficesFetcher.class);
         }
     }
 
     private class DefaultTestCityOfficesModule extends TestCityOfficesModule {
 
         public DefaultTestCityOfficesModule() {
-            super(new CityOfficesHardcoded());
+            super(new Office[]{});
         }
     }
 }

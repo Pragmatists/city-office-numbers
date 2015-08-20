@@ -116,6 +116,7 @@ public class SelectOfficeActivity extends AppCompatActivity {
     }
 
     public void toggleFavorite(View v) {
+        Office office = (Office) v.getTag();
         ImageButton imageButton = (ImageButton) v.findViewById(R.id.star_image_button);
         imageButton.setImageResource(R.drawable.abc_btn_rating_star_on_mtrl_alpha);
     }

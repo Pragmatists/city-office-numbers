@@ -1,5 +1,6 @@
 package pl.pragmatists.cityofficenumbers.offices;
 
+import static java.util.Arrays.*;
 import static org.robolectric.Shadows.*;
 
 import org.assertj.core.api.Assertions;
@@ -15,6 +16,8 @@ import pl.pragmatists.cityofficenumbers.app.BuildConfig;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.app.selectoffice.SelectOfficeActivity;
+import pl.pragmatists.cityofficenumbers.events.BusInstance;
+import pl.pragmatists.cityofficenumbers.offices.messages.CityOfficesFetchedEvent;
 import pl.pragmatists.cityofficenumbers.testing.TestApplication;
 import pl.pragmatists.cityofficenumbers.testing.TestApplicationBuilder;
 
@@ -26,21 +29,15 @@ public class SelectOfficeActivityTest {
 
     @Test
     public void shows_available_offices_on_start() {
-        initTestApplicationWith(cityOfficesWith(
+        SelectOfficeActivity selectOfficeActivity = buildSelectOfficeActivity();
+
+        BusInstance.instance().post(new CityOfficesFetchedEvent(asList(
                 new Office("1"),
                 new Office("2"),
-                new Office("3")
-        ));
-
-        SelectOfficeActivity selectOfficeActivity = buildSelectOfficeActivity();
+                new Office("3"))));
 
         ListView lvOffices = (ListView) selectOfficeActivity.findViewById(R.id.offices);
         Assertions.assertThat(lvOffices.getCount()).isEqualTo(3);
-    }
-
-    private void initTestApplicationWith(CityOfficesModel cityOfficesModel) {
-        testApplication = new TestApplicationBuilder()
-                .withCityOfficesModule(new TestApplicationBuilder.TestCityOfficesModule(cityOfficesModel)).build();
     }
 
     @Test
@@ -56,18 +53,19 @@ public class SelectOfficeActivityTest {
         Assertions.assertThat(nextStartedActivity).isEqualTo(expectedIntent);
     }
 
+    private void initTestApplicationWith(Office[] offices) {
+        testApplication = new TestApplicationBuilder()
+                .withCityOfficesModule(new TestApplicationBuilder.TestCityOfficesModule(offices)).build();
+    }
+
     private SelectOfficeActivity buildSelectOfficeActivity() {
-        return Robolectric.buildActivity(SelectOfficeActivity.class).withApplication(testApplication).create().visible()
+        return Robolectric.buildActivity(SelectOfficeActivity.class).withApplication(testApplication).create().visible().resume()
                 .get();
     }
 
-    private CityOfficesModel cityOfficesWith(final Office... offices) {
-        return new CityOfficesHardcoded() {
-            @Override
-            public Office[] offices() {
+    private Office[] cityOfficesWith(final Office... offices) {
+
                 return offices;
-            }
-        };
     }
 
 }
