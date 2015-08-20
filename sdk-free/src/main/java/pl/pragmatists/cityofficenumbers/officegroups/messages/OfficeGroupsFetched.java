@@ -1,4 +1,4 @@
-package pl.pragmatists.cityofficenumbers.offices;
+package pl.pragmatists.cityofficenumbers.officegroups.messages;
 
 import java.util.List;
 

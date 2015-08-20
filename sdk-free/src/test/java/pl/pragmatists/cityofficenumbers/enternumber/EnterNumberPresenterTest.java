@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
 import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupJson;
-import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 
 public class EnterNumberPresenterTest {
 

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.ArrayAdapter;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
-import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 
 public class GroupsListUi extends ArrayAdapter<OfficeGroup> {
 

@@ -35,8 +35,8 @@ public class SelectGroupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         officeId = getIntent().getStringExtra(ARG_OFFICE_ID);
         setContentView(R.layout.activity_select_group);
-        ProgressBar progressBar = createProgressBar();
-        addToRoot(progressBar);
+        initProgressBar();
+
 
         officeGroupsAdapter = new GroupsListUi(this);
         errorUi = new ErrorUi(this);
@@ -59,13 +59,14 @@ public class SelectGroupActivity extends AppCompatActivity {
         root.addView(progressBar);
     }
 
-    private ProgressBar createProgressBar() {
+    private ProgressBar initProgressBar() {
         // Create a progress bar to display while the list loads
         ProgressBar progressBar = new ProgressBar(this);
         progressBar.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT, Gravity.CENTER));
         progressBar.setIndeterminate(true);
         getListView().setEmptyView(progressBar);
+        addToRoot(progressBar);
         return progressBar;
     }
 
@@ -78,6 +79,7 @@ public class SelectGroupActivity extends AppCompatActivity {
         super.onResume();
         BusInstance.instance().register(officeGroupsAdapter);
         BusInstance.instance().register(errorUi);
+        officeGroupsAdapter.clear();
         GroupIntentService.startFetchGroupsAction(this, officeId);
     }
 

@@ -21,6 +21,8 @@ public class CityOfficeNumbersApplication extends Application {
         void inject(CityOfficeNumbersApplication application);
 
         void inject(SelectOfficeActivity selectOfficeActivity);
+
+        void inject(OfficesIntentService officesIntentService);
     }
 
     public OfficeGroupsFetcher getOfficeGroupsFetcher() {

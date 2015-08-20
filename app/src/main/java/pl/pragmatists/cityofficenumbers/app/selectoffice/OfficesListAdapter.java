@@ -8,13 +8,14 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.offices.Office;
+import pl.pragmatists.cityofficenumbers.offices.messages.CityOfficesFetchedEvent;
 
 public class OfficesListAdapter extends ArrayAdapter<Office> {
 
     private final LayoutInflater layoutInflater;
 
-    public OfficesListAdapter(Context context, Office[] offices) {
-        super(context, -1, offices);
+    public OfficesListAdapter(Context context) {
+        super(context, -1);
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -25,5 +26,9 @@ public class OfficesListAdapter extends ArrayAdapter<Office> {
         textView.setText(getItem(position).toString());
         view.setTag(getItem(position));
         return view;
+    }
+
+    public void onEventMainThread(CityOfficesFetchedEvent cityOfficesFetchedEvent) {
+        addAll(cityOfficesFetchedEvent.offices());
     }
 }

@@ -1,9 +1,15 @@
 package pl.pragmatists.cityofficenumbers.offices;
 
 public class Office {
-    private final String name;
+    public String name;
 
-    private String id;
+    public String id;
+
+    public boolean favorite;
+
+    public Office() {
+
+    }
 
     public Office(String name) {
         this.name = name;

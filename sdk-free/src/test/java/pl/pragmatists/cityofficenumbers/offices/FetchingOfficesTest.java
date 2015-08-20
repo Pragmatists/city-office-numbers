@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -15,13 +16,13 @@ import com.squareup.okhttp.mockwebserver.MockWebServer;
 
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
+import pl.pragmatists.cityofficenumbers.offices.messages.CityOfficesFetchedEvent;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 
-public class FetchingGroupsTest {
+public class FetchingOfficesTest {
 
     private static final String ANY_ID = "any_office_id";
 
@@ -41,36 +42,25 @@ public class FetchingGroupsTest {
     }
 
     @Test
-    public void fetchesGroups() throws IOException {
+    public void fetches_city_offices() throws IOException {
         server.enqueue(new MockResponse().setBody("" +
-                "{\n" +
-                "    \"result\": {\n" +
-                "        \"date\": \"2015-04-19\",\n" +
-                "        \"grupy\": [\n" +
-                "            {\n" +
-                "                \"status\": null,\n" +
-                "                \"czasObslugi\": \"0\",\n" +
-                "                \"lp\": null,\n" +
-                "                \"idGrupy\": \"1\",\n" +
-                "                \"liczbaCzynnychStan\": 0,\n" +
-                "                \"nazwaGrupy\": \"URODZENIA\",\n" +
-                "                \"literaGrupy\": \"U\",\n" +
-                "                \"liczbaKlwKolejce\": 0,\n" +
-                "                \"aktualnyNumer\": 0\n" +
-                "            }\n" +
-                "        ],\n" +
-                "        \"time\": \"16:36\"\n" +
+                "[\n" +
+                "    {\n" +
+                "        \"name\": \"USC Andersa\",\n" +
+                "        \"id\": \"5d2e698a-9c31-456b-8452-7ce33e7deb94\",\n" +
+                "        \"favorite\": false\n" +
                 "    }\n" +
-                "} \n"));
-        OfficeGroupsFetcher officeGroupsFetcher = createOfficeGroupsFetcher();
+                "]\n"));
+        CityOfficesFetcher officeGroupsFetcher = createCityOfficesFetcher();
 
-        officeGroupsFetcher.fetch("9c3d5770-57d8-4365-994c-69c5ac4186ee");
+        officeGroupsFetcher.fetch("user-id");
 
-        ArgumentCaptor<OfficeGroupsFetched> captor = ArgumentCaptor.forClass(OfficeGroupsFetched.class);
+        ArgumentCaptor<CityOfficesFetchedEvent> captor = ArgumentCaptor.forClass(CityOfficesFetchedEvent.class);
         verify(bus).post(captor.capture());
-        assertThat(captor.getValue().groups()).hasSize(1);
+        assertThat(captor.getValue().offices()).hasSize(1);
     }
 
+    @Ignore
     @Test
     public void publishesErrorEventOn500() throws IOException {
         server.enqueue(new MockResponse().setStatus("HTTP/1.1 500 Internal Server Error"));
@@ -81,6 +71,7 @@ public class FetchingGroupsTest {
         verify(bus).post(isA(OfficeGroupsServerError.class));
     }
 
+    @Ignore
     @Test
     public void publishesErrorEventOn400() throws IOException {
         server.enqueue(new MockResponse().setStatus("HTTP/1.1 400 Bad Request"));
@@ -91,6 +82,7 @@ public class FetchingGroupsTest {
         verify(bus).post(isA(OfficeGroupsServerError.class));
     }
 
+    @Ignore
     @Test
     public void publishesErrorEventWhenServerUnreachable() throws IOException {
         OfficeGroupsFetcher officeGroupsFetcher = new OfficeGroupsFetcher(
@@ -100,6 +92,10 @@ public class FetchingGroupsTest {
         officeGroupsFetcher.fetch(ANY_ID);
 
         verify(bus).post(isA(OfficeGroupsNetworkError.class));
+    }
+
+    private CityOfficesFetcher createCityOfficesFetcher() {
+        return new CityOfficesFetcher(new RestClientWithOkHttp(getHost()), bus);
     }
 
     private OfficeGroupsFetcher createOfficeGroupsFetcher() {

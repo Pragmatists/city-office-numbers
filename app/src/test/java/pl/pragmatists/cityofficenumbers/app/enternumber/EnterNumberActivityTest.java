@@ -18,7 +18,7 @@ import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupJson;
-import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, emulateSdk = 21, manifest = "src/main/AndroidManifest.xml")

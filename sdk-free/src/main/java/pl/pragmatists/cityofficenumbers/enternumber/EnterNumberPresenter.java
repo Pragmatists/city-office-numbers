@@ -1,7 +1,7 @@
 package pl.pragmatists.cityofficenumbers.enternumber;
 
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
-import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 
 public class EnterNumberPresenter {
     private final int groupId;

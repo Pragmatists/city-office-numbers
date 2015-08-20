@@ -22,9 +22,9 @@ import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupJson;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
-import pl.pragmatists.cityofficenumbers.offices.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.testing.TestApplicationBuilder;
 
 @RunWith(RobolectricTestRunner.class)

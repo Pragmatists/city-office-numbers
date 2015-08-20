@@ -30,6 +30,11 @@
             android:exported="false" >
         </service>
 
+        <service
+            android:name=".OfficesIntentService"
+            android:exported="false" >
+        </service>
+
         <activity
             android:name=".enternumber.EnterNumberActivity"
             android:label="@string/title_activity_enter_number" >
