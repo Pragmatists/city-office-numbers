@@ -7,7 +7,10 @@ import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.*;
 import static org.robolectric.Shadows.*;
 
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -34,27 +37,30 @@ public class SelectOfficeActivityTest {
 
     private EventBus bus = BusInstance.instance();
 
-    private TestApplication testApplication = new TestApplicationBuilder().build();
+    private TestApplication testApplication;
+
+    private FavoriteService favoriteService;
+
+    private SelectOfficeActivity selectOfficeActivity;
+
+    @Before
+    public void setUp() throws Exception {
+        favoriteService = mock(FavoriteService.class);
+        testApplication = new TestApplicationBuilder().withFavoriteService(favoriteService).build();
+    }
 
     @Test
     public void shows_available_offices_on_start() {
-        SelectOfficeActivity selectOfficeActivity = buildSelectOfficeActivity();
-
-        bus.post(new CityOfficesFetchedEvent(asList(
+        ListView lvOffices = buildListWith(asList(
                 new Office("1"),
                 new Office("2"),
-                new Office("3"))));
-
-        ListView lvOffices = (ListView) selectOfficeActivity.findViewById(R.id.offices);
+                new Office("3")));
         assertThat(lvOffices).hasCount(3);
     }
 
     @Test
     public void goes_to_group_selection_on_item_click() {
-        SelectOfficeActivity selectOfficeActivity = buildSelectOfficeActivity();
-        bus.post(new CityOfficesFetchedEvent(asList(
-                new Office("").id("9c3d5770-57d8-4365-994c-69c5ac4186ee"))));
-        ListView lvOffices = (ListView) selectOfficeActivity.findViewById(R.id.offices);
+        ListView lvOffices = buildListWith(asList(new Office("").id("9c3d5770-57d8-4365-994c-69c5ac4186ee")));
 
         shadowOf(lvOffices).performItemClick(0);
 
@@ -66,9 +72,7 @@ public class SelectOfficeActivityTest {
 
     @Test
     public void draws_favorite_star_on_favorite_item() {
-        SelectOfficeActivity selectOfficeActivity = buildSelectOfficeActivity();
-        bus.post(new CityOfficesFetchedEvent(asList(new Office().favorite(true))));
-        ListView lvOffices = (ListView) selectOfficeActivity.findViewById(R.id.offices);
+        ListView lvOffices = buildListWith(asList(new Office().favorite(true)));
 
         ShadowImageView button = shadowOf((ImageButton) lvOffices.findViewById(R.id.star_image_button));
 
@@ -77,19 +81,20 @@ public class SelectOfficeActivityTest {
 
     @Test
     public void changes_favorite_state_on_item() {
-        FavoriteService favoriteService = mock(FavoriteService.class);
-        testApplication = new TestApplicationBuilder().withFavoriteService(favoriteService).build();
-
-        SelectOfficeActivity selectOfficeActivity = buildSelectOfficeActivity();
         Office office = new Office("").id("office-id").favorite(true);
-        bus.post(new CityOfficesFetchedEvent(asList(
-                office)));
-        ListView lvOffices = (ListView) selectOfficeActivity.findViewById(R.id.offices);
+        List<Office> offices = asList(office);
+        ListView lvOffices = buildListWith(offices);
         ShadowImageView button = shadowOf((ImageButton) lvOffices.findViewById(R.id.star_image_button));
 
         button.checkedPerformClick();
 
         verify(favoriteService).toggleFavorite(anyString(), eq(office));
+    }
+
+    private ListView buildListWith(List<Office> offices) {
+        selectOfficeActivity = buildSelectOfficeActivity();
+        bus.post(new CityOfficesFetchedEvent(offices));
+        return (ListView) selectOfficeActivity.findViewById(R.id.offices);
     }
 
     private SelectOfficeActivity buildSelectOfficeActivity() {
