@@ -25,7 +25,7 @@ public class CityOfficesModule {
 
     @Provides
     FavoriteService favoriteService() {
-        return new FavoriteService();
+        return new FavoriteService(new RestClientWithOkHttp(new Host("http://10.0.2.2:8080")));
     }
 
 }

@@ -1,4 +1,4 @@
-package pl.pragmatists.cityofficenumbers.offices;
+package pl.pragmatists.cityofficenumbers.groups;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;

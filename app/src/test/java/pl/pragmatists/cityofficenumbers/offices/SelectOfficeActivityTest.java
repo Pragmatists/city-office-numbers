@@ -2,10 +2,9 @@ package pl.pragmatists.cityofficenumbers.offices;
 
 import static java.util.Arrays.*;
 import static org.assertj.android.api.Assertions.*;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.*;
 import static org.robolectric.Shadows.*;
+import static pl.pragmatists.cityofficenumbers.app.selectoffice.ToggleFavoriteIntentService.*;
 
 import java.util.List;
 
@@ -25,6 +24,7 @@ import pl.pragmatists.cityofficenumbers.app.BuildConfig;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.app.selectoffice.SelectOfficeActivity;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.ToggleFavoriteIntentService;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.offices.messages.CityOfficesFetchedEvent;
@@ -81,14 +81,22 @@ public class SelectOfficeActivityTest {
 
     @Test
     public void changes_favorite_state_on_item() {
-        Office office = new Office("").id("office-id").favorite(true);
-        List<Office> offices = asList(office);
-        ListView lvOffices = buildListWith(offices);
+        ListView lvOffices = buildListWith(asList(new Office("").id("an-office-id").favorite(true)));
         ShadowImageView button = shadowOf((ImageButton) lvOffices.findViewById(R.id.star_image_button));
 
         button.checkedPerformClick();
 
-        verify(favoriteService).toggleFavorite(anyString(), eq(office));
+        Intent expectedIntent = new Intent(selectOfficeActivity, ToggleFavoriteIntentService.class)
+                .putExtra(ARG_OFFICE_ID, "an-office-id")
+                .putExtra("user-id", (String) null)
+                .putExtra(ToggleFavoriteIntentService.ARG_FAVORITE, true);
+        Assertions.assertThat(secondStartedService()).isEqualTo(expectedIntent);
+
+    }
+
+    private Intent secondStartedService() {
+        shadowOf(selectOfficeActivity).getNextStartedService();
+        return shadowOf(selectOfficeActivity).getNextStartedService();
     }
 
     private ListView buildListWith(List<Office> offices) {

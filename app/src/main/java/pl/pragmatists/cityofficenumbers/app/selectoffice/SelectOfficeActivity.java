@@ -15,8 +15,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
-import pl.pragmatists.cityofficenumbers.app.OfficesIntentService;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
@@ -76,7 +76,6 @@ public class SelectOfficeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         BusInstance.instance().register(officesListAdapter);
-        officesListAdapter.clear();
         OfficesIntentService.startFetchOfficesAction(this, userId);
     }
 
@@ -115,13 +114,18 @@ public class SelectOfficeActivity extends AppCompatActivity {
 
     public void toggleFavorite(View v) {
         Office office = (Office) v.getTag();
-        favoriteService.toggleFavorite(userId, office);
-        office.favorite = !office.favorite;
+        ToggleFavoriteIntentService.startFor(this, userId, office);
+        office.toggleFavorite();
         ImageButton imageButton = (ImageButton) v;
         if (office.favorite) {
             imageButton.setImageResource(R.drawable.abc_btn_rating_star_on_mtrl_alpha);
         } else {
             imageButton.setImageResource(R.drawable.abc_btn_rating_star_off_mtrl_alpha);
         }
+    }
+
+    public void toggleFavoriteOnlyVisible(View view) {
+        Switch onlyFavoriteToggle = (Switch) view;
+        officesListAdapter.getFilter().filter(onlyFavoriteToggle.isChecked() ? "Y" : "", null);
     }
 }

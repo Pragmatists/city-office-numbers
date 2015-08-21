@@ -15,16 +15,11 @@ import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 
 import pl.pragmatists.cityofficenumbers.events.EventBus;
-import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
 import pl.pragmatists.cityofficenumbers.offices.messages.CityOfficesFetchedEvent;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 
 public class FetchingOfficesTest {
-
-    private static final String ANY_ID = "any_office_id";
 
     private EventBus bus = mock(EventBus.class);
 
@@ -60,46 +55,26 @@ public class FetchingOfficesTest {
         assertThat(captor.getValue().offices()).hasSize(1);
     }
 
+    //TODO: handle errors for offices
     @Ignore
     @Test
     public void publishesErrorEventOn500() throws IOException {
-        server.enqueue(new MockResponse().setStatus("HTTP/1.1 500 Internal Server Error"));
-        OfficeGroupsFetcher officeGroupsFetcher = createOfficeGroupsFetcher();
-
-        officeGroupsFetcher.fetch(ANY_ID);
-
-        verify(bus).post(isA(OfficeGroupsServerError.class));
     }
 
+    //TODO: handle errors for offices
     @Ignore
     @Test
     public void publishesErrorEventOn400() throws IOException {
-        server.enqueue(new MockResponse().setStatus("HTTP/1.1 400 Bad Request"));
-        OfficeGroupsFetcher officeGroupsFetcher = createOfficeGroupsFetcher();
-
-        officeGroupsFetcher.fetch(ANY_ID);
-
-        verify(bus).post(isA(OfficeGroupsServerError.class));
     }
 
+    //TODO: handle errors for offices
     @Ignore
     @Test
     public void publishesErrorEventWhenServerUnreachable() throws IOException {
-        OfficeGroupsFetcher officeGroupsFetcher = new OfficeGroupsFetcher(
-                new RestClientWithOkHttp(new Host("http://unavailable.server")), bus
-        );
-
-        officeGroupsFetcher.fetch(ANY_ID);
-
-        verify(bus).post(isA(OfficeGroupsNetworkError.class));
     }
 
     private CityOfficesFetcher createCityOfficesFetcher() {
         return new CityOfficesFetcher(new RestClientWithOkHttp(getHost()), bus);
-    }
-
-    private OfficeGroupsFetcher createOfficeGroupsFetcher() {
-        return new OfficeGroupsFetcher(new RestClientWithOkHttp(getHost()), bus);
     }
 
     private Host getHost() {

@@ -31,7 +31,12 @@
         </service>
 
         <service
-            android:name=".OfficesIntentService"
+            android:name=".selectoffice.OfficesIntentService"
+            android:exported="false" >
+        </service>
+
+        <service
+            android:name=".selectoffice.ToggleFavoriteIntentService"
             android:exported="false" >
         </service>
 

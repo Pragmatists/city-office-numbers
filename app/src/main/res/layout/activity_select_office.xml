@@ -7,7 +7,7 @@
         android:id="@+id/offices"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/switch1"
+        android:layout_below="@+id/favorite_toggle"
         android:layout_alignParentStart="true"
         android:layout_marginTop="28dp">
     </ListView>
@@ -16,12 +16,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/only_favorites"
-        android:id="@+id/switch1"
-        android:checked="true"
+        android:id="@+id/favorite_toggle"
+        android:checked="false"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textAlignment="viewStart"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/offices" />
+        android:layout_alignEnd="@+id/offices"
+        android:onClick="toggleFavoriteOnlyVisible"/>
 
 
 </RelativeLayout>

@@ -34,5 +34,7 @@ public class Office {
         return this;
     }
 
-
+    public void toggleFavorite() {
+        favorite = !favorite;
+    }
 }

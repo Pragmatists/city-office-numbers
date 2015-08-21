@@ -5,14 +5,18 @@ import java.io.InputStream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.Call;
+import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import pl.pragmatists.http.exceptions.RestClientCannotMakeRequestToServer;
 import pl.pragmatists.http.exceptions.RestClientServerError;
 
 public class RestClientWithOkHttp implements RestClient {
+
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     private final Host host;
 
@@ -39,6 +43,19 @@ public class RestClientWithOkHttp implements RestClient {
 
         } catch (IOException e) {
             throw new RestClientCannotMakeRequestToServer(e);
+        }
+    }
+
+    @Override
+    public void postForObject(String path, Object object) {
+        String url = host.getHostUrlPart() + path;
+        try {
+            String content = objectMapper.writeValueAsString(object);
+            RequestBody body = RequestBody.create(JSON, content);
+            Request request = new Request.Builder().post(body).url(url).build();
+            okHttpClient.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

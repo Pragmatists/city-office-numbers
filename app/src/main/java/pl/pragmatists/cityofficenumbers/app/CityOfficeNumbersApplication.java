@@ -4,7 +4,9 @@ import javax.inject.Singleton;
 
 import android.app.Application;
 import dagger.Component;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.OfficesIntentService;
 import pl.pragmatists.cityofficenumbers.app.selectoffice.SelectOfficeActivity;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.ToggleFavoriteIntentService;
 import pl.pragmatists.cityofficenumbers.di.AndroidModule;
 import pl.pragmatists.cityofficenumbers.di.CityOfficesModule;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
@@ -23,6 +25,8 @@ public class CityOfficeNumbersApplication extends Application {
         void inject(SelectOfficeActivity selectOfficeActivity);
 
         void inject(OfficesIntentService officesIntentService);
+
+        void inject(ToggleFavoriteIntentService toggleFavoriteIntentService);
     }
 
     public OfficeGroupsFetcher getOfficeGroupsFetcher() {

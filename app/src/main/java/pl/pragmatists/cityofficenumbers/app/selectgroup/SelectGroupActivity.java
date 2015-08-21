@@ -79,7 +79,6 @@ public class SelectGroupActivity extends AppCompatActivity {
         super.onResume();
         BusInstance.instance().register(officeGroupsAdapter);
         BusInstance.instance().register(errorUi);
-        officeGroupsAdapter.clear();
         GroupIntentService.startFetchGroupsAction(this, officeId);
     }
 

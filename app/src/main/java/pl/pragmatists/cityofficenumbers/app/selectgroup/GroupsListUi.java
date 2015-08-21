@@ -13,6 +13,7 @@ public class GroupsListUi extends ArrayAdapter<OfficeGroup> {
     }
 
     public void onEventMainThread(OfficeGroupsFetched officeGroupsFetched) {
+        clear();
         addAll(officeGroupsFetched.groups());
     }
 
