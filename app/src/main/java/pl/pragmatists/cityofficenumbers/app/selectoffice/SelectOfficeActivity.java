@@ -20,37 +20,35 @@ import pl.pragmatists.cityofficenumbers.app.OfficesIntentService;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesModel;
+import pl.pragmatists.cityofficenumbers.offices.FavoriteService;
 import pl.pragmatists.cityofficenumbers.offices.Office;
 
 public class SelectOfficeActivity extends AppCompatActivity {
 
     public static final String ARG_USER_ID = "user-id";
 
-    @Inject
-    CityOfficesModel cityOfficesModel;
-
     private OfficesListAdapter officesListAdapter;
 
     private String userId;
+
+    @Inject
+    FavoriteService favoriteService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getMyApplication().component().inject(this);
         setContentView(R.layout.activity_select_office);
-        final Office[] offices = cityOfficesModel.offices();
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SelectGroupActivity.startForOfficeId(SelectOfficeActivity.this, offices[position].getId());
+                SelectGroupActivity.startForOfficeId(SelectOfficeActivity.this, ((Office)view.getTag()).getId());
             }
         });
         officesListAdapter = new OfficesListAdapter(this);
         getListView().setAdapter(officesListAdapter);
         initProgressBar();
-        userId = Settings.Secure.getString(this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
+        userId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     private ListView getListView() {
@@ -117,7 +115,13 @@ public class SelectOfficeActivity extends AppCompatActivity {
 
     public void toggleFavorite(View v) {
         Office office = (Office) v.getTag();
-        ImageButton imageButton = (ImageButton) v.findViewById(R.id.star_image_button);
-        imageButton.setImageResource(R.drawable.abc_btn_rating_star_on_mtrl_alpha);
+        favoriteService.toggleFavorite(userId, office);
+        office.favorite = !office.favorite;
+        ImageButton imageButton = (ImageButton) v;
+        if (office.favorite) {
+            imageButton.setImageResource(R.drawable.abc_btn_rating_star_on_mtrl_alpha);
+        } else {
+            imageButton.setImageResource(R.drawable.abc_btn_rating_star_off_mtrl_alpha);
+        }
     }
 }

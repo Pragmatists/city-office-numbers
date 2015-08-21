@@ -28,4 +28,11 @@ public class Office {
     public String getId() {
         return id;
     }
+
+    public Office favorite(boolean favorite) {
+        this.favorite = favorite;
+        return this;
+    }
+
+
 }

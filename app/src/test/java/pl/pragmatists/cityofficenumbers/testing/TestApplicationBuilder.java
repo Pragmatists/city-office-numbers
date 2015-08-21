@@ -8,25 +8,27 @@ import dagger.Provides;
 import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
 import pl.pragmatists.cityofficenumbers.di.AndroidModule;
 import pl.pragmatists.cityofficenumbers.offices.CityOfficesFetcher;
+import pl.pragmatists.cityofficenumbers.offices.CityOfficesHardcoded;
 import pl.pragmatists.cityofficenumbers.offices.CityOfficesModel;
+import pl.pragmatists.cityofficenumbers.offices.FavoriteService;
 import pl.pragmatists.cityofficenumbers.offices.Office;
 
 public class TestApplicationBuilder {
-    private TestCityOfficesModule testCityOfficesModule = new DefaultTestCityOfficesModule();
-
-    public TestApplicationBuilder withCityOfficesModule(TestCityOfficesModule testCityOfficesModule) {
-        this.testCityOfficesModule = testCityOfficesModule;
-        return this;
-    }
+    private FavoriteService favoriteService = mock(FavoriteService.class);
 
     public TestApplication build() {
         TestApplication testApplication = new TestApplication(null);
         CityOfficeNumbersApplication.ApplicationComponent component = DaggerTestApplicationBuilder_TestApplicationComponent.builder()
                 .androidModule(new AndroidModule(testApplication))
-                .testCityOfficesModule(testCityOfficesModule)
+                .testCityOfficesModule(new DefaultTestCityOfficesModule())
                 .build();
         testApplication.withComponent(component);
         return  testApplication;
+    }
+
+    public TestApplicationBuilder withFavoriteService(FavoriteService favoriteService) {
+        this.favoriteService = favoriteService;
+        return this;
     }
 
     @Component(modules = {AndroidModule.class, TestCityOfficesModule.class})
@@ -39,25 +41,31 @@ public class TestApplicationBuilder {
 
         private final Office[] offices;
 
-        public TestCityOfficesModule(Office[] offices) {
+        private final FavoriteService favoriteService;
+
+        public TestCityOfficesModule(Office[] offices, FavoriteService favoriteService) {
             this.offices = offices;
+            this.favoriteService = favoriteService;
         }
 
         @Provides
         CityOfficesModel cityOfficesModel() {
-            return null;
+            return new CityOfficesHardcoded();
         }
 
         @Provides
         CityOfficesFetcher cityOfficesFetcher() {
             return mock(CityOfficesFetcher.class);
         }
+
+        @Provides
+        FavoriteService favoriteService() {return favoriteService; }
     }
 
     private class DefaultTestCityOfficesModule extends TestCityOfficesModule {
 
         public DefaultTestCityOfficesModule() {
-            super(new Office[]{});
+            super(new Office[]{}, favoriteService);
         }
     }
 }
