@@ -2,7 +2,24 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/StyledActionBar</item>
+
+        <item name="actionBarStyle">@style/StyledActionBar</item>
     </style>
 
+    <style name="StyledActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">@color/theme_background_color</item>
+        <item name="android:titleTextStyle">@style/StyledActionBarTitle</item>
+
+        <item name="background">@color/theme_background_color</item>
+        <item name="titleTextStyle">@style/StyledActionBarTitle</item>
+    </style>
+
+    <style name="StyledActionBarTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/theme_text_color</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <color name="theme_background_color">#5a7a8b</color>
+    <color name="theme_text_color">#cbd2d4</color>
 </resources>
