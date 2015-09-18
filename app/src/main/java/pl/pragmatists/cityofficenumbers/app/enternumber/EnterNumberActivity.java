@@ -12,9 +12,11 @@ import android.widget.TextView;
 import pl.pragmatists.cityofficenumbers.app.GroupIntentService;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
+import pl.pragmatists.cityofficenumbers.db.DatabaseHelper;
 import pl.pragmatists.cityofficenumbers.enternumber.EnterNumberPresenter;
 import pl.pragmatists.cityofficenumbers.enternumber.EnterNumberView;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
+import pl.pragmatists.cityofficenumbers.stats.StatsPersister;
 
 public class EnterNumberActivity extends AppCompatActivity implements EnterNumberView {
 
@@ -36,6 +38,8 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
 
     private Runnable groupsUpdater;
 
+    private StatsPersister statsPersister;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,7 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
         queueSizeTextView = (TextView) findViewById(R.id.queue_size);
         ticketNumberTextField = (EditText) findViewById(R.id.ticket_number_text_field);
         enterNumberPresenter = new EnterNumberPresenter(groupId, this);
+        statsPersister = new StatsPersister(new DatabaseHelper(this).getStatsRepository());
         ticketNumberTextField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -80,6 +85,7 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
     protected void onResume() {
         super.onResume();
         BusInstance.instance().register(enterNumberPresenter);
+        BusInstance.instance().register(statsPersister);
         groupsUpdater.run();
     }
 
@@ -87,6 +93,7 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
     protected void onPause() {
         super.onPause();
         BusInstance.instance().unregister(enterNumberPresenter);
+        BusInstance.instance().unregister(statsPersister);
     }
 
     @Override

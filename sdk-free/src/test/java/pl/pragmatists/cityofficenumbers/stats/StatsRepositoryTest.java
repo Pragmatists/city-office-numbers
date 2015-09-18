@@ -31,10 +31,10 @@ public class StatsRepositoryTest {
         Dao<OfficeQueueStat, Long> statDao = initDao();
         StatsRepository statsRepository = new StatsRepository(statDao);
 
-        statsRepository.save(new OfficeQueueStat().id(1L).queueSize(3).timestamp(new LocalDate(2010, 2, 3).toDate()));
+        statsRepository.save(new OfficeQueueStat().queueSize(3).timestamp(new LocalDate(2010, 2, 3).toDate()));
         OfficeQueueStat stat = statsRepository.findById(1L);
 
-        assertThat(stat.getId()).isEqualTo(1L);
+        assertThat(stat.getId()).isNotNull();
         assertThat(stat.getQueueSize()).isEqualTo(3);
         assertThat(stat.getTimestamp()).isEqualTo("2010-2-3");
     }

@@ -8,7 +8,6 @@ public class StatsRepository {
     private final Dao<OfficeQueueStat, Long> statDao;
 
     public StatsRepository(Dao<OfficeQueueStat, Long> statDao) {
-
         this.statDao = statDao;
     }
 
