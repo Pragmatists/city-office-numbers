@@ -1,7 +1,6 @@
 package pl.pragmatists.cityofficenumbers.stats;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
@@ -13,7 +12,7 @@ public class StatsPersisterTest {
 
     @Test
     public void saves_a_stat_on_event() {
-        StatsRepository statsRepository = mock(StatsRepository.class);
+        StatsRepository statsRepository = mock(OrmLiteStatsRepository.class);
         StatsPersister statsPersister = new StatsPersister(statsRepository);
         OfficeGroupJson officeGroupJson = new OfficeGroupJson();
         officeGroupJson.idGrupy = 4;

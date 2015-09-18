@@ -12,6 +12,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import pl.pragmatists.cityofficenumbers.stats.OfficeQueueStat;
+import pl.pragmatists.cityofficenumbers.stats.OrmLiteStatsRepository;
 import pl.pragmatists.cityofficenumbers.stats.StatsRepository;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
@@ -50,7 +51,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     public StatsRepository getStatsRepository() {
         Dao<OfficeQueueStat, Long> dao = getDao();
-        return new StatsRepository(dao);
+        return new OrmLiteStatsRepository(dao);
     }
 
     private Dao<OfficeQueueStat, Long> getDao() {

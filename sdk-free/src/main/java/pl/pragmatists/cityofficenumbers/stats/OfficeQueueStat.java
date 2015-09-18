@@ -18,10 +18,6 @@ public class OfficeQueueStat {
     public OfficeQueueStat() {
     }
 
-    public OfficeQueueStat(long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
     }
