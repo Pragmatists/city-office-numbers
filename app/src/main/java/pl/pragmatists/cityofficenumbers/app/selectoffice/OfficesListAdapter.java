@@ -12,8 +12,7 @@ import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import pl.pragmatists.cityofficenumbers.app.R;
-import pl.pragmatists.cityofficenumbers.offices.Office;
-import pl.pragmatists.cityofficenumbers.offices.messages.CityOfficesFetchedEvent;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.messages.CityOfficesFetchedEvent;
 
 public class OfficesListAdapter extends ArrayAdapter<Office> {
 

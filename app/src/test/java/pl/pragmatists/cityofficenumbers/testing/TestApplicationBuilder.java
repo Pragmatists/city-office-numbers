@@ -7,11 +7,11 @@ import dagger.Module;
 import dagger.Provides;
 import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
 import pl.pragmatists.cityofficenumbers.di.AndroidModule;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesFetcher;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesHardcoded;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesModel;
-import pl.pragmatists.cityofficenumbers.offices.FavoriteService;
-import pl.pragmatists.cityofficenumbers.offices.Office;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.CityOfficesFetcher;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.CityOfficesHardcoded;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.CityOfficesModel;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.FavoriteService;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.Office;
 
 public class TestApplicationBuilder {
     private FavoriteService favoriteService = mock(FavoriteService.class);

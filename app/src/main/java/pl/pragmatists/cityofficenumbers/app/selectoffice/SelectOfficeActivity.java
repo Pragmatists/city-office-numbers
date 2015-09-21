@@ -18,8 +18,6 @@ import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
-import pl.pragmatists.cityofficenumbers.offices.FavoriteService;
-import pl.pragmatists.cityofficenumbers.offices.Office;
 
 public class SelectOfficeActivity extends AppCompatActivity {
 

@@ -8,8 +8,6 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
-import pl.pragmatists.cityofficenumbers.offices.FavoriteService;
-import pl.pragmatists.cityofficenumbers.offices.Office;
 
 public class ToggleFavoriteIntentService extends IntentService {
 

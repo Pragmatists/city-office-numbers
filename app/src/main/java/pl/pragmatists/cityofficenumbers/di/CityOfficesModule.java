@@ -3,10 +3,10 @@ package pl.pragmatists.cityofficenumbers.di;
 import dagger.Module;
 import dagger.Provides;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesFetcher;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesHardcoded;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesModel;
-import pl.pragmatists.cityofficenumbers.offices.FavoriteService;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.CityOfficesFetcher;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.CityOfficesHardcoded;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.CityOfficesModel;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.FavoriteService;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 

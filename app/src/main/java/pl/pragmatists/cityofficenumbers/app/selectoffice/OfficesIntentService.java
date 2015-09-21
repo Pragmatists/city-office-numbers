@@ -6,7 +6,6 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
-import pl.pragmatists.cityofficenumbers.offices.CityOfficesFetcher;
 
 public class OfficesIntentService extends IntentService{
 

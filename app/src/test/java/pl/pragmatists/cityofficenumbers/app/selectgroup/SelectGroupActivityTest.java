@@ -1,4 +1,4 @@
-package pl.pragmatists.cityofficenumbers.app;
+package pl.pragmatists.cityofficenumbers.app.selectgroup;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.robolectric.Shadows.*;
@@ -17,6 +17,9 @@ import org.robolectric.shadows.ShadowToast;
 import android.app.Application;
 import android.content.Intent;
 import android.widget.ListView;
+import pl.pragmatists.cityofficenumbers.app.BuildConfig;
+import pl.pragmatists.cityofficenumbers.app.GroupIntentService;
+import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.enternumber.EnterNumberActivity;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
