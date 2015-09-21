@@ -2,8 +2,8 @@ package pl.pragmatists.cityofficenumbers.app.selectgroup;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.robolectric.Shadows.*;
-
-import java.util.Collections;
+import static pl.pragmatists.cityofficenumbers.builders.OfficeGroupBuilder.anOfficeGroup;
+import static pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,13 +21,12 @@ import pl.pragmatists.cityofficenumbers.app.BuildConfig;
 import pl.pragmatists.cityofficenumbers.app.GroupIntentService;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.enternumber.EnterNumberActivity;
-import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
-import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupJson;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
+import pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder;
 import pl.pragmatists.cityofficenumbers.testing.TestApplicationBuilder;
 
 @RunWith(RobolectricTestRunner.class)
@@ -60,7 +59,7 @@ public class SelectGroupActivityTest {
     public void showsLoadedGroups() {
         SelectGroupActivity activity = createDefaultSelectGroupActivity();
 
-        eventBus.post(new OfficeGroupsFetched(Collections.singletonList(defaultOfficeGroupJson())));
+        eventBus.post(new OfficeGroupsFetched(OfficeGroupsBuilder.withOneGroup().build()));
 
         ListView listView = (ListView) activity.findViewById(R.id.office_groups);
         assertThat(listView.getCount()).isEqualTo(1);
@@ -88,7 +87,8 @@ public class SelectGroupActivityTest {
     public void goesToGroupActivityOnSelect() {
         SelectGroupActivity activity = createSelectGroupActivity("9c3d5770-57d8-4365-994c-69c5ac4186ee");
         ListView lvOffices = (ListView) activity.findViewById(R.id.office_groups);
-        eventBus.post(new OfficeGroupsFetched(Collections.singletonList(defaultOfficeGroupJson().withId(1))));
+
+        eventBus.post(new OfficeGroupsFetched(withOneGroup(anOfficeGroup().withId(1).build()).build()));
 
         shadowOf(lvOffices).performItemClick(0);
 
@@ -97,13 +97,6 @@ public class SelectGroupActivityTest {
                 .putExtra("group-id", 1);
         Intent nextStartedActivity = shadowOf(activity).getNextStartedActivity();
         assertThat(nextStartedActivity).isEqualTo(expectedIntent);
-    }
-
-    private OfficeGroupJson defaultOfficeGroupJson() {
-        OfficeGroupJson officeGroupJson = new OfficeGroupJson();
-        officeGroupJson.aktualnyNumer = 0;
-        officeGroupJson.liczbaKlwKolejce = 0;
-        return officeGroupJson;
     }
 
     private SelectGroupActivity createDefaultSelectGroupActivity() {

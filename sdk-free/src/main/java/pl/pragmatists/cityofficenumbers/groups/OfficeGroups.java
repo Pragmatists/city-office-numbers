@@ -4,32 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupJson;
+import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupsResultJson;
 
 public class OfficeGroups {
 
     private final List<OfficeGroup> officeGroups;
 
-    public OfficeGroups(List<OfficeGroupJson> officeGroupJsons) {
-        this.officeGroups = toOfficeGroups(officeGroupJsons);
+    public OfficeGroups(List<OfficeGroup> officeGroups) {
+        this.officeGroups = officeGroups;
+    }
+
+    public static OfficeGroups fromJson(OfficeGroupsResultJson officeGroupJsons) {
+        return new OfficeGroups(toOfficeGroups(officeGroupJsons.officeGroups()));
+    }
+
+    public static List<OfficeGroup> toOfficeGroups(List<OfficeGroupJson> officeGroupJson) {
+        List<OfficeGroup> result = new ArrayList<>();
+        for (OfficeGroupJson groupJson : officeGroupJson) {
+            result.add(groupJson.toOfficeGroup());
+        }
+        return result;
     }
 
     public List<OfficeGroup> groups() {
         return officeGroups;
-    }
-
-    private List<OfficeGroup> toOfficeGroups(List<OfficeGroupJson> officeGroupJson) {
-        List<OfficeGroup> result = new ArrayList<>();
-        for (OfficeGroupJson groupJson : officeGroupJson) {
-            result.add(new OfficeGroup()
-                            .name(groupJson.nazwaGrupy)
-                            .groupId(groupJson.idGrupy)
-                            .currentNumber(groupJson.aktualnyNumer)
-                            .groupLetter(groupJson.literaGrupy)
-                            .queueSize(groupJson.liczbaKlwKolejce)
-                            .serviceTime(groupJson.czasObslugi == null ? 0 : Integer.parseInt(groupJson.czasObslugi))
-            );
-        }
-        return result;
     }
 
     public OfficeGroup find(int groupId) {

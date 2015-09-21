@@ -1,5 +1,7 @@
 package pl.pragmatists.cityofficenumbers.officegroups.json;
 
+import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
+
 public class OfficeGroupJson {
     public String status;
     public String czasObslugi;
@@ -19,5 +21,15 @@ public class OfficeGroupJson {
     public OfficeGroupJson withId(int groupId) {
         idGrupy = groupId;
         return this;
+    }
+
+    public OfficeGroup toOfficeGroup() {
+        return new OfficeGroup()
+                        .name(nazwaGrupy)
+                        .groupId(idGrupy)
+                        .currentNumber(aktualnyNumer)
+                        .groupLetter(literaGrupy)
+                        .queueSize(liczbaKlwKolejce)
+                        .serviceTime(czasObslugi == null ? 0 : Integer.parseInt(czasObslugi));
     }
 }

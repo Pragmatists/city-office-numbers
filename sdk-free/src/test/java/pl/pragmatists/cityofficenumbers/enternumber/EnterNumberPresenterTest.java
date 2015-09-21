@@ -1,15 +1,15 @@
 package pl.pragmatists.cityofficenumbers.enternumber;
 
 import static org.mockito.Mockito.*;
-
-import java.util.Collections;
+import static pl.pragmatists.cityofficenumbers.builders.OfficeGroupBuilder.anOfficeGroup;
 
 import org.junit.Test;
 
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
-import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupJson;
+import pl.pragmatists.cityofficenumbers.groups.OfficeGroups;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder;
 
 public class EnterNumberPresenterTest {
 
@@ -60,12 +60,9 @@ public class EnterNumberPresenterTest {
     public void updates_calculated_values_on_new_data() {
         EnterNumberPresenter presenter = new EnterNumberPresenter(5, view, bus);
         when(view.getUserNumber()).thenReturn("35");
-        OfficeGroupJson officeGroup = new OfficeGroupJson();
-        officeGroup.aktualnyNumer = 30;
-        officeGroup.liczbaKlwKolejce = 12;
-        officeGroup.idGrupy = 5;
+        OfficeGroups officeGroups = OfficeGroupsBuilder.withOneGroup(anOfficeGroup().withId(5).withCurrentNumber(30).build()).build();
 
-        presenter.onEventMainThread(new OfficeGroupsFetched(Collections.singletonList(officeGroup)));
+        presenter.onEventMainThread(new OfficeGroupsFetched(officeGroups));
 
         verify(view).setQueueBeforeSize("5");
     }
@@ -74,8 +71,9 @@ public class EnterNumberPresenterTest {
     public void requests_new_stats_calculation_after_receiving_new_data() {
         EnterNumberPresenter presenter = new EnterNumberPresenter(5, view, bus);
         someNumberIsEntered();
+        OfficeGroups officeGroups = OfficeGroupsBuilder.withOneGroup(anOfficeGroup().withId(5).build()).build();
 
-        presenter.onEventMainThread(new OfficeGroupsFetched(Collections.singletonList(aGroupWithId(5))));
+        presenter.onEventMainThread(new OfficeGroupsFetched(officeGroups));
 
         verify(bus).post(new RequestStatsUpdate(5));
     }
@@ -84,11 +82,4 @@ public class EnterNumberPresenterTest {
         when(view.getUserNumber()).thenReturn("35");
     }
 
-    private OfficeGroupJson aGroupWithId(int id) {
-        OfficeGroupJson officeGroup = new OfficeGroupJson();
-        officeGroup.aktualnyNumer = 30;
-        officeGroup.liczbaKlwKolejce = 12;
-        officeGroup.idGrupy = id;
-        return officeGroup;
-    }
 }

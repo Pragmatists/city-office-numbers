@@ -1,12 +1,12 @@
 package pl.pragmatists.cityofficenumbers.stats;
 
-import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 
-import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupJson;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.builders.OfficeGroupBuilder;
+import pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder;
 
 public class StatsPersisterTest {
 
@@ -14,12 +14,9 @@ public class StatsPersisterTest {
     public void saves_a_stat_on_event() {
         StatsRepository statsRepository = mock(OrmLiteStatsRepository.class);
         StatsPersister statsPersister = new StatsPersister(statsRepository);
-        OfficeGroupJson officeGroupJson = new OfficeGroupJson();
-        officeGroupJson.idGrupy = 4;
-        officeGroupJson.aktualnyNumer = 40;
-        officeGroupJson.liczbaKlwKolejce = 3;
-
-        OfficeGroupsFetched event = new OfficeGroupsFetched(asList(officeGroupJson));
+        OfficeGroupsFetched event = new OfficeGroupsFetched(
+                OfficeGroupsBuilder.withOneGroup(OfficeGroupBuilder.anOfficeGroup().withQueueSize(3).build()).build()
+        );
 
         statsPersister.onEventMainThread(event);
 

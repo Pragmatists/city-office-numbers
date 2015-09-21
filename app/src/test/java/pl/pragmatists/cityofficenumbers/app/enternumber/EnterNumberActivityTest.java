@@ -1,7 +1,7 @@
 package pl.pragmatists.cityofficenumbers.app.enternumber;
 
-import static java.util.Collections.*;
 import static org.assertj.android.api.Assertions.*;
+import static pl.pragmatists.cityofficenumbers.builders.OfficeGroupBuilder.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +17,9 @@ import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
-import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupJson;
+import pl.pragmatists.cityofficenumbers.groups.OfficeGroups;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, emulateSdk = 21, manifest = "src/main/AndroidManifest.xml")
@@ -34,14 +35,13 @@ public class EnterNumberActivityTest {
     @Test
     public void shows_group_info_on_event() {
         EnterNumberActivity activity = createActivityForGroupId(2);
+        OfficeGroups officeGroups = OfficeGroupsBuilder.withOneGroup(anOfficeGroup()
+                .withId(2)
+                .withCurrentNumber(143)
+                .withLetter("U")
+                .withQueueSize(6).build()).build();
 
-        OfficeGroupJson json = new OfficeGroupJson();
-        json.idGrupy = 2;
-        json.aktualnyNumer = 143;
-        json.literaGrupy = "U";
-        json.liczbaKlwKolejce = 6;
-
-        eventBus.post(new OfficeGroupsFetched(singletonList(json)));
+        eventBus.post(new OfficeGroupsFetched(officeGroups));
 
         assertThat((TextView) activity.findViewById(R.id.current_number)).hasTextString("U143");
         assertThat((TextView) activity.findViewById(R.id.queue_size)).hasTextString("6");

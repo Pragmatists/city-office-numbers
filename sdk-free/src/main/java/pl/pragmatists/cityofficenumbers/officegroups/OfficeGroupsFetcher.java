@@ -1,6 +1,7 @@
 package pl.pragmatists.cityofficenumbers.officegroups;
 
 import pl.pragmatists.cityofficenumbers.events.EventBus;
+import pl.pragmatists.cityofficenumbers.groups.OfficeGroups;
 import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupsResultJson;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
@@ -25,7 +26,8 @@ public class OfficeGroupsFetcher {
             OfficeGroupsResultJson officeGroupsResultJson = restClient
                     .getForObject("/api/action/wsstore_get/?id=" + officeId, OfficeGroupsResultJson.class);
             sleepOneSec();
-            bus.post(new OfficeGroupsFetched(officeGroupsResultJson.officeGroups()));
+            OfficeGroups officeGroups = OfficeGroups.fromJson(officeGroupsResultJson);
+            bus.post(new OfficeGroupsFetched(officeGroups));
         } catch (RestClientServerError e) {
             bus.post(new OfficeGroupsServerError(e.getMessage()));
         } catch (RestClientCannotMakeRequestToServer e) {
