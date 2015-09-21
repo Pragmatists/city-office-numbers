@@ -49,7 +49,7 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
         currentNumberTextView = (TextView) findViewById(R.id.current_number);
         queueSizeTextView = (TextView) findViewById(R.id.queue_size);
         ticketNumberTextField = (EditText) findViewById(R.id.ticket_number_text_field);
-        enterNumberPresenter = new EnterNumberPresenter(groupId, this);
+        enterNumberPresenter = new EnterNumberPresenter(groupId, this, null);
         statsPersister = new StatsPersister(new DatabaseHelper(this).getStatsRepository());
         ticketNumberTextField.addTextChangedListener(new TextWatcher() {
             @Override

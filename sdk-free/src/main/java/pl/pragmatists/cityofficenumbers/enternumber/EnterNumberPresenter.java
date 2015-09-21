@@ -1,5 +1,6 @@
 package pl.pragmatists.cityofficenumbers.enternumber;
 
+import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 
@@ -8,14 +9,18 @@ public class EnterNumberPresenter {
 
     private final EnterNumberView enterNumberView;
 
+    private final EventBus bus;
+
     private OfficeGroup officeGroup;
 
-    public EnterNumberPresenter(int groupId, EnterNumberView enterNumberView) {
+    public EnterNumberPresenter(int groupId, EnterNumberView enterNumberView, EventBus bus) {
         this.groupId = groupId;
         this.enterNumberView = enterNumberView;
+        this.bus = bus;
     }
 
-    EnterNumberPresenter(OfficeGroup officeGroup, EnterNumberView enterNumberView) {
+    EnterNumberPresenter(OfficeGroup officeGroup, EnterNumberView enterNumberView, EventBus bus) {
+        this.bus = bus;
         this.groupId = 0;
         this.enterNumberView = enterNumberView;
         this.officeGroup = officeGroup;
@@ -26,6 +31,7 @@ public class EnterNumberPresenter {
         enterNumberView.setCurrentNumber(officeGroup.groupLetter() + officeGroup.currentNumber());
         enterNumberView.setQueueSize(String.valueOf(officeGroup.queueSize()));
         numberEntered(enterNumberView.getUserNumber());
+        bus.post(new RequestStatsUpdate(groupId));
     }
 
     public void numberEntered(String newNumber) {
