@@ -15,6 +15,7 @@ public class OfficeQueueStat {
     @DatabaseField
     private Date timestamp;
 
+    @DatabaseField
     private String officeId;
 
     public OfficeQueueStat() {
@@ -92,5 +93,9 @@ public class OfficeQueueStat {
                 ", queueSize=" + queueSize +
                 ", timestamp=" + timestamp +
                 '}';
+    }
+
+    public String getOfficeId() {
+        return officeId;
     }
 }

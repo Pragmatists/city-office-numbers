@@ -23,12 +23,16 @@ public class StatsRepositoryTest {
     @Test
     public void save_my_stats() throws SQLException {
 
-        statsRepository.save(new OfficeQueueStat().queueSize(3).timestamp(new LocalDate(2010, 2, 3).toDate()));
+        statsRepository.save(new OfficeQueueStat()
+                .queueSize(3)
+                .timestamp(new LocalDate(2010, 2, 3).toDate())
+                .officeId("office-id-1"));
         OfficeQueueStat stat = statsRepository.findById(1L);
 
         assertThat(stat.getId()).isNotNull();
         assertThat(stat.getQueueSize()).isEqualTo(3);
         assertThat(stat.getTimestamp()).isEqualTo("2010-2-3");
+        assertThat(stat.getOfficeId()).isEqualTo("office-id-1");
     }
 
 
