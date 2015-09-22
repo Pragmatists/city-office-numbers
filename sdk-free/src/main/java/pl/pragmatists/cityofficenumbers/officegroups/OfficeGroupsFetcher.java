@@ -26,7 +26,7 @@ public class OfficeGroupsFetcher {
             OfficeGroupsResultJson officeGroupsResultJson = restClient
                     .getForObject("/api/action/wsstore_get/?id=" + officeId, OfficeGroupsResultJson.class);
             sleepOneSec();
-            OfficeGroups officeGroups = OfficeGroups.fromJson(officeGroupsResultJson);
+            OfficeGroups officeGroups = OfficeGroups.fromJson(officeGroupsResultJson).officeId(officeId);
             bus.post(new OfficeGroupsFetched(officeGroups));
         } catch (RestClientServerError e) {
             bus.post(new OfficeGroupsServerError(e.getMessage()));

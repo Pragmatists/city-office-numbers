@@ -69,6 +69,7 @@ public class FetchingGroupsTest {
         ArgumentCaptor<OfficeGroupsFetched> captor = ArgumentCaptor.forClass(OfficeGroupsFetched.class);
         verify(bus).post(captor.capture());
         assertThat(captor.getValue().groups()).hasSize(1);
+        assertThat(captor.getValue().getOfficeGroups().getOfficeId()).isEqualTo("9c3d5770-57d8-4365-994c-69c5ac4186ee");
     }
 
     @Test
