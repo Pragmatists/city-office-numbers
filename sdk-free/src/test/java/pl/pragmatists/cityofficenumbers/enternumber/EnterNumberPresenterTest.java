@@ -75,7 +75,7 @@ public class EnterNumberPresenterTest {
 
         presenter.onEventMainThread(new OfficeGroupsFetched(officeGroups));
 
-        verify(bus).post(new RequestStatsUpdate(5));
+        verify(bus).post(new RequestStatsUpdate(5, null));
     }
 
     private void someNumberIsEntered() {

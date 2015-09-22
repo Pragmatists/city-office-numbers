@@ -71,4 +71,6 @@ public class OfficeGroup {
     public int expectedWaitingTime(int usersNumber) {
         return distanceTo(usersNumber) * serviceTime;
     }
+
+
 }

@@ -31,7 +31,7 @@ public class EnterNumberPresenter {
         enterNumberView.setCurrentNumber(officeGroup.groupLetter() + officeGroup.currentNumber());
         enterNumberView.setQueueSize(String.valueOf(officeGroup.queueSize()));
         numberEntered(enterNumberView.getUserNumber());
-        bus.post(new RequestStatsUpdate(groupId));
+        bus.post(new RequestStatsUpdate(groupId, officeGroupsFetched.getOfficeGroups()));
     }
 
     public void numberEntered(String newNumber) {

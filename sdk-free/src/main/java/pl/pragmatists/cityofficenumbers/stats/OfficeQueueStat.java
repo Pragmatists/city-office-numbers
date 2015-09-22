@@ -15,6 +15,8 @@ public class OfficeQueueStat {
     @DatabaseField
     private Date timestamp;
 
+    private String officeId;
+
     public OfficeQueueStat() {
     }
 
@@ -34,6 +36,11 @@ public class OfficeQueueStat {
 
     public OfficeQueueStat timestamp(Date timestamp) {
         this.timestamp = timestamp;
+        return this;
+    }
+
+    public OfficeQueueStat officeId(String officeId) {
+        this.officeId = officeId;
         return this;
     }
 
@@ -62,7 +69,10 @@ public class OfficeQueueStat {
         if (id != null ? !id.equals(that.id) : that.id != null) {
             return false;
         }
-        return !(timestamp != null ? !timestamp.equals(that.timestamp) : that.timestamp != null);
+        if (timestamp != null ? !timestamp.equals(that.timestamp) : that.timestamp != null) {
+            return false;
+        }
+        return !(officeId != null ? !officeId.equals(that.officeId) : that.officeId != null);
 
     }
 
@@ -71,6 +81,7 @@ public class OfficeQueueStat {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + queueSize;
         result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
+        result = 31 * result + (officeId != null ? officeId.hashCode() : 0);
         return result;
     }
 

@@ -1,10 +1,15 @@
 package pl.pragmatists.cityofficenumbers.enternumber;
 
+import pl.pragmatists.cityofficenumbers.groups.OfficeGroups;
+
 public class RequestStatsUpdate {
     private final int groupId;
 
-    public RequestStatsUpdate(int groupId) {
+    private final OfficeGroups officeGroups;
+
+    public RequestStatsUpdate(int groupId, OfficeGroups officeGroups) {
         this.groupId = groupId;
+        this.officeGroups = officeGroups;
     }
 
     @Override

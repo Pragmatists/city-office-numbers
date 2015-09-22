@@ -16,6 +16,8 @@ import pl.pragmatists.cityofficenumbers.db.DatabaseHelper;
 import pl.pragmatists.cityofficenumbers.enternumber.EnterNumberPresenter;
 import pl.pragmatists.cityofficenumbers.enternumber.EnterNumberView;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
+import pl.pragmatists.cityofficenumbers.events.EventBus;
+import pl.pragmatists.cityofficenumbers.events.infrastructure.GreenEvents;
 import pl.pragmatists.cityofficenumbers.stats.StatsPersister;
 
 public class EnterNumberActivity extends AppCompatActivity implements EnterNumberView {
@@ -49,8 +51,10 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
         currentNumberTextView = (TextView) findViewById(R.id.current_number);
         queueSizeTextView = (TextView) findViewById(R.id.queue_size);
         ticketNumberTextField = (EditText) findViewById(R.id.ticket_number_text_field);
-        enterNumberPresenter = new EnterNumberPresenter(groupId, this, null);
+
+        enterNumberPresenter = new EnterNumberPresenter(groupId, this, BusInstance.instance());
         statsPersister = new StatsPersister(new DatabaseHelper(this).getStatsRepository());
+
         ticketNumberTextField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
