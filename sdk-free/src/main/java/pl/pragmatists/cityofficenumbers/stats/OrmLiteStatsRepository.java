@@ -28,4 +28,9 @@ public class OrmLiteStatsRepository implements StatsRepository {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public int getAverageQueueSize(int groupId) {
+        return 0;
+    }
 }

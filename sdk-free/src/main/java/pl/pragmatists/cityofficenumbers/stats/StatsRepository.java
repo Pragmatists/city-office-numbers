@@ -4,4 +4,6 @@ public interface StatsRepository {
     void save(OfficeQueueStat officeQueueStat);
 
     OfficeQueueStat findById(long id);
+
+    int getAverageQueueSize(int groupId);
 }

@@ -1,18 +1,20 @@
 package pl.pragmatists.cityofficenumbers.stats;
 
+import pl.pragmatists.cityofficenumbers.enternumber.RequestStatsUpdate;
+import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroups;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.stats.events.StatsUpdate;
 
-public class StatsPersister {
+public class StatsUpdater {
     private final StatsRepository statsRepository;
 
-    public StatsPersister(StatsRepository statsRepository) {
-        this.statsRepository = statsRepository;
-    }
+    private final EventBus bus;
 
-    public void onEventMainThread(OfficeGroupsFetched officeGroupsFetched) {
-        saveStatsFor(officeGroupsFetched.getOfficeGroups());
+    public StatsUpdater(StatsRepository statsRepository, EventBus bus) {
+        this.statsRepository = statsRepository;
+        this.bus = bus;
     }
 
     public void saveStatsFor(OfficeGroups officeGroups) {
@@ -26,4 +28,8 @@ public class StatsPersister {
         }
     }
 
+    public void onEventBackgroundThread(RequestStatsUpdate requestStatsUpdate) {
+        saveStatsFor(requestStatsUpdate.getOfficeGroups());
+        bus.post(new StatsUpdate().averageQueueSize(statsRepository.getAverageQueueSize(requestStatsUpdate.getGroupId())));
+    }
 }

@@ -31,4 +31,12 @@ public class RequestStatsUpdate {
     public int hashCode() {
         return groupId;
     }
+
+    public OfficeGroups getOfficeGroups() {
+        return officeGroups;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
 }

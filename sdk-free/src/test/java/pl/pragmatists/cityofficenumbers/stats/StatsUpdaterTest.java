@@ -4,25 +4,29 @@ import static org.mockito.Mockito.*;
 import static pl.pragmatists.cityofficenumbers.builders.OfficeGroupBuilder.*;
 import static pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder.*;
 
-import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
 
 import pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder;
+import pl.pragmatists.cityofficenumbers.enternumber.RequestStatsUpdate;
+import pl.pragmatists.cityofficenumbers.events.EventBus;
+import pl.pragmatists.cityofficenumbers.stats.events.StatsUpdate;
 
-public class StatsPersisterTest {
+public class StatsUpdaterTest {
 
     private final StatsRepository statsRepository = mock(StatsRepository.class);
 
-    private final StatsPersister statsPersister = new StatsPersister(statsRepository);
+
+    private EventBus bus = mock(EventBus.class);
+
+    private final StatsUpdater statsUpdater = new StatsUpdater(statsRepository, bus);
 
     @Test
     public void saves_a_stat_on_event() {
-        statsPersister.saveStatsFor(
-                withOneGroup(anOfficeGroup().withQueueSize(3).build())
-                        .withDate("2010-03-01", "12:38")
-                        .withOfficeId("office-id-1")
-                        .build());
+        statsUpdater.onEventBackgroundThread(new RequestStatsUpdate(3, withOneGroup(anOfficeGroup().withQueueSize(3).build())
+                .withDate("2010-03-01", "12:38")
+                .withOfficeId("office-id-1")
+                .build()));
 
         verify(statsRepository).save(new OfficeQueueStat()
                 .queueSize(3)
@@ -33,7 +37,7 @@ public class StatsPersisterTest {
 
     @Test
     public void saves_stats_for_many_groups() {
-        statsPersister.saveStatsFor(new OfficeGroupsBuilder()
+        statsUpdater.saveStatsFor(new OfficeGroupsBuilder()
                 .withOfficeGroup(anOfficeGroup().withQueueSize(2).build())
                 .withOfficeGroup(anOfficeGroup().withQueueSize(5).build())
                         .build()
@@ -41,5 +45,14 @@ public class StatsPersisterTest {
 
         verify(statsRepository).save(new OfficeQueueStat().queueSize(2));
         verify(statsRepository).save(new OfficeQueueStat().queueSize(5));
+    }
+
+    @Test
+    public void publishes_new_stats_on_update_request() {
+        when(statsRepository.getAverageQueueSize(5)).thenReturn(4);
+
+        statsUpdater.onEventBackgroundThread(new RequestStatsUpdate(5, withOneGroup().build()));
+
+        verify(bus).post(new StatsUpdate().averageQueueSize(4));
     }
 }
