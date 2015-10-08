@@ -3,6 +3,7 @@ package pl.pragmatists.cityofficenumbers.enternumber;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
+import pl.pragmatists.cityofficenumbers.stats.events.StatsUpdate;
 
 public class EnterNumberPresenter {
     private final int groupId;
@@ -34,6 +35,10 @@ public class EnterNumberPresenter {
         bus.post(new RequestStatsUpdate(groupId, officeGroupsFetched.getOfficeGroups()));
     }
 
+    public void onEventMainThread(StatsUpdate statsUpdate) {
+
+    }
+
     public void numberEntered(String newNumber) {
         if (newNumber.isEmpty()) {
             return;
@@ -43,5 +48,4 @@ public class EnterNumberPresenter {
         enterNumberView.setQueueBeforeSize(String.valueOf(officeGroup.distanceTo(usersNumber)));
         enterNumberView.setExpectedTime(String.valueOf(officeGroup.expectedWaitingTime(usersNumber)));
     }
-
 }

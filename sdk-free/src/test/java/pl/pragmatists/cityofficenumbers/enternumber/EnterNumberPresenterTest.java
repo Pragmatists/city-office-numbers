@@ -10,6 +10,7 @@ import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroups;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder;
+import pl.pragmatists.cityofficenumbers.stats.events.StatsUpdate;
 
 public class EnterNumberPresenterTest {
 
@@ -76,6 +77,15 @@ public class EnterNumberPresenterTest {
         presenter.onEventMainThread(new OfficeGroupsFetched(officeGroups));
 
         verify(bus).post(new RequestStatsUpdate(5, null));
+    }
+
+    @Test
+    public void updates_average_queue_size_on_stats_update() {
+        EnterNumberPresenter presenter = new EnterNumberPresenter(5, view, bus);
+
+        presenter.onEventMainThread(new StatsUpdate().averageQueueSize(36));
+
+        verify(view).setAverageQueueSize("36");
     }
 
     private void someNumberIsEntered() {

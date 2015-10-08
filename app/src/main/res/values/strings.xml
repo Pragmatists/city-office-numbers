@@ -4,13 +4,15 @@
     <string name="title_activity_select_office">urzędy</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_select_group">stanowiska</string>
-    <string name="title_activity_enter_number">Twój numer</string>
-    <string name="your_number_label">Twój numer:</string>
-    <string name="chosen_number">Wybrany numer:</string>
-    <string name="queue_before">Osób przed Tobą:</string>
-    <string name="minutes_left">Zostało minut:</string>
-    <string name="current_number">Aktualny numer:</string>
-    <string name="queue_size">Długość kolejki:</string>
+    <string name="title_activity_enter_number">stanowisko M</string>
+    <string name="your_number_label">podaj twój numer:</string>
+    <string name="chosen_number">twój numer:</string>
+    <string name="queue_before">osób przed tobą:</string>
+    <string name="minutes_left">szacowany czas oczekiwania:</string>
+    <string name="current_number">aktualny numer:</string>
+    <string name="queue_size">osób w kolejce:</string>
     <string name="star">star</string>
     <string name="only_favorites">Tylko ulubione</string>
+    <string name="refresh_in">odświeżenie danych za:</string>
+    <string name="average_queue_size">średnia długość kolejki:</string>
 </resources>

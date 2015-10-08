@@ -12,4 +12,6 @@ public interface EnterNumberView {
     void setExpectedTime(String expectedTime);
 
     String getUserNumber();
+
+    void setAverageQueueSize(String averageQueueSize);
 }

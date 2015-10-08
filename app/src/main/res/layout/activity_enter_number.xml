@@ -19,20 +19,21 @@
         android:ems="10"
         android:id="@+id/ticket_number_text_field"
         android:textSize="30sp"
-        android:layout_alignBaseline="@+id/label_for_number_input"
-        android:layout_alignBottom="@+id/label_for_number_input"
-        android:layout_alignStart="@+id/queue_size" />
+        android:layout_alignBaseline="@+id/ticket_number_label"
+        android:layout_alignBottom="@+id/ticket_number_label"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/minutes_left_label" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/your_number_label"
-        android:id="@+id/label_for_number_input"
+        android:id="@+id/ticket_number_label"
         android:textSize="30sp"
         android:layout_below="@+id/queue_size_label"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="80dp"
         android:labelFor="@id/ticket_number_text_field" />
 
 
@@ -42,7 +43,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/current_number"
         android:id="@+id/current_number_label"
-        android:layout_below="@+id/office_group_name"
+        android:layout_below="@+id/queue_size_label"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -50,9 +51,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/current_number"
-        android:layout_marginEnd="100dp"
-        android:layout_below="@+id/office_group_name"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBaseline="@+id/current_number_label"
+        android:layout_alignBottom="@+id/current_number_label"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="24dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,7 +62,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/queue_size"
         android:id="@+id/queue_size_label"
-        android:layout_below="@+id/current_number_label"
+        android:layout_below="@+id/office_group_name"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -68,9 +70,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/queue_size"
+        android:layout_marginRight="30dp"
         android:layout_alignBaseline="@+id/queue_size_label"
         android:layout_alignBottom="@+id/queue_size_label"
-        android:layout_alignStart="@+id/current_number" />
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -97,7 +100,8 @@
         android:text="@string/queue_before"
         android:id="@+id/queue_before_label"
         android:layout_below="@+id/chosen_number_label"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="33dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -113,6 +117,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/minutes_left"
         android:id="@+id/minutes_left_label"
+        android:textAlignment="viewEnd"
         android:layout_below="@+id/queue_before_label"
         android:layout_alignParentStart="true" />
 
@@ -122,6 +127,42 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/minutes_left"
         android:layout_alignBottom="@+id/minutes_left_label"
-        android:layout_alignStart="@+id/queue_before" />
+        android:layout_alignStart="@+id/queue_before"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/refresh_in"
+        android:id="@+id/data_refresh_label"
+        android:layout_below="@+id/average_queue_size_label"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/data_refresh"
+        android:layout_alignTop="@+id/data_refresh_label"
+        android:layout_alignStart="@+id/minutes_left" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/average_queue_size"
+        android:id="@+id/average_queue_size_label"
+        android:layout_below="@+id/minutes_left_label"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/average_queue_size"
+        android:layout_alignTop="@+id/average_queue_size_label"
+        android:layout_alignStart="@+id/data_refresh" />
 
 </RelativeLayout>

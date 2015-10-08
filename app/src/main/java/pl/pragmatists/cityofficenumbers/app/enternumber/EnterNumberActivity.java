@@ -125,6 +125,11 @@ public class EnterNumberActivity extends AppCompatActivity implements EnterNumbe
     }
 
     @Override
+    public void setAverageQueueSize(String averageQueueSize) {
+        ((TextView)findViewById(R.id.average_queue_size)).setText(averageQueueSize);
+    }
+
+    @Override
     public String getUserNumber() {
         return ticketNumberTextField.getText().toString();
     }

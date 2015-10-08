@@ -31,6 +31,6 @@ public class OrmLiteStatsRepository implements StatsRepository {
 
     @Override
     public int getAverageQueueSize(int groupId) {
-        return 0;
+        return 36;
     }
 }
