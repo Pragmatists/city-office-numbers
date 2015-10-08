@@ -4,7 +4,6 @@ import pl.pragmatists.cityofficenumbers.enternumber.RequestStatsUpdate;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroups;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.stats.events.StatsUpdate;
 
 public class StatsUpdater {
@@ -30,6 +29,6 @@ public class StatsUpdater {
 
     public void onEventBackgroundThread(RequestStatsUpdate requestStatsUpdate) {
         saveStatsFor(requestStatsUpdate.getOfficeGroups());
-        bus.post(new StatsUpdate().averageQueueSize(statsRepository.getAverageQueueSize(requestStatsUpdate.getGroupId())));
+        bus.post(new StatsUpdate().averageQueueSize(statsRepository.getAverageQueueSize("office-id-1", requestStatsUpdate.getGroupId())));
     }
 }

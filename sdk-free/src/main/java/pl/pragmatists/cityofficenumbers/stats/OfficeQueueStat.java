@@ -18,6 +18,9 @@ public class OfficeQueueStat {
     @DatabaseField
     private String officeId;
 
+    @DatabaseField
+    private int groupId;
+
     public OfficeQueueStat() {
     }
 
@@ -97,5 +100,14 @@ public class OfficeQueueStat {
 
     public String getOfficeId() {
         return officeId;
+    }
+
+    public OfficeQueueStat groupId(int groupId) {
+        this.groupId = groupId;
+        return this;
+    }
+
+    public int getGroupId() {
+        return groupId;
     }
 }

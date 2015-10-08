@@ -49,7 +49,7 @@ public class StatsUpdaterTest {
 
     @Test
     public void publishes_new_stats_on_update_request() {
-        when(statsRepository.getAverageQueueSize(5)).thenReturn(4);
+        when(statsRepository.getAverageQueueSize("office-id-1", 5)).thenReturn(4);
 
         statsUpdater.onEventBackgroundThread(new RequestStatsUpdate(5, withOneGroup().build()));
 
