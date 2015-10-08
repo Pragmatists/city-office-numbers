@@ -36,7 +36,7 @@ public class EnterNumberPresenter {
     }
 
     public void onEventMainThread(StatsUpdate statsUpdate) {
-
+        enterNumberView.setAverageQueueSize(String.valueOf(statsUpdate.getAverageQueueSize()));
     }
 
     public void numberEntered(String newNumber) {

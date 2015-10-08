@@ -27,4 +27,8 @@ public class StatsUpdate {
     public int hashCode() {
         return averageQueueSize;
     }
+
+    public int getAverageQueueSize() {
+        return averageQueueSize;
+    }
 }
