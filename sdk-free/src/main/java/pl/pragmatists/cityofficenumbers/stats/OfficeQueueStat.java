@@ -2,6 +2,7 @@ package pl.pragmatists.cityofficenumbers.stats;
 
 import java.util.Date;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
 public class OfficeQueueStat {
@@ -12,7 +13,7 @@ public class OfficeQueueStat {
     @DatabaseField
     private int queueSize;
 
-    @DatabaseField
+    @DatabaseField(dataType = DataType.DATE_STRING)
     private Date timestamp;
 
     @DatabaseField
@@ -70,6 +71,9 @@ public class OfficeQueueStat {
         if (queueSize != that.queueSize) {
             return false;
         }
+        if (groupId != that.groupId) {
+            return false;
+        }
         if (id != null ? !id.equals(that.id) : that.id != null) {
             return false;
         }
@@ -86,6 +90,7 @@ public class OfficeQueueStat {
         result = 31 * result + queueSize;
         result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
         result = 31 * result + (officeId != null ? officeId.hashCode() : 0);
+        result = 31 * result + groupId;
         return result;
     }
 
@@ -95,6 +100,8 @@ public class OfficeQueueStat {
                 "id=" + id +
                 ", queueSize=" + queueSize +
                 ", timestamp=" + timestamp +
+                ", officeId='" + officeId + '\'' +
+                ", groupId=" + groupId +
                 '}';
     }
 

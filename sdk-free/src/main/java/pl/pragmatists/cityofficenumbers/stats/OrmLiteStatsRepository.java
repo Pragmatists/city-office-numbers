@@ -5,12 +5,16 @@ import java.util.List;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.SelectArg;
 
 public class OrmLiteStatsRepository implements StatsRepository {
     private final Dao<OfficeQueueStat, Long> statDao;
 
-    public OrmLiteStatsRepository(Dao<OfficeQueueStat, Long> statDao) {
+    private final TimeProvider timeProvider;
+
+    public OrmLiteStatsRepository(Dao<OfficeQueueStat, Long> statDao, TimeProvider timeProvider) {
         this.statDao = statDao;
+        this.timeProvider = timeProvider;
     }
 
     @Override
@@ -34,11 +38,17 @@ public class OrmLiteStatsRepository implements StatsRepository {
     @Override
     public int getAverageQueueSize(String officeId, int groupId) {
         QueryBuilder<OfficeQueueStat, Long> builder = statDao.queryBuilder();
-        builder.selectRaw("select avg(queueSize)");
-
+        SelectArg low = new SelectArg(timeProvider.todayLow());
+        SelectArg high = new SelectArg(timeProvider.todayHigh());
         try {
-            long l = statDao.queryRawValue(builder.prepareStatementString());
-            return (int) l;
+            builder.selectRaw("avg(queueSize)")
+                    .where().eq("officeId", officeId)
+                    .and().eq("groupId", groupId)
+                    .and().between("timestamp", low, high);
+            return (int) statDao.queryRawValue(
+                    builder.prepareStatementString(),
+                    low.toString(),
+                    high.toString());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

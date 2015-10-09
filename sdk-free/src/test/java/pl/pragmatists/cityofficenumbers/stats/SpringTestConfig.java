@@ -21,9 +21,15 @@ public class SpringTestConfig {
     }
 
     @Bean
-    public StatsRepository statsRepository(ConnectionSource jdbcConnectionSource) {
-        return new OrmLiteStatsRepository(initDao(jdbcConnectionSource));
+    public StatsRepository statsRepository(ConnectionSource jdbcConnectionSource, TimeProvider timeProvider) {
+        return new OrmLiteStatsRepository(initDao(jdbcConnectionSource), timeProvider);
     }
+
+    @Bean
+    public TimeProvider timeProvider() {
+        return new FakeTimeProvider();
+    }
+
     private Dao<OfficeQueueStat, Long> initDao(ConnectionSource connectionSource)  {
         try {
             System.setProperty(TableCreator.AUTO_CREATE_TABLES, "true");

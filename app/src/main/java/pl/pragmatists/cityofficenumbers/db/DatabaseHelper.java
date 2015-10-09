@@ -14,12 +14,13 @@ import android.util.Log;
 import pl.pragmatists.cityofficenumbers.stats.OfficeQueueStat;
 import pl.pragmatists.cityofficenumbers.stats.OrmLiteStatsRepository;
 import pl.pragmatists.cityofficenumbers.stats.StatsRepository;
+import pl.pragmatists.cityofficenumbers.stats.TimeProvider;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "cityOfficeStats.db";
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 5;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, (InputStream) null);
@@ -51,7 +52,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     public StatsRepository getStatsRepository() {
         Dao<OfficeQueueStat, Long> dao = getDao();
-        return new OrmLiteStatsRepository(dao);
+        return new OrmLiteStatsRepository(dao, new TimeProvider());
     }
 
     private Dao<OfficeQueueStat, Long> getDao() {

@@ -20,6 +20,7 @@ public class StatsUpdater {
         for (OfficeGroup group : officeGroups.groups()) {
             statsRepository.save(
                     new OfficeQueueStat()
+                            .groupId(group.groupId())
                             .queueSize(group.queueSize())
                             .timestamp(officeGroups.getTimestamp())
                             .officeId(officeGroups.getOfficeId())
@@ -29,6 +30,9 @@ public class StatsUpdater {
 
     public void onEventBackgroundThread(RequestStatsUpdate requestStatsUpdate) {
         saveStatsFor(requestStatsUpdate.getOfficeGroups());
-        bus.post(new StatsUpdate().averageQueueSize(statsRepository.getAverageQueueSize("office-id-1", requestStatsUpdate.getGroupId())));
+        int averageQueueSize = statsRepository.getAverageQueueSize(
+                requestStatsUpdate.getOfficeGroups().getOfficeId(),
+                requestStatsUpdate.getGroupId());
+        bus.post(new StatsUpdate().averageQueueSize(averageQueueSize));
     }
 }

@@ -70,6 +70,7 @@ public class FetchingGroupsTest {
         verify(bus).post(captor.capture());
         assertThat(captor.getValue().groups()).hasSize(1);
         assertThat(captor.getValue().getOfficeGroups().getOfficeId()).isEqualTo("9c3d5770-57d8-4365-994c-69c5ac4186ee");
+        assertThat(captor.getValue().getOfficeGroups().getTimestamp()).isEqualTo("2015-04-19T16:36:00");
     }
 
     @Test

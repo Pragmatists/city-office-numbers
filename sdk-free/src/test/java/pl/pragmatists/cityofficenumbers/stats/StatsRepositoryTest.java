@@ -25,6 +25,9 @@ public class StatsRepositoryTest {
     @Autowired
     private ConnectionSource connectionSource;
 
+    @Autowired
+    private FakeTimeProvider fakeTimeProvider;
+
     @Before
     public void clearDatabase() throws SQLException {
         TableUtils.clearTable(connectionSource, OfficeQueueStat.class);
@@ -49,6 +52,7 @@ public class StatsRepositoryTest {
 
     @Test
     public void finds_average_queue_size() {
+        fakeTimeProvider.todayIs(new LocalDate(2010, 2, 3).toDate());
         // included
         statsRepository.save(new OfficeQueueStat()
                         .officeId("office-id-1")
@@ -87,7 +91,7 @@ public class StatsRepositoryTest {
 
         int averageQueueSize = statsRepository.getAverageQueueSize("office-id-1", 4);
 
-        assertThat(averageQueueSize).isEqualTo(Math.round((3 + 6) / 2.0f));
+        assertThat(averageQueueSize).isEqualTo((3 + 6) / 2);
     }
 
 }

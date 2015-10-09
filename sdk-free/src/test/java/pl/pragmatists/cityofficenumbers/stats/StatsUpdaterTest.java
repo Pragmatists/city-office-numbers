@@ -16,30 +16,32 @@ public class StatsUpdaterTest {
 
     private final StatsRepository statsRepository = mock(StatsRepository.class);
 
-
     private EventBus bus = mock(EventBus.class);
 
     private final StatsUpdater statsUpdater = new StatsUpdater(statsRepository, bus);
 
     @Test
     public void saves_a_stat_on_event() {
-        statsUpdater.onEventBackgroundThread(new RequestStatsUpdate(3, withOneGroup(anOfficeGroup().withQueueSize(3).build())
+        statsUpdater.onEventBackgroundThread(new RequestStatsUpdate(3, withOneGroup(anOfficeGroup()
+                .withId(3)
+                .withQueueSize(3).build())
                 .withDate("2010-03-01", "12:38")
                 .withOfficeId("office-id-1")
                 .build()));
 
         verify(statsRepository).save(new OfficeQueueStat()
-                .queueSize(3)
-                .timestamp(new LocalDateTime(2010, 3, 1, 12, 38).toDate())
-                .officeId("office-id-1")
+                        .queueSize(3)
+                        .groupId(3)
+                        .timestamp(new LocalDateTime(2010, 3, 1, 12, 38).toDate())
+                        .officeId("office-id-1")
         );
     }
 
     @Test
     public void saves_stats_for_many_groups() {
         statsUpdater.saveStatsFor(new OfficeGroupsBuilder()
-                .withOfficeGroup(anOfficeGroup().withQueueSize(2).build())
-                .withOfficeGroup(anOfficeGroup().withQueueSize(5).build())
+                        .withOfficeGroup(anOfficeGroup().withQueueSize(2).build())
+                        .withOfficeGroup(anOfficeGroup().withQueueSize(5).build())
                         .build()
         );
 
@@ -49,9 +51,9 @@ public class StatsUpdaterTest {
 
     @Test
     public void publishes_new_stats_on_update_request() {
-        when(statsRepository.getAverageQueueSize("office-id-1", 5)).thenReturn(4);
+        when(statsRepository.getAverageQueueSize("office-id-2", 5)).thenReturn(4);
 
-        statsUpdater.onEventBackgroundThread(new RequestStatsUpdate(5, withOneGroup().build()));
+        statsUpdater.onEventBackgroundThread(new RequestStatsUpdate(5, withOneGroup().withOfficeId("office-id-2").build()));
 
         verify(bus).post(new StatsUpdate().averageQueueSize(4));
     }

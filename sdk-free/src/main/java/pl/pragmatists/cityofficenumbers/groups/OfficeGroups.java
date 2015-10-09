@@ -25,7 +25,9 @@ public class OfficeGroups {
     }
 
     public static OfficeGroups fromJson(OfficeGroupsResultJson officeGroupJson) {
-        return new OfficeGroups(toOfficeGroups(officeGroupJson.officeGroups()));
+        return new OfficeGroups(toOfficeGroups(officeGroupJson.officeGroups()))
+                .date(officeGroupJson.result.date)
+                .time(officeGroupJson.result.time);
     }
 
     public static List<OfficeGroup> toOfficeGroups(List<OfficeGroupJson> officeGroupJson) {
