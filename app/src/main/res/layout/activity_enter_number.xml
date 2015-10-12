@@ -182,7 +182,6 @@
         android:layout_width="90px"
         android:layout_height="20px"
         android:layout_alignBottom="@+id/ticket_number_text_field"
-        android:layout_alignEnd="@id/"
         android:layout_toStartOf="@id/ticket_number_text_field" />
 
 </RelativeLayout>

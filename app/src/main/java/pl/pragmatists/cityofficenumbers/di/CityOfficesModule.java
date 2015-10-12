@@ -7,6 +7,7 @@ import pl.pragmatists.cityofficenumbers.app.selectoffice.CityOfficesFetcher;
 import pl.pragmatists.cityofficenumbers.app.selectoffice.CityOfficesHardcoded;
 import pl.pragmatists.cityofficenumbers.app.selectoffice.CityOfficesModel;
 import pl.pragmatists.cityofficenumbers.app.selectoffice.FavoriteService;
+import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 
@@ -19,8 +20,13 @@ public class CityOfficesModule {
     }
 
     @Provides
-    CityOfficesFetcher officesFetcher() {
-        return new CityOfficesFetcher(new RestClientWithOkHttp(new Host("http://10.0.2.2:8080")), BusInstance.instance());
+    CityOfficesFetcher officesFetcher(EventBus eventBus) {
+        return new CityOfficesFetcher(new RestClientWithOkHttp(new Host("http://10.0.2.2:8080")), eventBus);
+    }
+
+    @Provides
+    EventBus eventBusInstance() {
+        return BusInstance.instance();
     }
 
     @Provides

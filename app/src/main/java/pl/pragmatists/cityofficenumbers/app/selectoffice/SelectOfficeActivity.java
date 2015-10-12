@@ -27,9 +27,6 @@ public class SelectOfficeActivity extends AppCompatActivity {
 
     private String userId;
 
-    @Inject
-    FavoriteService favoriteService;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
