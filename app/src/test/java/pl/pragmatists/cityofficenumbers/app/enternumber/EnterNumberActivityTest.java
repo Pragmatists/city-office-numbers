@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import android.content.Intent;
@@ -15,14 +15,14 @@ import android.widget.TextView;
 import pl.pragmatists.cityofficenumbers.app.BuildConfig;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
+import pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroups;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
-import pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, emulateSdk = 21, manifest = "src/main/AndroidManifest.xml")
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class EnterNumberActivityTest {
 
     private EventBus eventBus;

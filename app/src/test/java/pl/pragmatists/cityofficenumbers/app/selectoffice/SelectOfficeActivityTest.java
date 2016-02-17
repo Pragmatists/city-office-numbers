@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowImageView;
 
@@ -23,14 +23,14 @@ import android.widget.ListView;
 import pl.pragmatists.cityofficenumbers.app.BuildConfig;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.messages.CityOfficesFetchedEvent;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
-import pl.pragmatists.cityofficenumbers.app.selectoffice.messages.CityOfficesFetchedEvent;
 import pl.pragmatists.cityofficenumbers.testing.TestApplication;
 import pl.pragmatists.cityofficenumbers.testing.TestApplicationBuilder;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, emulateSdk = 21, manifest = "src/main/AndroidManifest.xml")
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21, manifest = "src/main/AndroidManifest.xml")
 public class SelectOfficeActivityTest {
 
     private EventBus bus = BusInstance.instance();

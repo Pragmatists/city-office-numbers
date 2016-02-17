@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.3'
+        classpath 'com.android.tools.build:gradle:1.2.3'
     }
 }
 apply plugin: 'com.android.application'
@@ -58,7 +58,7 @@ dependencies {
     compile project(':sdk-free')
     testCompile 'junit:junit:4.11'
     testCompile 'org.mockito:mockito-all:1.9.5'
-    testCompile 'org.robolectric:robolectric:3.0-rc2'
+    testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.apache.maven:maven-ant-tasks:2.1.3'
     testCompile 'com.squareup.assertj:assertj-android:1.1.0'
     testCompile 'com.squareup.assertj:assertj-android-appcompat-v7:1.0.0'

@@ -2,14 +2,14 @@ package pl.pragmatists.cityofficenumbers.app.selectgroup;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.robolectric.Shadows.*;
-import static pl.pragmatists.cityofficenumbers.builders.OfficeGroupBuilder.anOfficeGroup;
+import static pl.pragmatists.cityofficenumbers.builders.OfficeGroupBuilder.*;
 import static pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder.*;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowToast;
@@ -21,16 +21,16 @@ import pl.pragmatists.cityofficenumbers.app.BuildConfig;
 import pl.pragmatists.cityofficenumbers.app.GroupIntentService;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.enternumber.EnterNumberActivity;
+import pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
-import pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder;
 import pl.pragmatists.cityofficenumbers.testing.TestApplicationBuilder;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, emulateSdk = 21, manifest = "src/main/AndroidManifest.xml")
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21, manifest = "src/main/AndroidManifest.xml")
 public class SelectGroupActivityTest {
 
     private Application testApplication;
