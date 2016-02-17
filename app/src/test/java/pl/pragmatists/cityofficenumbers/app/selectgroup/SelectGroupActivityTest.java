@@ -14,7 +14,6 @@ import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowToast;
 
-import android.app.Application;
 import android.content.Intent;
 import android.widget.ListView;
 import pl.pragmatists.cityofficenumbers.app.BuildConfig;
@@ -27,20 +26,16 @@ import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
-import pl.pragmatists.cityofficenumbers.testing.TestApplicationBuilder;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21, manifest = "src/main/AndroidManifest.xml")
 public class SelectGroupActivityTest {
-
-    private Application testApplication;
 
     private EventBus eventBus;
 
     @Before
     public void setUp() throws Exception {
         eventBus = BusInstance.instance();
-        testApplication = new TestApplicationBuilder().build();
     }
 
     @Test
@@ -110,7 +105,7 @@ public class SelectGroupActivityTest {
 
     private SelectGroupActivity createSelectGroupActivity(Intent intent) {
         return Robolectric.buildActivity(SelectGroupActivity.class)
-                .withIntent(intent).withApplication(testApplication)
+                .withIntent(intent)
                 .create().visible().resume().get();
     }
 

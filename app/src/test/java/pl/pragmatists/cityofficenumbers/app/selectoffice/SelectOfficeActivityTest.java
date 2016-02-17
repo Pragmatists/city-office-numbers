@@ -2,14 +2,12 @@ package pl.pragmatists.cityofficenumbers.app.selectoffice;
 
 import static java.util.Arrays.*;
 import static org.assertj.android.api.Assertions.*;
-import static org.mockito.Mockito.*;
 import static org.robolectric.Shadows.*;
 import static pl.pragmatists.cityofficenumbers.app.selectoffice.ToggleFavoriteIntentService.*;
 
 import java.util.List;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -26,8 +24,6 @@ import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.app.selectoffice.messages.CityOfficesFetchedEvent;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
-import pl.pragmatists.cityofficenumbers.testing.TestApplication;
-import pl.pragmatists.cityofficenumbers.testing.TestApplicationBuilder;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21, manifest = "src/main/AndroidManifest.xml")
@@ -35,17 +31,7 @@ public class SelectOfficeActivityTest {
 
     private EventBus bus = BusInstance.instance();
 
-    private TestApplication testApplication;
-
-    private FavoriteService favoriteService;
-
     private SelectOfficeActivity selectOfficeActivity;
-
-    @Before
-    public void setUp() throws Exception {
-        favoriteService = mock(FavoriteService.class);
-        testApplication = new TestApplicationBuilder().withFavoriteService(favoriteService).build();
-    }
 
     @Test
     public void shows_available_offices_on_start() {
@@ -104,8 +90,7 @@ public class SelectOfficeActivityTest {
     }
 
     private SelectOfficeActivity buildSelectOfficeActivity() {
-        return Robolectric.buildActivity(SelectOfficeActivity.class).withApplication(testApplication).create().visible().resume()
-                .get();
+        return Robolectric.buildActivity(SelectOfficeActivity.class).create().visible().resume().get();
     }
 
 }

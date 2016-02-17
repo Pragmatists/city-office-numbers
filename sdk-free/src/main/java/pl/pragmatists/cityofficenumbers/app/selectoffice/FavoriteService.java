@@ -6,7 +6,6 @@ public class FavoriteService {
     private final RestClient restClient;
 
     public FavoriteService(RestClient restClient) {
-
         this.restClient = restClient;
     }
 
