@@ -14,12 +14,15 @@ import org.mockito.ArgumentCaptor;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 
-import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.app.selectoffice.messages.CityOfficesFetchedEvent;
+import pl.pragmatists.cityofficenumbers.events.EventBus;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.RestNetworkError;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 
 public class FetchingOfficesTest {
+
+    private static final String ANY_ID = "any-id";
 
     private EventBus bus = mock(EventBus.class);
 
@@ -67,10 +70,18 @@ public class FetchingOfficesTest {
     public void publishesErrorEventOn400() throws IOException {
     }
 
-    //TODO: handle errors for offices
-    @Ignore
     @Test
     public void publishesErrorEventWhenServerUnreachable() throws IOException {
+
+
+        CityOfficesFetcher cityOfficesFetcher = new CityOfficesFetcher(
+                new RestClientWithOkHttp(new Host("http://unavailable.server")), bus
+        );
+
+        cityOfficesFetcher.fetch(ANY_ID);
+
+        verify(bus).post(isA(RestNetworkError.class));
+
     }
 
     private CityOfficesFetcher createCityOfficesFetcher() {

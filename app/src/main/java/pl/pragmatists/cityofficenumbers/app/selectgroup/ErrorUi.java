@@ -2,8 +2,8 @@ package pl.pragmatists.cityofficenumbers.app.selectgroup;
 
 import android.content.Context;
 import android.widget.Toast;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.RestNetworkError;
 
 public class ErrorUi {
 
@@ -15,7 +15,7 @@ public class ErrorUi {
         this.context = context;
     }
 
-    public void onEventMainThread(OfficeGroupsNetworkError error) {
+    public void onEventMainThread(RestNetworkError error) {
         Toast.makeText(context, NETWORK_PROBLEM_MESSAGE, Toast.LENGTH_LONG).show();
     }
 

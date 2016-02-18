@@ -16,8 +16,8 @@ import com.squareup.okhttp.mockwebserver.MockWebServer;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.RestNetworkError;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 
@@ -101,7 +101,7 @@ public class FetchingGroupsTest {
 
         officeGroupsFetcher.fetch(ANY_ID);
 
-        verify(bus).post(isA(OfficeGroupsNetworkError.class));
+        verify(bus).post(isA(RestNetworkError.class));
     }
 
     private OfficeGroupsFetcher createOfficeGroupsFetcher() {

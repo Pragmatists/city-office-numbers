@@ -4,8 +4,8 @@ import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroups;
 import pl.pragmatists.cityofficenumbers.officegroups.json.OfficeGroupsResultJson;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.RestNetworkError;
 import pl.pragmatists.http.RestClient;
 import pl.pragmatists.http.exceptions.RestClientCannotMakeRequestToServer;
 import pl.pragmatists.http.exceptions.RestClientServerError;
@@ -31,7 +31,7 @@ public class OfficeGroupsFetcher {
         } catch (RestClientServerError e) {
             bus.post(new OfficeGroupsServerError(e.getMessage()));
         } catch (RestClientCannotMakeRequestToServer e) {
-            bus.post(new OfficeGroupsNetworkError());
+            bus.post(new RestNetworkError());
         }
     }
 

@@ -24,8 +24,8 @@ import pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsNetworkError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.RestNetworkError;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21, manifest = "src/main/AndroidManifest.xml")
@@ -73,7 +73,7 @@ public class SelectGroupActivityTest {
     public void showsAToastOnNetworkError() {
         createDefaultSelectGroupActivity();
 
-        eventBus.post(new OfficeGroupsNetworkError());
+        eventBus.post(new RestNetworkError());
 
         assertThat(ShadowToast.getTextOfLatestToast()).contains("Nieudane połączenie z serwerem.");
     }

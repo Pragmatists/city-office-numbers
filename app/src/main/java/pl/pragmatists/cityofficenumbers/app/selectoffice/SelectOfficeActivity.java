@@ -1,7 +1,5 @@
 package pl.pragmatists.cityofficenumbers.app.selectoffice;
 
-import javax.inject.Inject;
-
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
 import pl.pragmatists.cityofficenumbers.app.R;
+import pl.pragmatists.cityofficenumbers.app.selectgroup.ErrorUi;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 
@@ -26,6 +25,8 @@ public class SelectOfficeActivity extends AppCompatActivity {
     private OfficesListAdapter officesListAdapter;
 
     private String userId;
+
+    private ErrorUi errorUi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class SelectOfficeActivity extends AppCompatActivity {
         officesListAdapter = new OfficesListAdapter(this);
         getListView().setAdapter(officesListAdapter);
         initProgressBar();
+        errorUi = new ErrorUi(this);
         userId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
@@ -69,6 +71,7 @@ public class SelectOfficeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         BusInstance.instance().register(officesListAdapter);
+        BusInstance.instance().register(errorUi);
         OfficesIntentService.startFetchOfficesAction(this, userId);
     }
 
@@ -76,6 +79,7 @@ public class SelectOfficeActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         BusInstance.instance().unregister(officesListAdapter);
+        BusInstance.instance().unregister(errorUi);
     }
 
 
