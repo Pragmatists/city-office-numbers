@@ -18,7 +18,9 @@ import pl.pragmatists.cityofficenumbers.app.selectgroup.ErrorUi;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 
-public class SelectOfficeActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+public class SelectOfficeActivity extends CityOfficeNumbersActivity {
 
     public static final String ARG_USER_ID = "user-id";
 
@@ -26,7 +28,8 @@ public class SelectOfficeActivity extends AppCompatActivity {
 
     private String userId;
 
-    private ErrorUi errorUi;
+    @Inject
+    ErrorUi errorUi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class SelectOfficeActivity extends AppCompatActivity {
         officesListAdapter = new OfficesListAdapter(this);
         getListView().setAdapter(officesListAdapter);
         initProgressBar();
-        errorUi = new ErrorUi(this);
+        getMyApplication().component().inject(this);
         userId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
@@ -81,12 +84,6 @@ public class SelectOfficeActivity extends AppCompatActivity {
         BusInstance.instance().unregister(officesListAdapter);
         BusInstance.instance().unregister(errorUi);
     }
-
-
-    private CityOfficeNumbersApplication getMyApplication() {
-        return (CityOfficeNumbersApplication) getApplication();
-    }
-
 
     public void toggleFavorite(View v) {
         Office office = (Office) v.getTag();

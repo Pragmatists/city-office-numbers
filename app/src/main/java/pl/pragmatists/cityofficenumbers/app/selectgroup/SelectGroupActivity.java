@@ -15,10 +15,14 @@ import android.widget.ProgressBar;
 import pl.pragmatists.cityofficenumbers.app.GroupIntentService;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.enternumber.EnterNumberActivity;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.CityOfficeNumbersActivity;
+import pl.pragmatists.cityofficenumbers.app.selectoffice.SelectOfficeActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.groups.OfficeGroup;
 
-public class SelectGroupActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+public class SelectGroupActivity extends CityOfficeNumbersActivity {
 
     public static final String ARG_OFFICE_ID = "office-id";
 
@@ -26,18 +30,17 @@ public class SelectGroupActivity extends AppCompatActivity {
 
     private String officeId;
 
-    private ErrorUi errorUi;
+    @Inject
+    ErrorUi errorUi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getMyApplication().component().inject(this);
         officeId = getIntent().getStringExtra(ARG_OFFICE_ID);
         setContentView(R.layout.activity_select_group);
         initProgressBar();
-
-
         officeGroupsAdapter = new GroupsListUi(this);
-        errorUi = new ErrorUi(this);
 
         getListView().setAdapter(officeGroupsAdapter);
 

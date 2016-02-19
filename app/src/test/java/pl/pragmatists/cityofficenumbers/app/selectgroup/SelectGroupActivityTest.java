@@ -24,19 +24,14 @@ import pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.RestServerError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.RestNetworkError;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21, manifest = "src/main/AndroidManifest.xml")
 public class SelectGroupActivityTest {
 
-    private EventBus eventBus;
-
-    @Before
-    public void setUp() throws Exception {
-        eventBus = BusInstance.instance();
-    }
+    private EventBus eventBus = BusInstance.instance();
 
     @Test
     public void shouldFetchGroupsOnCreate() {
@@ -64,7 +59,7 @@ public class SelectGroupActivityTest {
     public void showsAToastOnServerError() {
         createDefaultSelectGroupActivity();
 
-        eventBus.post(new OfficeGroupsServerError("details"));
+        eventBus.post(new RestServerError("details"));
 
         assertThat(ShadowToast.getTextOfLatestToast()).contains("details");
     }

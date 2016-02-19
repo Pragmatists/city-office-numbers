@@ -16,6 +16,7 @@ import com.squareup.okhttp.mockwebserver.MockWebServer;
 
 import pl.pragmatists.cityofficenumbers.app.selectoffice.messages.CityOfficesFetchedEvent;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.RestServerError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.RestNetworkError;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
@@ -58,10 +59,14 @@ public class FetchingOfficesTest {
         assertThat(captor.getValue().offices()).hasSize(1);
     }
 
-    //TODO: handle errors for offices
-    @Ignore
     @Test
     public void publishesErrorEventOn500() throws IOException {
+        server.enqueue(new MockResponse().setStatus("HTTP/1.1 500 Internal Server Error"));
+        CityOfficesFetcher cityOfficesFetcher = createCityOfficesFetcher();
+
+        cityOfficesFetcher.fetch(ANY_ID);
+
+        verify(bus).post(isA(RestServerError.class));
     }
 
     //TODO: handle errors for offices
@@ -72,8 +77,6 @@ public class FetchingOfficesTest {
 
     @Test
     public void publishesErrorEventWhenServerUnreachable() throws IOException {
-
-
         CityOfficesFetcher cityOfficesFetcher = new CityOfficesFetcher(
                 new RestClientWithOkHttp(new Host("http://unavailable.server")), bus
         );

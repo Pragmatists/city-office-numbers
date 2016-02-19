@@ -2,7 +2,7 @@ package pl.pragmatists.cityofficenumbers.app.selectgroup;
 
 import android.content.Context;
 import android.widget.Toast;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsServerError;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.RestServerError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.RestNetworkError;
 
 public class ErrorUi {
@@ -19,7 +19,7 @@ public class ErrorUi {
         Toast.makeText(context, NETWORK_PROBLEM_MESSAGE, Toast.LENGTH_LONG).show();
     }
 
-    public void onEventMainThread(OfficeGroupsServerError error) {
+    public void onEventMainThread(RestServerError error) {
         Toast.makeText(context, "Nie udało się odczytać danych z serwera. " + error.details, Toast.LENGTH_LONG).show();
     }
 
