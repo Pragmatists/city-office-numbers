@@ -1,18 +1,12 @@
 package pl.pragmatists.http;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
+import okhttp3.*;
 import pl.pragmatists.http.exceptions.RestClientCannotMakeRequestToServer;
 import pl.pragmatists.http.exceptions.RestClientServerError;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class RestClientWithOkHttp implements RestClient {
 
