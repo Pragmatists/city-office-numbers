@@ -35,7 +35,7 @@ public class CityOfficesModule {
     }
 
     @Provides
-    private Host host() {
+    Host host() {
         return new Host("https://city-office-numbers.herokuapp.com");
     }
 
