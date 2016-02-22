@@ -1,21 +1,17 @@
 package pl.pragmatists.cityofficenumbers.app.selectoffice;
 
-import javax.inject.Inject;
-
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Switch;
+import android.widget.*;
 import pl.pragmatists.cityofficenumbers.app.R;
+import pl.pragmatists.cityofficenumbers.app.common.CityOfficeNumbersActivity;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.ErrorUi;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
+
+import javax.inject.Inject;
 
 public class SelectOfficeActivity extends CityOfficeNumbersActivity {
 

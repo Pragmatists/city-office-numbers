@@ -1,14 +1,14 @@
 package pl.pragmatists.cityofficenumbers.di;
 
-import javax.inject.Singleton;
-
 import android.content.ContentResolver;
 import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
-import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
+import pl.pragmatists.cityofficenumbers.app.common.CityOfficeNumbersApplication;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.ErrorUi;
 import pl.pragmatists.cityofficenumbers.app.selectoffice.UserId;
+
+import javax.inject.Singleton;
 
 @Module
 public class AndroidModule {
