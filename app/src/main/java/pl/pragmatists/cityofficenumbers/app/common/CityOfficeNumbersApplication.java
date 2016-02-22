@@ -1,6 +1,4 @@
-package pl.pragmatists.cityofficenumbers.app;
-
-import javax.inject.Singleton;
+package pl.pragmatists.cityofficenumbers.app.common;
 
 import android.app.Application;
 import dagger.Component;
@@ -14,6 +12,8 @@ import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
+
+import javax.inject.Singleton;
 
 
 public class CityOfficeNumbersApplication extends Application {

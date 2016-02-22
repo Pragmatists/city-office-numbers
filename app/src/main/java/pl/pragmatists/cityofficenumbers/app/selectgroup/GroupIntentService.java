@@ -1,9 +1,9 @@
-package pl.pragmatists.cityofficenumbers.app;
+package pl.pragmatists.cityofficenumbers.app.selectgroup;
 
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
+import pl.pragmatists.cityofficenumbers.app.common.CityOfficeNumbersApplication;
 import pl.pragmatists.cityofficenumbers.officegroups.OfficeGroupsFetcher;
 
 public class GroupIntentService extends IntentService {

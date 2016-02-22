@@ -6,11 +6,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".CityOfficeNumbersApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+            android:name=".common.CityOfficeNumbersApplication"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
         <activity
             android:name=".selectoffice.SelectOfficeActivity"
             android:label="@string/title_activity_select_office" >
@@ -26,8 +26,8 @@
         </activity>
 
         <service
-            android:name=".GroupIntentService"
-            android:exported="false" >
+                android:name=".selectgroup.GroupIntentService"
+                android:exported="false">
         </service>
 
         <service

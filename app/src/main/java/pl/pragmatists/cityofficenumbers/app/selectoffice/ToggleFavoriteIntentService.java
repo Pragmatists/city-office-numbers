@@ -1,13 +1,13 @@
 package pl.pragmatists.cityofficenumbers.app.selectoffice;
 
-import static pl.pragmatists.cityofficenumbers.app.selectoffice.SelectOfficeActivity.*;
-
-import javax.inject.Inject;
-
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
+import pl.pragmatists.cityofficenumbers.app.common.CityOfficeNumbersApplication;
+
+import javax.inject.Inject;
+
+import static pl.pragmatists.cityofficenumbers.app.selectoffice.SelectOfficeActivity.ARG_USER_ID;
 
 public class ToggleFavoriteIntentService extends IntentService {
 
