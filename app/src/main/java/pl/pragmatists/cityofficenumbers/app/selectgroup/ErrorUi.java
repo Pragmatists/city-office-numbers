@@ -1,9 +1,8 @@
 package pl.pragmatists.cityofficenumbers.app.selectgroup;
 
 import android.content.Context;
-import android.widget.Toast;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.RestServerError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.RestNetworkError;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.RestServerError;
 
 public class ErrorUi {
 
@@ -16,11 +15,9 @@ public class ErrorUi {
     }
 
     public void onEventMainThread(RestNetworkError error) {
-        Toast.makeText(context, NETWORK_PROBLEM_MESSAGE, Toast.LENGTH_LONG).show();
     }
 
     public void onEventMainThread(RestServerError error) {
-        Toast.makeText(context, "Nie udało się odczytać danych z serwera. " + error.details, Toast.LENGTH_LONG).show();
     }
 
 }

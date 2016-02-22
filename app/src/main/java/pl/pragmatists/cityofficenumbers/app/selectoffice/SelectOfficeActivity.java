@@ -81,14 +81,7 @@ public class SelectOfficeActivity extends CityOfficeNumbersActivity {
 
     public void toggleFavorite(View v) {
         Office office = (Office) v.getTag();
-        ToggleFavoriteIntentService.startFor(this, userId.get(), office);
-        office.toggleFavorite();
-        ImageButton imageButton = (ImageButton) v;
-        if (office.favorite) {
-            imageButton.setImageResource(R.drawable.abc_btn_rating_star_on_mtrl_alpha);
-        } else {
-            imageButton.setImageResource(R.drawable.abc_btn_rating_star_off_mtrl_alpha);
-        }
+        // TODO: call a intent service to change favorite state
     }
 
     public void toggleFavoriteOnlyVisible(View view) {

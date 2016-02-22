@@ -37,6 +37,7 @@ public class SelectGroupActivity extends CityOfficeNumbersActivity {
         officeId = getIntent().getStringExtra(ARG_OFFICE_ID);
         setContentView(R.layout.activity_select_group);
         initProgressBar();
+        // TODO: inject this as a dependency
         officeGroupsAdapter = new GroupsListUi(this);
 
         getListView().setAdapter(officeGroupsAdapter);

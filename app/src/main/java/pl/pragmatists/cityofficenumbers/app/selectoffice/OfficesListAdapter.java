@@ -1,8 +1,5 @@
 package pl.pragmatists.cityofficenumbers.app.selectoffice;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +10,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.selectoffice.messages.CityOfficesFetchedEvent;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class OfficesListAdapter extends ArrayAdapter<Office> {
 
@@ -31,11 +31,7 @@ public class OfficesListAdapter extends ArrayAdapter<Office> {
         TextView textView = (TextView) view.findViewById(R.id.office_item_name);
         ImageButton imageButton = (ImageButton) view.findViewById(R.id.star_image_button);
         Office office = getItem(position);
-        if (office.favorite) {
-            imageButton.setImageResource(R.drawable.abc_btn_rating_star_on_mtrl_alpha);
-        } else {
-            imageButton.setImageResource(R.drawable.abc_btn_rating_star_off_mtrl_alpha);
-        }
+        // TODO: Set the correct star image
         imageButton.setTag(office);
         textView.setText(office.toString());
         view.setTag(office);
