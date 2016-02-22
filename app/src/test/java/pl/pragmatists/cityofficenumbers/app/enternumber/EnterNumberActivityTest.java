@@ -22,7 +22,7 @@ import pl.pragmatists.cityofficenumbers.groups.OfficeGroups;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
+@Config(constants = BuildConfig.class, sdk = 21, manifest = "src/main/AndroidManifest.xml")
 public class EnterNumberActivityTest {
 
     private EventBus eventBus;

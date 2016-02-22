@@ -1,8 +1,8 @@
 package pl.pragmatists.cityofficenumbers.app.selectoffice;
 
+import javax.inject.Inject;
+
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
-import pl.pragmatists.cityofficenumbers.app.CityOfficeNumbersApplication;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.ErrorUi;
 import pl.pragmatists.cityofficenumbers.app.selectgroup.SelectGroupActivity;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
-
-import javax.inject.Inject;
 
 public class SelectOfficeActivity extends CityOfficeNumbersActivity {
 
@@ -26,7 +23,8 @@ public class SelectOfficeActivity extends CityOfficeNumbersActivity {
 
     private OfficesListAdapter officesListAdapter;
 
-    private String userId;
+    @Inject
+    UserId userId;
 
     @Inject
     ErrorUi errorUi;
@@ -46,7 +44,7 @@ public class SelectOfficeActivity extends CityOfficeNumbersActivity {
         getListView().setAdapter(officesListAdapter);
         initProgressBar();
         getMyApplication().component().inject(this);
-        userId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+
     }
 
     private ListView getListView() {
@@ -75,7 +73,7 @@ public class SelectOfficeActivity extends CityOfficeNumbersActivity {
         super.onResume();
         BusInstance.instance().register(officesListAdapter);
         BusInstance.instance().register(errorUi);
-        OfficesIntentService.startFetchOfficesAction(this, userId);
+        OfficesIntentService.startFetchOfficesAction(this, userId.get());
     }
 
     @Override
@@ -87,7 +85,7 @@ public class SelectOfficeActivity extends CityOfficeNumbersActivity {
 
     public void toggleFavorite(View v) {
         Office office = (Office) v.getTag();
-        ToggleFavoriteIntentService.startFor(this, userId, office);
+        ToggleFavoriteIntentService.startFor(this, userId.get(), office);
         office.toggleFavorite();
         ImageButton imageButton = (ImageButton) v;
         if (office.favorite) {
