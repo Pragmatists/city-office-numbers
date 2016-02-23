@@ -14,10 +14,11 @@ import org.mockito.ArgumentCaptor;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 
-import pl.pragmatists.cityofficenumbers.app.selectoffice.messages.CityOfficesFetchedEvent;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
-import pl.pragmatists.cityofficenumbers.officegroups.messages.RestServerError;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.RestNetworkError;
+import pl.pragmatists.cityofficenumbers.officegroups.messages.RestServerError;
+import pl.pragmatists.cityofficenumbers.selectoffice.CityOfficesFetcher;
+import pl.pragmatists.cityofficenumbers.selectoffice.messages.CityOfficesFetchedEvent;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 

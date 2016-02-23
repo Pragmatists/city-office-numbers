@@ -1,5 +1,8 @@
 package pl.pragmatists.cityofficenumbers.app.selectoffice;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +12,8 @@ import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import pl.pragmatists.cityofficenumbers.app.R;
-import pl.pragmatists.cityofficenumbers.app.selectoffice.messages.CityOfficesFetchedEvent;
-
-import java.util.ArrayList;
-import java.util.Collection;
+import pl.pragmatists.cityofficenumbers.selectoffice.Office;
+import pl.pragmatists.cityofficenumbers.selectoffice.messages.CityOfficesFetchedEvent;
 
 public class OfficesListAdapter extends ArrayAdapter<Office> {
 

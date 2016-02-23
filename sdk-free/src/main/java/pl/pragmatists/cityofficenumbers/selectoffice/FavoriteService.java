@@ -1,4 +1,4 @@
-package pl.pragmatists.cityofficenumbers.app.selectoffice;
+package pl.pragmatists.cityofficenumbers.selectoffice;
 
 import pl.pragmatists.http.RestClient;
 

@@ -1,9 +1,9 @@
-package pl.pragmatists.cityofficenumbers.app.selectoffice.messages;
+package pl.pragmatists.cityofficenumbers.selectoffice.messages;
 
 import java.util.Collection;
 import java.util.List;
 
-import pl.pragmatists.cityofficenumbers.app.selectoffice.Office;
+import pl.pragmatists.cityofficenumbers.selectoffice.Office;
 
 public class CityOfficesFetchedEvent {
     private final List<Office> offices;

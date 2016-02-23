@@ -1,11 +1,12 @@
 package pl.pragmatists.cityofficenumbers.app.selectoffice;
 
+import javax.inject.Inject;
+
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import pl.pragmatists.cityofficenumbers.app.common.CityOfficeNumbersApplication;
-
-import javax.inject.Inject;
+import pl.pragmatists.cityofficenumbers.selectoffice.CityOfficesFetcher;
 
 public class OfficesIntentService extends IntentService{
 

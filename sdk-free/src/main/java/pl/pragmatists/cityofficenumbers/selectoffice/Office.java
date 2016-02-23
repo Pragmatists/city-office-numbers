@@ -1,4 +1,4 @@
-package pl.pragmatists.cityofficenumbers.app.selectoffice;
+package pl.pragmatists.cityofficenumbers.selectoffice;
 
 public class Office {
     public String name;

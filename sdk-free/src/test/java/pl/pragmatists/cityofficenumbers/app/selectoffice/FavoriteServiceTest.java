@@ -14,6 +14,8 @@ import com.squareup.okhttp.mockwebserver.MockWebServer;
 import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
 import pl.pragmatists.cityofficenumbers.events.EventBus;
+import pl.pragmatists.cityofficenumbers.selectoffice.FavoriteService;
+import pl.pragmatists.cityofficenumbers.selectoffice.Office;
 import pl.pragmatists.http.Host;
 import pl.pragmatists.http.RestClientWithOkHttp;
 

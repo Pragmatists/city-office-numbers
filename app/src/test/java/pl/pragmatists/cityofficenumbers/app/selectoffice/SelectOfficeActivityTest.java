@@ -1,24 +1,26 @@
 package pl.pragmatists.cityofficenumbers.app.selectoffice;
 
-import android.content.Intent;
-import android.widget.ListView;
+import static java.util.Arrays.*;
+import static org.assertj.android.api.Assertions.*;
+import static org.robolectric.Shadows.*;
+
+import java.util.List;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
+
+import android.content.Intent;
+import android.widget.ListView;
 import pl.pragmatists.cityofficenumbers.app.BuildConfig;
 import pl.pragmatists.cityofficenumbers.app.R;
-import pl.pragmatists.cityofficenumbers.app.selectoffice.messages.CityOfficesFetchedEvent;
 import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
-
-import java.util.List;
-
-import static java.util.Arrays.asList;
-import static org.assertj.android.api.Assertions.assertThat;
-import static org.robolectric.Shadows.shadowOf;
+import pl.pragmatists.cityofficenumbers.selectoffice.Office;
+import pl.pragmatists.cityofficenumbers.selectoffice.messages.CityOfficesFetchedEvent;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21, manifest = "src/main/AndroidManifest.xml")
