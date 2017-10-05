@@ -22,7 +22,7 @@
         android:layout_height="fill_parent"
         android:layout_alignParentEnd="true"
         android:gravity="center_vertical"
-        android:src="@drawable/abc_btn_rating_star_off_mtrl_alpha"
+        android:src="@android:drawable/btn_star_big_off"
         android:onClick="toggleFavorite"
         android:contentDescription="@string/star"
         style="?android:attr/borderlessButtonStyle"/>

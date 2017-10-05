@@ -2,13 +2,15 @@ package pl.pragmatists.cityofficenumbers.app.selectgroup;
 
 import android.content.Intent;
 import android.widget.ListView;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
+
 import pl.pragmatists.cityofficenumbers.app.BuildConfig;
 import pl.pragmatists.cityofficenumbers.app.R;
 import pl.pragmatists.cityofficenumbers.app.enternumber.EnterNumberActivity;
@@ -17,13 +19,14 @@ import pl.pragmatists.cityofficenumbers.events.BusInstance;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.officegroups.messages.OfficeGroupsFetched;
 
+import static org.assertj.android.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.robolectric.Shadows.shadowOf;
 import static pl.pragmatists.cityofficenumbers.builders.OfficeGroupBuilder.anOfficeGroup;
 import static pl.pragmatists.cityofficenumbers.builders.OfficeGroupsBuilder.withOneGroup;
 
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21, manifest = "src/main/AndroidManifest.xml")
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class SelectGroupActivityTest {
 
     private EventBus eventBus = BusInstance.instance();
@@ -35,9 +38,7 @@ public class SelectGroupActivityTest {
         SelectGroupActivity activity = createSelectGroupActivity(intent);
 
         Intent nextStartedService = Shadows.shadowOf(activity).getNextStartedService();
-        Intent expectedIntent = new Intent(activity, GroupIntentService.class)
-                .putExtra(SelectGroupActivity.ARG_OFFICE_ID, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
-        assertThat(nextStartedService).isEqualTo(expectedIntent);
+        assertThat(nextStartedService).hasExtra(SelectGroupActivity.ARG_OFFICE_ID, "5d2e698a-9c31-456b-8452-7ce33e7deb94");
     }
 
     @Test
@@ -71,11 +72,10 @@ public class SelectGroupActivityTest {
 
         shadowOf(lvOffices).performItemClick(0);
 
-        Intent expectedIntent = new Intent(activity, EnterNumberActivity.class)
-                .putExtra("office-id", "9c3d5770-57d8-4365-994c-69c5ac4186ee")
-                .putExtra("group-id", 1);
         Intent nextStartedActivity = shadowOf(activity).getNextStartedActivity();
-        assertThat(nextStartedActivity).isEqualTo(expectedIntent);
+        assertThat(nextStartedActivity).hasComponent("pl.pragmatists.cityofficenumbers.app", EnterNumberActivity.class)
+                .hasExtra("office-id", "9c3d5770-57d8-4365-994c-69c5ac4186ee")
+        .hasExtra("group-id", 1);
     }
 
     private SelectGroupActivity createDefaultSelectGroupActivity() {

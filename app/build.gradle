@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.3.0'
     }
 }
 apply plugin: 'com.android.application'
@@ -12,17 +12,17 @@ repositories {
     jcenter()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     maven { url 'http://repo.spring.io/milestone' }
+    google()
 }
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
         applicationId "pl.pragmatists.cityofficenumbers.app"
         minSdkVersion 19
-        //noinspection OldTargetApi
-        targetSdkVersion 22
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -42,27 +42,27 @@ android {
 
 configurations.all {
     resolutionStrategy.force 'com.android.support:support-annotations:22.0.0'
+    resolutionStrategy.force 'com.google.guava:guava:21.0'
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //compile fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleDependency
-    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'de.greenrobot:eventbus:2.4.0'
 
-    compile 'com.google.dagger:dagger:2.0.1'
-    compile 'com.google.dagger:dagger-compiler:2.0.1'
+    compile 'com.google.dagger:dagger:2.11'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
 
     compile 'com.j256.ormlite:ormlite-android:4.48'
 
     provided 'javax.annotation:jsr250-api:1.0'
 
     compile project(':sdk-free')
-    testCompile 'junit:junit:4.11'
+    testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.9.5'
-    testCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.robolectric:robolectric:3.4.2'
     testCompile 'org.apache.maven:maven-ant-tasks:2.1.3'
-    testCompile 'com.squareup.assertj:assertj-android:1.1.1'
-    testCompile 'com.squareup.okhttp:mockwebserver:2.7.4'
-
+    testCompile 'com.squareup.assertj:assertj-android:1.2.0'
+    testCompile 'com.squareup.okhttp3:mockwebserver:3.9.0'
 }

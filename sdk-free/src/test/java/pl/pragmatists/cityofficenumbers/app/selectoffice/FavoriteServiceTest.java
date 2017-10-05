@@ -9,10 +9,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.squareup.okhttp.mockwebserver.MockResponse;
-import com.squareup.okhttp.mockwebserver.MockWebServer;
-import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 import pl.pragmatists.cityofficenumbers.events.EventBus;
 import pl.pragmatists.cityofficenumbers.selectoffice.FavoriteService;
 import pl.pragmatists.cityofficenumbers.selectoffice.Office;
@@ -38,8 +38,8 @@ public class FavoriteServiceTest {
     @Test
     public void makes_a_request_to_toggle_office_favorite_state() throws InterruptedException {
         FavoriteService favoriteService = new FavoriteService(new RestClientWithOkHttp(new Host("http", server.getHostName(), server.getPort())));
-        Office office = new Office().id("office-id").favorite(true);
         server.enqueue(new MockResponse());
+        Office office = new Office().id("office-id").favorite(true);
 
         favoriteService.toggleFavorite("user-id", office.id, office.favorite);
 
